@@ -509,7 +509,7 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
             .addGap(0, 488, Short.MAX_VALUE)
         );
 
-        configTabs.addTab("Variables", configTab2Panel1);
+        configTabs.addTab("Procesos", configTab2Panel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
