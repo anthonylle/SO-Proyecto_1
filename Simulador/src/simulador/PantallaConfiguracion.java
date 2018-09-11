@@ -28,129 +28,146 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sincronizacionSend = new javax.swing.ButtonGroup();
-        sincronizacionReceive = new javax.swing.ButtonGroup();
+        btngrpSincronizacionSend = new javax.swing.ButtonGroup();
+        btngrpSincronizacionReceive = new javax.swing.ButtonGroup();
+        btngrpAddressingDirect = new javax.swing.ButtonGroup();
+        btngrpAddressingIndirect = new javax.swing.ButtonGroup();
+        btngrpFormatLength = new javax.swing.ButtonGroup();
+        btngrpQueueingDiscipline = new javax.swing.ButtonGroup();
         configTabs = new javax.swing.JTabbedPane();
         configTab1Panel1 = new javax.swing.JPanel();
         panelConfigSincronizacion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
-        panelConfigSincronizacion1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
-        jPanel4 = new javax.swing.JPanel();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jRadioButton10 = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
+        lblSincronizacion = new javax.swing.JLabel();
+        panelSincronizacionReceive = new javax.swing.JPanel();
+        rdbtnBSincronizacionReceiveBlocking = new javax.swing.JRadioButton();
+        lblSincronizacionReceive = new javax.swing.JLabel();
+        rdbtnSincronizacionReceiveNonBlocking = new javax.swing.JRadioButton();
+        rdbtnSincronizacionReceiveTestForArrival = new javax.swing.JRadioButton();
+        panelSincronizacionSend = new javax.swing.JPanel();
+        rdbtnSincronizacionSendNonBlocking = new javax.swing.JRadioButton();
+        rdbtnSincronizacionSendBlocking = new javax.swing.JRadioButton();
+        lblSincronizacionSend = new javax.swing.JLabel();
+        panelConfigAddressing = new javax.swing.JPanel();
+        lblAddressing = new javax.swing.JLabel();
+        panelAddressingIndirect = new javax.swing.JPanel();
+        rdbtnAddressingIndirectStatic = new javax.swing.JRadioButton();
+        lblAddressingIndirect = new javax.swing.JLabel();
+        rdbtnAddressingIndirectDynamic = new javax.swing.JRadioButton();
+        rdbtnAddressingIndirectOwnership = new javax.swing.JRadioButton();
+        panelAddressingDirect = new javax.swing.JPanel();
+        rdbtnAddressingDirectImplicit = new javax.swing.JRadioButton();
+        rdbtnAddressingDirectExplicit = new javax.swing.JRadioButton();
+        lblAddressingDirect = new javax.swing.JLabel();
+        panelConfigSincronizacion2 = new javax.swing.JPanel();
+        lblFormat = new javax.swing.JLabel();
+        panelFormatLength = new javax.swing.JPanel();
+        lblFormatLength = new javax.swing.JLabel();
+        rdbtnFormatLengthFixed = new javax.swing.JRadioButton();
+        rdbtnLengthVariable = new javax.swing.JRadioButton();
+        panelFormatContent = new javax.swing.JPanel();
+        lblFormatContent = new javax.swing.JLabel();
+        cboFormatContent = new javax.swing.JComboBox<>();
+        panelQueueingDiscipline = new javax.swing.JPanel();
+        lblQueueingDiscipline = new javax.swing.JLabel();
+        rdbtnQueueingDisciplineFIFO = new javax.swing.JRadioButton();
+        rdbtnQueueingDisciplinePriority = new javax.swing.JRadioButton();
         configTab2Panel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelConfigSincronizacion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Sinchronization");
+        lblSincronizacion.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblSincronizacion.setText("Synchronization");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelSincronizacionReceive.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        sincronizacionReceive.add(jRadioButton4);
-        jRadioButton4.setText("Blocking");
+        btngrpSincronizacionReceive.add(rdbtnBSincronizacionReceiveBlocking);
+        rdbtnBSincronizacionReceiveBlocking.setText("Blocking");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel3.setText("Receive");
+        lblSincronizacionReceive.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblSincronizacionReceive.setText("Receive");
 
-        sincronizacionReceive.add(jRadioButton3);
-        jRadioButton3.setText("Non-blocking");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        btngrpSincronizacionReceive.add(rdbtnSincronizacionReceiveNonBlocking);
+        rdbtnSincronizacionReceiveNonBlocking.setText("Non-blocking");
+        rdbtnSincronizacionReceiveNonBlocking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                rdbtnSincronizacionReceiveNonBlockingActionPerformed(evt);
             }
         });
 
-        sincronizacionReceive.add(jRadioButton5);
-        jRadioButton5.setText("Test for arrival");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+        btngrpSincronizacionReceive.add(rdbtnSincronizacionReceiveTestForArrival);
+        rdbtnSincronizacionReceiveTestForArrival.setText("Test for arrival");
+        rdbtnSincronizacionReceiveTestForArrival.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
+                rdbtnSincronizacionReceiveTestForArrivalActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelSincronizacionReceiveLayout = new javax.swing.GroupLayout(panelSincronizacionReceive);
+        panelSincronizacionReceive.setLayout(panelSincronizacionReceiveLayout);
+        panelSincronizacionReceiveLayout.setHorizontalGroup(
+            panelSincronizacionReceiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSincronizacionReceiveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton3))
+                .addGroup(panelSincronizacionReceiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSincronizacionReceive, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbtnBSincronizacionReceiveBlocking)
+                    .addComponent(rdbtnSincronizacionReceiveTestForArrival)
+                    .addComponent(rdbtnSincronizacionReceiveNonBlocking))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        panelSincronizacionReceiveLayout.setVerticalGroup(
+            panelSincronizacionReceiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSincronizacionReceiveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblSincronizacionReceive)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(rdbtnBSincronizacionReceiveBlocking)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton3)
+                .addComponent(rdbtnSincronizacionReceiveNonBlocking)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton5)
+                .addComponent(rdbtnSincronizacionReceiveTestForArrival)
                 .addGap(12, 12, 12))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelSincronizacionSend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        sincronizacionSend.add(jRadioButton1);
-        jRadioButton1.setText("Non-blocking");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        btngrpSincronizacionSend.add(rdbtnSincronizacionSendNonBlocking);
+        rdbtnSincronizacionSendNonBlocking.setText("Non-blocking");
+        rdbtnSincronizacionSendNonBlocking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rdbtnSincronizacionSendNonBlockingActionPerformed(evt);
             }
         });
 
-        sincronizacionSend.add(jRadioButton2);
-        jRadioButton2.setText("Blocking");
+        btngrpSincronizacionSend.add(rdbtnSincronizacionSendBlocking);
+        rdbtnSincronizacionSendBlocking.setText("Blocking");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setText("Send");
+        lblSincronizacionSend.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblSincronizacionSend.setText("Send");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelSincronizacionSendLayout = new javax.swing.GroupLayout(panelSincronizacionSend);
+        panelSincronizacionSend.setLayout(panelSincronizacionSendLayout);
+        panelSincronizacionSendLayout.setHorizontalGroup(
+            panelSincronizacionSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSincronizacionSendLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2))
+                .addGroup(panelSincronizacionSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdbtnSincronizacionSendNonBlocking)
+                    .addComponent(lblSincronizacionSend, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbtnSincronizacionSendBlocking))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        panelSincronizacionSendLayout.setVerticalGroup(
+            panelSincronizacionSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSincronizacionSendLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(lblSincronizacionSend)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(rdbtnSincronizacionSendBlocking)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(rdbtnSincronizacionSendNonBlocking)
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -162,12 +179,12 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
                 .addGroup(panelConfigSincronizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigSincronizacionLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelSincronizacionReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelConfigSincronizacionLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelConfigSincronizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelSincronizacionSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -175,133 +192,279 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
             panelConfigSincronizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelConfigSincronizacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelSincronizacionSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelSincronizacionReceive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        panelConfigSincronizacion1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelConfigAddressing.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel4.setText("Addressing");
+        lblAddressing.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblAddressing.setText("Addressing");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAddressingIndirect.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        sincronizacionReceive.add(jRadioButton6);
-        jRadioButton6.setText("Static");
+        btngrpAddressingIndirect.add(rdbtnAddressingIndirectStatic);
+        rdbtnAddressingIndirectStatic.setText("Static");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel5.setText("Indirect");
+        lblAddressingIndirect.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblAddressingIndirect.setText("Indirect");
 
-        sincronizacionReceive.add(jRadioButton7);
-        jRadioButton7.setText("Dynamic");
-        jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
+        btngrpAddressingIndirect.add(rdbtnAddressingIndirectDynamic);
+        rdbtnAddressingIndirectDynamic.setText("Dynamic");
+        rdbtnAddressingIndirectDynamic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton7ActionPerformed(evt);
+                rdbtnAddressingIndirectDynamicActionPerformed(evt);
             }
         });
 
-        sincronizacionReceive.add(jRadioButton8);
-        jRadioButton8.setText("Ownership");
-        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
+        btngrpAddressingIndirect.add(rdbtnAddressingIndirectOwnership);
+        rdbtnAddressingIndirectOwnership.setText("Ownership");
+        rdbtnAddressingIndirectOwnership.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton8ActionPerformed(evt);
+                rdbtnAddressingIndirectOwnershipActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelAddressingIndirectLayout = new javax.swing.GroupLayout(panelAddressingIndirect);
+        panelAddressingIndirect.setLayout(panelAddressingIndirectLayout);
+        panelAddressingIndirectLayout.setHorizontalGroup(
+            panelAddressingIndirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAddressingIndirectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton6)
-                    .addComponent(jRadioButton8)
-                    .addComponent(jRadioButton7))
+                .addGroup(panelAddressingIndirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAddressingIndirect, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbtnAddressingIndirectStatic)
+                    .addComponent(rdbtnAddressingIndirectOwnership)
+                    .addComponent(rdbtnAddressingIndirectDynamic))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        panelAddressingIndirectLayout.setVerticalGroup(
+            panelAddressingIndirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddressingIndirectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addComponent(lblAddressingIndirect)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton6)
+                .addComponent(rdbtnAddressingIndirectStatic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton7)
+                .addComponent(rdbtnAddressingIndirectDynamic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton8)
+                .addComponent(rdbtnAddressingIndirectOwnership)
                 .addGap(12, 12, 12))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAddressingDirect.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        sincronizacionSend.add(jRadioButton9);
-        jRadioButton9.setText("Implicit");
-        jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
+        btngrpAddressingDirect.add(rdbtnAddressingDirectImplicit);
+        rdbtnAddressingDirectImplicit.setText("Implicit");
+        rdbtnAddressingDirectImplicit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton9ActionPerformed(evt);
+                rdbtnAddressingDirectImplicitActionPerformed(evt);
             }
         });
 
-        sincronizacionSend.add(jRadioButton10);
-        jRadioButton10.setText("Explicit");
+        btngrpAddressingDirect.add(rdbtnAddressingDirectExplicit);
+        rdbtnAddressingDirectExplicit.setText("Explicit");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel6.setText("Direct: Receive");
+        lblAddressingDirect.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblAddressingDirect.setText("Direct: Receive");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelAddressingDirectLayout = new javax.swing.GroupLayout(panelAddressingDirect);
+        panelAddressingDirect.setLayout(panelAddressingDirectLayout);
+        panelAddressingDirectLayout.setHorizontalGroup(
+            panelAddressingDirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAddressingDirectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton9)
-                    .addComponent(jRadioButton10)
-                    .addComponent(jLabel6))
+                .addGroup(panelAddressingDirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdbtnAddressingDirectImplicit)
+                    .addComponent(rdbtnAddressingDirectExplicit)
+                    .addComponent(lblAddressingDirect))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        panelAddressingDirectLayout.setVerticalGroup(
+            panelAddressingDirectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddressingDirectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addComponent(lblAddressingDirect)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton10)
+                .addComponent(rdbtnAddressingDirectExplicit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton9)
+                .addComponent(rdbtnAddressingDirectImplicit)
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelConfigSincronizacion1Layout = new javax.swing.GroupLayout(panelConfigSincronizacion1);
-        panelConfigSincronizacion1.setLayout(panelConfigSincronizacion1Layout);
-        panelConfigSincronizacion1Layout.setHorizontalGroup(
-            panelConfigSincronizacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConfigSincronizacion1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelConfigAddressingLayout = new javax.swing.GroupLayout(panelConfigAddressing);
+        panelConfigAddressing.setLayout(panelConfigAddressingLayout);
+        panelConfigAddressingLayout.setHorizontalGroup(
+            panelConfigAddressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfigAddressingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelConfigSincronizacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConfigSincronizacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelConfigAddressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConfigAddressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(panelAddressingDirect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelAddressingIndirect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelConfigSincronizacion1Layout.setVerticalGroup(
-            panelConfigSincronizacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConfigSincronizacion1Layout.createSequentialGroup()
+        panelConfigAddressingLayout.setVerticalGroup(
+            panelConfigAddressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfigAddressingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelAddressingDirect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelAddressingIndirect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        panelConfigSincronizacion2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelConfigSincronizacion2.setPreferredSize(new java.awt.Dimension(204, 294));
+
+        lblFormat.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblFormat.setText("Format");
+
+        panelFormatLength.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelFormatLength.setPreferredSize(new java.awt.Dimension(188, 103));
+
+        lblFormatLength.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblFormatLength.setText("Length");
+
+        btngrpFormatLength.add(rdbtnFormatLengthFixed);
+        rdbtnFormatLengthFixed.setText("Fixed");
+
+        btngrpFormatLength.add(rdbtnLengthVariable);
+        rdbtnLengthVariable.setText("Variable");
+        rdbtnLengthVariable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbtnLengthVariableActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFormatLengthLayout = new javax.swing.GroupLayout(panelFormatLength);
+        panelFormatLength.setLayout(panelFormatLengthLayout);
+        panelFormatLengthLayout.setHorizontalGroup(
+            panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormatLengthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbtnFormatLengthFixed)
+                    .addComponent(rdbtnLengthVariable))
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+        panelFormatLengthLayout.setVerticalGroup(
+            panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormatLengthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFormatLength)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdbtnFormatLengthFixed)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rdbtnLengthVariable)
+                .addGap(43, 43, 43))
+        );
+
+        panelFormatContent.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelFormatContent.setPreferredSize(new java.awt.Dimension(188, 103));
+
+        lblFormatContent.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblFormatContent.setText("Content");
+
+        cboFormatContent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Text", "Audio", "Image", "Video" }));
+
+        javax.swing.GroupLayout panelFormatContentLayout = new javax.swing.GroupLayout(panelFormatContent);
+        panelFormatContent.setLayout(panelFormatContentLayout);
+        panelFormatContentLayout.setHorizontalGroup(
+            panelFormatContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormatContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFormatContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFormatContentLayout.createSequentialGroup()
+                        .addComponent(lblFormatContent)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cboFormatContent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelFormatContentLayout.setVerticalGroup(
+            panelFormatContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormatContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFormatContent)
+                .addGap(18, 18, 18)
+                .addComponent(cboFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelConfigSincronizacion2Layout = new javax.swing.GroupLayout(panelConfigSincronizacion2);
+        panelConfigSincronizacion2.setLayout(panelConfigSincronizacion2Layout);
+        panelConfigSincronizacion2Layout.setHorizontalGroup(
+            panelConfigSincronizacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfigSincronizacion2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelConfigSincronizacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConfigSincronizacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(panelFormatContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelConfigSincronizacion2Layout.setVerticalGroup(
+            panelConfigSincronizacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfigSincronizacion2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelQueueingDiscipline.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelQueueingDiscipline.setPreferredSize(new java.awt.Dimension(204, 294));
+
+        lblQueueingDiscipline.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblQueueingDiscipline.setText("Queueing Discipline");
+
+        btngrpQueueingDiscipline.add(rdbtnQueueingDisciplineFIFO);
+        rdbtnQueueingDisciplineFIFO.setText("FIFO");
+
+        btngrpQueueingDiscipline.add(rdbtnQueueingDisciplinePriority);
+        rdbtnQueueingDisciplinePriority.setText("Priority");
+        rdbtnQueueingDisciplinePriority.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbtnQueueingDisciplinePriorityActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelQueueingDisciplineLayout = new javax.swing.GroupLayout(panelQueueingDiscipline);
+        panelQueueingDiscipline.setLayout(panelQueueingDisciplineLayout);
+        panelQueueingDisciplineLayout.setHorizontalGroup(
+            panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
+                .addGroup(panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdbtnQueueingDisciplineFIFO)
+                    .addComponent(rdbtnQueueingDisciplinePriority))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelQueueingDisciplineLayout.setVerticalGroup(
+            panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rdbtnQueueingDisciplineFIFO)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdbtnQueueingDisciplinePriority)
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout configTab1Panel1Layout = new javax.swing.GroupLayout(configTab1Panel1);
@@ -310,19 +473,27 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
             configTab1Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(configTab1Panel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelConfigSincronizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(607, Short.MAX_VALUE))
+                .addGroup(configTab1Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(configTab1Panel1Layout.createSequentialGroup()
+                        .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelConfigAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         configTab1Panel1Layout.setVerticalGroup(
             configTab1Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(configTab1Panel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(configTab1Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelConfigSincronizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelConfigAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         configTabs.addTab("Message Passing", configTab1Panel1);
@@ -331,11 +502,11 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
         configTab2Panel1.setLayout(configTab2Panel1Layout);
         configTab2Panel1Layout.setHorizontalGroup(
             configTab2Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1047, Short.MAX_VALUE)
+            .addGap(0, 710, Short.MAX_VALUE)
         );
         configTab2Panel1Layout.setVerticalGroup(
             configTab2Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGap(0, 488, Short.MAX_VALUE)
         );
 
         configTabs.addTab("Variables", configTab2Panel1);
@@ -344,39 +515,51 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(configTabs)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(configTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(configTabs)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(configTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rdbtnSincronizacionSendNonBlockingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnSincronizacionSendNonBlockingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rdbtnSincronizacionSendNonBlockingActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void rdbtnSincronizacionReceiveNonBlockingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnSincronizacionReceiveNonBlockingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_rdbtnSincronizacionReceiveNonBlockingActionPerformed
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+    private void rdbtnSincronizacionReceiveTestForArrivalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnSincronizacionReceiveTestForArrivalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
+    }//GEN-LAST:event_rdbtnSincronizacionReceiveTestForArrivalActionPerformed
 
-    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton7ActionPerformed
+    private void rdbtnAddressingIndirectDynamicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnAddressingIndirectDynamicActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton7ActionPerformed
+    }//GEN-LAST:event_rdbtnAddressingIndirectDynamicActionPerformed
 
-    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
+    private void rdbtnAddressingIndirectOwnershipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnAddressingIndirectOwnershipActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton8ActionPerformed
+    }//GEN-LAST:event_rdbtnAddressingIndirectOwnershipActionPerformed
 
-    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton9ActionPerformed
+    private void rdbtnAddressingDirectImplicitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnAddressingDirectImplicitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton9ActionPerformed
+    }//GEN-LAST:event_rdbtnAddressingDirectImplicitActionPerformed
+
+    private void rdbtnLengthVariableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnLengthVariableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbtnLengthVariableActionPerformed
+
+    private void rdbtnQueueingDisciplinePriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnQueueingDisciplinePriorityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbtnQueueingDisciplinePriorityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,32 +604,49 @@ public class PantallaConfiguracion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btngrpAddressingDirect;
+    private javax.swing.ButtonGroup btngrpAddressingIndirect;
+    private javax.swing.ButtonGroup btngrpFormatLength;
+    private javax.swing.ButtonGroup btngrpQueueingDiscipline;
+    private javax.swing.ButtonGroup btngrpSincronizacionReceive;
+    private javax.swing.ButtonGroup btngrpSincronizacionSend;
+    private javax.swing.JComboBox<String> cboFormatContent;
     private javax.swing.JPanel configTab1Panel1;
     private javax.swing.JPanel configTab2Panel1;
     private javax.swing.JTabbedPane configTabs;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
+    private javax.swing.JLabel lblAddressing;
+    private javax.swing.JLabel lblAddressingDirect;
+    private javax.swing.JLabel lblAddressingIndirect;
+    private javax.swing.JLabel lblFormat;
+    private javax.swing.JLabel lblFormatContent;
+    private javax.swing.JLabel lblFormatLength;
+    private javax.swing.JLabel lblQueueingDiscipline;
+    private javax.swing.JLabel lblSincronizacion;
+    private javax.swing.JLabel lblSincronizacionReceive;
+    private javax.swing.JLabel lblSincronizacionSend;
+    private javax.swing.JPanel panelAddressingDirect;
+    private javax.swing.JPanel panelAddressingIndirect;
+    private javax.swing.JPanel panelConfigAddressing;
     private javax.swing.JPanel panelConfigSincronizacion;
-    private javax.swing.JPanel panelConfigSincronizacion1;
-    private javax.swing.ButtonGroup sincronizacionReceive;
-    private javax.swing.ButtonGroup sincronizacionSend;
+    private javax.swing.JPanel panelConfigSincronizacion2;
+    private javax.swing.JPanel panelFormatContent;
+    private javax.swing.JPanel panelFormatLength;
+    private javax.swing.JPanel panelQueueingDiscipline;
+    private javax.swing.JPanel panelSincronizacionReceive;
+    private javax.swing.JPanel panelSincronizacionSend;
+    private javax.swing.JRadioButton rdbtnAddressingDirectExplicit;
+    private javax.swing.JRadioButton rdbtnAddressingDirectImplicit;
+    private javax.swing.JRadioButton rdbtnAddressingIndirectDynamic;
+    private javax.swing.JRadioButton rdbtnAddressingIndirectOwnership;
+    private javax.swing.JRadioButton rdbtnAddressingIndirectStatic;
+    private javax.swing.JRadioButton rdbtnBSincronizacionReceiveBlocking;
+    private javax.swing.JRadioButton rdbtnFormatLengthFixed;
+    private javax.swing.JRadioButton rdbtnLengthVariable;
+    private javax.swing.JRadioButton rdbtnQueueingDisciplineFIFO;
+    private javax.swing.JRadioButton rdbtnQueueingDisciplinePriority;
+    private javax.swing.JRadioButton rdbtnSincronizacionReceiveNonBlocking;
+    private javax.swing.JRadioButton rdbtnSincronizacionReceiveTestForArrival;
+    private javax.swing.JRadioButton rdbtnSincronizacionSendBlocking;
+    private javax.swing.JRadioButton rdbtnSincronizacionSendNonBlocking;
     // End of variables declaration//GEN-END:variables
 }
