@@ -18,10 +18,10 @@ public class Simulador {
         // TODO code application logic here
         
         PantallaPrincipal ventanaPrincipal = new PantallaPrincipal();
-        //ventanaPrincipal.setVisible(true);
+        ventanaPrincipal.setVisible(true);
         
-        PantallaConfiguracion ventanaConfigs = new PantallaConfiguracion(ventanaPrincipal, true);
-        ventanaConfigs.setVisible(true);
+        //PantallaConfiguracion ventanaConfigs = new PantallaConfiguracion(ventanaPrincipal, true);
+        //ventanaConfigs.setVisible(true);
     }
     
 }
