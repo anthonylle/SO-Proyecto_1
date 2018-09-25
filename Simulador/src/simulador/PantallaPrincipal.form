@@ -10,7 +10,7 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="btngrpFormatLength">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="btngrpQueueingDiscipline">
+    <Component class="javax.swing.ButtonGroup" name="btngrpMailBoxDiscipline">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -85,7 +85,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="btnGenerateConfig" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -102,7 +102,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="panelQueueingDiscipline" min="-2" pref="119" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGenerateConfig" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -435,9 +435,6 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdbtnAddressingIndirectDynamic">
                       <Properties>
-                        <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="default"/>
-                        </Property>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="btngrpAddressing"/>
                         </Property>
@@ -446,9 +443,6 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdbtnAddressingIndirectStatic">
                       <Properties>
-                        <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="default"/>
-                        </Property>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="btngrpAddressing"/>
                         </Property>
@@ -642,10 +636,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
-                            <StringItem index="0" value="Text"/>
-                            <StringItem index="1" value="Audio"/>
-                            <StringItem index="2" value="Image"/>
-                            <StringItem index="3" value="Video"/>
+                            <StringItem index="0" value="TEXT"/>
+                            <StringItem index="1" value="AUDIO"/>
+                            <StringItem index="2" value="IMAGE"/>
+                            <StringItem index="3" value="VIDEO"/>
                           </StringArray>
                         </Property>
                       </Properties>
@@ -674,7 +668,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblQueueingDiscipline" max="32767" attributes="0"/>
+                          <Component id="lblQueueingDiscipline" pref="233" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -706,13 +700,13 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Queueing Discipline"/>
+                    <Property name="text" type="java.lang.String" value="MailBox Discipline"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="rdbtnQueueingDisciplineFIFO">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="btngrpQueueingDiscipline"/>
+                      <ComponentRef name="btngrpMailBoxDiscipline"/>
                     </Property>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="FIFO"/>
@@ -721,7 +715,7 @@
                 <Component class="javax.swing.JRadioButton" name="rdbtnQueueingDisciplinePriority">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="btngrpQueueingDiscipline"/>
+                      <ComponentRef name="btngrpMailBoxDiscipline"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Priority"/>
                   </Properties>
@@ -731,10 +725,13 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="btnGenerateConfig">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Next"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateConfigActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

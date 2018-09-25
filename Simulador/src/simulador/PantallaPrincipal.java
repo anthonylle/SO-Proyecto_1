@@ -5,17 +5,27 @@
  */
 package simulador;
 
+import Config_Enums.Addressing;
+import Config_Enums.Format_Content;
+import Config_Enums.Format_Length;
+import Config_Enums.MailBox_Discipline;
+import Config_Enums.Sync_Receive;
+import Config_Enums.Sync_Send;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aleandro
  */
 public class PantallaPrincipal extends javax.swing.JFrame {
-
+    Controller controlador; 
     /**
      * Creates new form PantallaPrincipal
      */
     public PantallaPrincipal() {
+        controlador = Controller.getInstance();
         initComponents();
+        
         /* 
         configTabs.setEnabledAt(1,false);
         configTabs.setEnabledAt(2,false);
@@ -37,7 +47,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpSincronizacionReceive = new javax.swing.ButtonGroup();
         btngrpAddressing = new javax.swing.ButtonGroup();
         btngrpFormatLength = new javax.swing.ButtonGroup();
-        btngrpQueueingDiscipline = new javax.swing.ButtonGroup();
+        btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
         panelConfigSincronizacion = new javax.swing.JPanel();
@@ -73,7 +83,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblQueueingDiscipline = new javax.swing.JLabel();
         rdbtnQueueingDisciplineFIFO = new javax.swing.JRadioButton();
         rdbtnQueueingDisciplinePriority = new javax.swing.JRadioButton();
-        jButton4 = new javax.swing.JButton();
+        btnGenerateConfig = new javax.swing.JButton();
         variableTabPanel1 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         txfProcessName = new javax.swing.JTextField();
@@ -415,7 +425,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblFormatContent.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblFormatContent.setText("Content");
 
-        cboFormatContent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Text", "Audio", "Image", "Video" }));
+        cboFormatContent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TEXT", "AUDIO", "IMAGE", "VIDEO" }));
 
         javax.swing.GroupLayout panelFormatContentLayout = new javax.swing.GroupLayout(panelFormatContent);
         panelFormatContent.setLayout(panelFormatContentLayout);
@@ -469,13 +479,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelQueueingDiscipline.setPreferredSize(new java.awt.Dimension(204, 294));
 
         lblQueueingDiscipline.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblQueueingDiscipline.setText("Queueing Discipline");
+        lblQueueingDiscipline.setText("MailBox Discipline");
 
-        btngrpQueueingDiscipline.add(rdbtnQueueingDisciplineFIFO);
+        btngrpMailBoxDiscipline.add(rdbtnQueueingDisciplineFIFO);
         rdbtnQueueingDisciplineFIFO.setSelected(true);
         rdbtnQueueingDisciplineFIFO.setText("FIFO");
 
-        btngrpQueueingDiscipline.add(rdbtnQueueingDisciplinePriority);
+        btngrpMailBoxDiscipline.add(rdbtnQueueingDisciplinePriority);
         rdbtnQueueingDisciplinePriority.setText("Priority");
         rdbtnQueueingDisciplinePriority.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +499,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
                 .addGroup(panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,7 +519,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        jButton4.setText("Next");
+        btnGenerateConfig.setText("Next");
+        btnGenerateConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateConfigActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout configTabPanel1Layout = new javax.swing.GroupLayout(configTabPanel1);
         configTabPanel1.setLayout(configTabPanel1Layout);
@@ -528,7 +543,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(119, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configTabPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGenerateConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         configTabPanel1Layout.setVerticalGroup(
@@ -542,7 +557,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btnGenerateConfig)
                 .addContainerGap())
         );
 
@@ -1488,6 +1503,37 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbtnSincronizacionReceiveNonBlockingActionPerformed
 
+    private void btnGenerateConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateConfigActionPerformed
+        // TODO add your handling code here:
+        Sync_Receive receive;
+        Sync_Send send;
+        Addressing addressing = null;
+        Format_Content content;
+        Format_Length length;
+        MailBox_Discipline discipline;
+
+        send = (rdbtnSincronizacionSendBlocking.isSelected())?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
+        receive = (rdbtnBSincronizacionReceiveBlocking.isSelected())?Sync_Receive.BLOCKING:
+                  ((rdbtnSincronizacionReceiveNonBlocking.isSelected())?Sync_Receive.NON_BLOCKING:Sync_Receive.TEST_FOR_ARRIVAL);
+        length = (rdbtnFormatLengthFixed.isSelected())?Format_Length.FIXED:Format_Length.VARIABLE;
+        discipline = (rdbtnQueueingDisciplineFIFO.isSelected())?MailBox_Discipline.FIFO:MailBox_Discipline.PRIORITY;
+        content = Format_Content.valueOf(cboFormatContent.getSelectedItem().toString());
+        if (rdbtnAddressingDirectExplicit.isSelected())
+            addressing = Addressing.EXPLICIT;
+        if (rdbtnAddressingDirectImplicit.isSelected())
+            addressing = Addressing.IMPLICIT;
+        if (rdbtnAddressingIndirectStatic.isSelected())
+            addressing = Addressing.STATIC;
+        if (rdbtnAddressingIndirectDynamic.isSelected())
+            addressing = Addressing.DYNAMIC;
+
+        
+        //JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
+        
+        controlador.setConfiguration(receive, send, addressing, content, length, discipline);
+        
+    }//GEN-LAST:event_btnGenerateConfigActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1524,9 +1570,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerateConfig;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
-    private javax.swing.ButtonGroup btngrpQueueingDiscipline;
+    private javax.swing.ButtonGroup btngrpMailBoxDiscipline;
     private javax.swing.ButtonGroup btngrpSincronizacionReceive;
     private javax.swing.ButtonGroup btngrpSincronizacionSend;
     private javax.swing.JComboBox<String> cboFormatContent;
@@ -1539,7 +1586,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
