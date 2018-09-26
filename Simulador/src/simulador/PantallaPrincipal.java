@@ -23,6 +23,7 @@ import Config_Enums.VideoExtension;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument.Content;
 
 /**
  *
@@ -131,10 +132,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         cboDestinationList = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdbtnTextMessage = new javax.swing.JRadioButton();
+        rdbtnUploadFile = new javax.swing.JRadioButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taMessage = new javax.swing.JTextArea();
         btnSendMessage = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -417,7 +418,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbtnFormatLengthFixed)
                     .addComponent(rdbtnLengthVariable))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         panelFormatLengthLayout.setVerticalGroup(
             panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,7 +484,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -881,7 +882,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(btnReceiveMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -919,16 +920,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Send");
 
-        btngrpInteractiveSend.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Type Message");
+        btngrpInteractiveSend.add(rdbtnTextMessage);
+        rdbtnTextMessage.setSelected(true);
+        rdbtnTextMessage.setText("Type Message");
 
-        btngrpInteractiveSend.add(jRadioButton2);
-        jRadioButton2.setText("Upload File");
+        btngrpInteractiveSend.add(rdbtnUploadFile);
+        rdbtnUploadFile.setText("Upload File");
+        rdbtnUploadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbtnUploadFileActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane4.setViewportView(jTextArea1);
+        taMessage.setColumns(20);
+        taMessage.setRows(5);
+        jScrollPane4.setViewportView(taMessage);
 
         btnSendMessage.setText("Send");
         btnSendMessage.setEnabled(false);
@@ -948,10 +954,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jRadioButton2)
+                                .addComponent(rdbtnUploadFile)
                                 .addGap(0, 0, 0)
                                 .addComponent(btnRunChooseFile))
-                            .addComponent(jRadioButton1))
+                            .addComponent(rdbtnTextMessage))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(btnSendMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -973,11 +979,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(cboDestinationList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
+                    .addComponent(rdbtnUploadFile)
                     .addComponent(btnRunChooseFile)
                     .addComponent(btnSendMessage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton1)
+                .addComponent(rdbtnTextMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -1505,6 +1511,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    public void checkUploadFileVisibility(){
+        Format_Content content = controlador.getConfiguration().getContent();
+        if (content.equals(Format_Content.TEXT)){
+            rdbtnTextMessage.setVisible(true);
+            taMessage.setVisible(true);
+            rdbtnUploadFile.setVisible(false);
+            btnRunChooseFile.setVisible(false);
+        }
+        else{
+            rdbtnTextMessage.setVisible(false);
+            taMessage.setVisible(false);
+            rdbtnUploadFile.setVisible(true);
+            btnRunChooseFile.setVisible(true);            
+        }
+    }
+    
     private void txfProcessIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfProcessIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfProcessIDActionPerformed
@@ -1600,8 +1622,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         for(MailBox mail: mailboxes){
             if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
                 selectedMailBox = mail;
-        }
-        
+        }        
             Proceso nuevoProceso = new Proceso(txfProcessID.getText(), false, false, false);
             controlador.addProcess(nuevoProceso);
             
@@ -1623,7 +1644,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
                 }
             }
-
             txfProcessID.setText("");
             tableProcess.setModel(modelo);
         
@@ -1632,8 +1652,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnRunChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunChooseFileActionPerformed
         try {
             JFileChooser chooser = new JFileChooser();
-            //FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
-            //chooser.setFileFilter(filter);
             int returnVal = chooser.showOpenDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String entrada = chooser.getSelectedFile().getPath(); 
@@ -1643,8 +1661,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     try {
                     ImagesExtension prueba = ImagesExtension.valueOf(tokens[1]);
                      System.out.println("Archivo " + tokens[1] + " cargado correctamente");
-                    } catch (IllegalArgumentException ex) {  
-                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(null, "Error: Format " + tokens[1] + " not admited", "Invalid format", 0);
                     }
                 }              
                 
@@ -1653,7 +1671,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         VideoExtension prueba = VideoExtension.valueOf(tokens[1]);
                          System.out.println("Archivo " + tokens[1] + " cargado correctamente");
                     } catch (IllegalArgumentException ex) {  
-                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                         JOptionPane.showMessageDialog(null, "Error: Format " + tokens[1] + " not admited", "Invalid format", 0);                    
                     }
                 }
                 
@@ -1662,13 +1680,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         AudioExtension prueba = AudioExtension.valueOf(tokens[1]);
                          System.out.println("Archivo " + tokens[1] + " cargado correctamente");
                     } catch (IllegalArgumentException ex) {  
-                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                         JOptionPane.showMessageDialog(null, "Error: Format " + tokens[1] + " not admited", "Invalid format", 0);                   
                     }
-                }
-                
+                }                
             }
         } catch (Exception e) {
-            System.out.println("Error: no se pudo cargar el archivo");
+            JOptionPane.showMessageDialog(null, "Error: File can't be charged ", "File Error", 0);       
         } 
     }//GEN-LAST:event_btnRunChooseFileActionPerformed
     private void btnAddMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMailBoxActionPerformed
@@ -1683,9 +1700,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         panelAddProcess.setVisible(true);
         cboSubscribeToMailBox.insertItemAt(txfMailBoxID.getText(), cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
-        cboSubscribeToMailBox.setSelectedIndex(0);
-        
-        
+        cboSubscribeToMailBox.setSelectedIndex(0); 
     }//GEN-LAST:event_btnAddMailBoxActionPerformed
 
     
@@ -1702,9 +1717,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         configTabs.setSelectedIndex(2);
         configTabs.setEnabledAt(0,false);
         configTabs.setEnabledAt(1,false);
+        checkUploadFileVisibility();
         fillRunView();
     }//GEN-LAST:event_btnGoToRunActionPerformed
 
+    private void rdbtnUploadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnUploadFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbtnUploadFileActionPerformed
     private void tableInteractiveProcessListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInteractiveProcessListMouseClicked
         // TODO add your handling code here:
         btnSendMessage.setEnabled(true);
@@ -1713,6 +1732,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_tableInteractiveProcessListMouseClicked
+
 
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
         cboDestinationList.removeAllItems();
@@ -1832,8 +1852,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
@@ -1853,7 +1871,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable20;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAddressing;
     private javax.swing.JLabel lblAddressingDirect;
     private javax.swing.JLabel lblAddressingIndirect;
@@ -1889,8 +1906,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbtnSincronizacionReceiveTestForArrival;
     private javax.swing.JRadioButton rdbtnSincronizacionSendBlocking;
     private javax.swing.JRadioButton rdbtnSincronizacionSendNonBlocking;
+    private javax.swing.JRadioButton rdbtnTextMessage;
+    private javax.swing.JRadioButton rdbtnUploadFile;
     private javax.swing.JSpinner spinMaxNoMessages;
     private javax.swing.JPanel startTab3;
+    private javax.swing.JTextArea taMessage;
     private javax.swing.JTable tableInteractiveProcessList;
     private javax.swing.JTable tableMailBox;
     private javax.swing.JTable tableProcess;
