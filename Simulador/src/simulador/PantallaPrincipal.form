@@ -776,7 +776,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelAddProcess" pref="530" max="32767" attributes="0"/>
+                                  <Component id="panelAddProcess" pref="528" max="32767" attributes="0"/>
                                   <Component id="panelAddMailBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1349,8 +1349,13 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                                               <EmptySpace pref="24" max="32767" attributes="0"/>
                                               <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+=======
+                                              <EmptySpace pref="31" max="32767" attributes="0"/>
+                                              <Component id="btnRunChooseFile" min="-2" max="-2" attributes="0"/>
+>>>>>>> master
                                           </Group>
                                           <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -1383,7 +1388,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnRunChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1396,10 +1401,13 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton9">
+                    <Component class="javax.swing.JButton" name="btnRunChooseFile">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Choose File"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRunChooseFileActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="jComboBox3">
                       <Properties>
