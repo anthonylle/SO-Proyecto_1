@@ -12,7 +12,7 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="btngrpMailBoxDiscipline">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="btnInteractiveSend">
+    <Component class="javax.swing.ButtonGroup" name="btngrpInteractiveSend">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -1429,7 +1429,7 @@
                     <Component class="javax.swing.JRadioButton" name="jRadioButton1">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="btnInteractiveSend"/>
+                          <ComponentRef name="btngrpInteractiveSend"/>
                         </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Type Message"/>
@@ -1438,7 +1438,7 @@
                     <Component class="javax.swing.JRadioButton" name="jRadioButton2">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="btnInteractiveSend"/>
+                          <ComponentRef name="btngrpInteractiveSend"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Upload File"/>
                       </Properties>

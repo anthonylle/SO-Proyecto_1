@@ -61,7 +61,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpAddressing = new javax.swing.ButtonGroup();
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
-        btnInteractiveSend = new javax.swing.ButtonGroup();
+        btngrpInteractiveSend = new javax.swing.ButtonGroup();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
         panelConfigSincronizacion = new javax.swing.JPanel();
@@ -934,11 +934,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Send");
 
-        btnInteractiveSend.add(jRadioButton1);
+        btngrpInteractiveSend.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Type Message");
 
-        btnInteractiveSend.add(jRadioButton2);
+        btngrpInteractiveSend.add(jRadioButton2);
         jRadioButton2.setText("Upload File");
 
         jTextArea1.setColumns(20);
@@ -1709,9 +1709,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnGenerateConfig;
     private javax.swing.JButton btnGoToRun;
-    private javax.swing.ButtonGroup btnInteractiveSend;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
+    private javax.swing.ButtonGroup btngrpInteractiveSend;
     private javax.swing.ButtonGroup btngrpMailBoxDiscipline;
     private javax.swing.ButtonGroup btngrpSincronizacionReceive;
     private javax.swing.ButtonGroup btngrpSincronizacionSend;
