@@ -17,13 +17,13 @@ public class Proceso {
     Boolean sending;
     Boolean receiving;
     Boolean blocking;
-    ArrayList<Mensaje> colaMensajes = new ArrayList<Mensaje>();
+    ArrayList<MessageRecord> recordHistory = new ArrayList<MessageRecord>();
 
-    public Proceso(String idProceso, Boolean sending, Boolean receiving, Boolean blocking) {
+    public Proceso(String idProceso) {
         this.idProceso = idProceso;
-        this.sending = sending;
-        this.receiving = receiving;
-        this.blocking = blocking;
+        this.sending = false;
+        this.receiving = false;
+        this.blocking = false;
     }
 
     public String getIdProceso() {
@@ -42,8 +42,8 @@ public class Proceso {
         return blocking;
     }
 
-    public ArrayList<Mensaje> getColaMensajes() {
-        return colaMensajes;
+    public ArrayList<MessageRecord> getRecordHistory() {
+        return recordHistory;
     }
 
     public void setIdProceso(String idProceso) {
@@ -62,12 +62,12 @@ public class Proceso {
         this.blocking = blocking;
     }
 
-    public void setColaMensajes(ArrayList<Mensaje> colaMensajes) {
-        this.colaMensajes = colaMensajes;
+    public void setRecordHistory(ArrayList<MessageRecord> recordHistory) {
+        this.recordHistory = recordHistory;
     }
 
     @Override
     public String toString() {
-        return "Proceso{" + "idProceso=" + idProceso + ", sending=" + sending + ", receiving=" + receiving + ", blocking=" + blocking + ", colaMensajes=" + colaMensajes + '}';
+        return "Proceso{" + "idProceso=" + idProceso + ", sending=" + sending + ", receiving=" + receiving + ", blocking=" + blocking + ", colaMensajes=" + recordHistory + '}';
     }    
 }

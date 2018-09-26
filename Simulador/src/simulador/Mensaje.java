@@ -10,26 +10,40 @@ package simulador;
  * @author FranM
  */
 public class Mensaje {
-    String idMensaje;
-    String tipo;
+    Integer idMensaje;
     String largo;
     Integer prioridad;
     String texto;   //Definir si imagenes y videos se manejan solo con url.
+    String sourceID;
+    String destinationID;
 
-    public Mensaje(String idMensaje, String tipo, String largo, Integer prioridad, String texto) {
+    public Mensaje(Integer idMensaje, String largo, Integer prioridad, String texto, String sourceID, String destinationID) {
         this.idMensaje = idMensaje;
-        this.tipo = tipo;
         this.largo = largo;
         this.prioridad = prioridad;
         this.texto = texto;
+        this.sourceID = sourceID;
+        this.destinationID = destinationID;
     }
 
-    public String getIdMensaje() {
+    public void setSourceID(String sourceID) {
+        this.sourceID = sourceID;
+    }
+
+    public void setDestinationID(String destinationID) {
+        this.destinationID = destinationID;
+    }
+
+    public String getSourceID() {
+        return sourceID;
+    }
+
+    public String getDestinationID() {
+        return destinationID;
+    }
+
+    public Integer getIdMensaje() {
         return idMensaje;
-    }
-
-    public String getTipo() {
-        return tipo;
     }
 
     public String getLargo() {
@@ -44,12 +58,8 @@ public class Mensaje {
         return texto;
     }
 
-    public void setIdMensaje(String idMensaje) {
+    public void setIdMensaje(Integer idMensaje) {
         this.idMensaje = idMensaje;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public void setLargo(String largo) {
@@ -66,7 +76,7 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "Mensaje{" + "idMensaje=" + idMensaje + ", tipo=" + tipo + ", largo=" + largo + ", prioridad=" + prioridad + ", texto=" + texto + '}';
+        return "Mensaje{" + "idMensaje=" + idMensaje + ", tipo=" + ", largo=" + largo + ", prioridad=" + prioridad + ", texto=" + texto + '}';
     }
     
 }
