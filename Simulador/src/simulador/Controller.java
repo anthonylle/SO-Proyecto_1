@@ -18,10 +18,10 @@ import java.util.ArrayList;
  * @author aleandro
  */
 public class Controller {
-    static Controller instance = null;
-    Configuration configs;
-    ArrayList<Proceso> procesos;
-    ArrayList<MailBox> mailboxes;
+    private static Controller instance = null;
+    private Configuration configs;
+    private ArrayList<Proceso> procesos;
+    private ArrayList<MailBox> mailboxes;
     
     private Controller(){
         //configs = new Configuration();
