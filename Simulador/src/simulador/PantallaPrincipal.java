@@ -1,5 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
+
+ /* To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -18,7 +18,11 @@ import Config_Enums.ImagesExtension;
 import Config_Enums.MailBox_Discipline;
 import Config_Enums.Sync_Receive;
 import Config_Enums.Sync_Send;
+import javax.swing.JOptionPane;
 import Config_Enums.VideoExtension;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -55,6 +59,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpAddressing = new javax.swing.ButtonGroup();
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
+        btngrpInteractiveSend = new javax.swing.ButtonGroup();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
         panelConfigSincronizacion = new javax.swing.JPanel();
@@ -110,7 +115,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         tableProcess = new javax.swing.JTable();
         cboSubscribeToMailBox = new javax.swing.JComboBox<>();
         lblSubscribeToMailBox = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnGoToRun = new javax.swing.JButton();
         startTab3 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -412,7 +417,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbtnFormatLengthFixed)
                     .addComponent(rdbtnLengthVariable))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         panelFormatLengthLayout.setVerticalGroup(
             panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,7 +483,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -587,6 +592,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel6.setText("Max No. Messages");
 
         btnAddMailBox.setText("Add");
+        btnAddMailBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMailBoxActionPerformed(evt);
+            }
+        });
 
         tableMailBox.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -721,8 +731,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             tableProcess.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        cboSubscribeToMailBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblSubscribeToMailBox.setText("Subscribe to MailBox");
 
         javax.swing.GroupLayout panelAddProcessLayout = new javax.swing.GroupLayout(panelAddProcess);
@@ -776,7 +784,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton3.setText("Next");
+        btnGoToRun.setText("Next");
+        btnGoToRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoToRunActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout variableTabPanel1Layout = new javax.swing.GroupLayout(variableTabPanel1);
         variableTabPanel1.setLayout(variableTabPanel1Layout);
@@ -788,7 +801,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panelAddMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGoToRun, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         variableTabPanel1Layout.setVerticalGroup(
@@ -797,7 +810,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                        .addComponent(btnGoToRun))
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -815,36 +828,38 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "PID", "Name", "Status"
+                "PID", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -859,7 +874,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if (jTable3.getColumnModel().getColumnCount() > 0) {
             jTable3.getColumnModel().getColumn(0).setResizable(false);
             jTable3.getColumnModel().getColumn(1).setResizable(false);
-            jTable3.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -923,9 +937,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Send");
 
+        btngrpInteractiveSend.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Type Message");
 
+        btngrpInteractiveSend.add(jRadioButton2);
         jRadioButton2.setText("Upload File");
 
         jTextArea1.setColumns(20);
@@ -996,7 +1012,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1500,6 +1516,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             cboSubscribeToMailBox.setVisible(false);
             lblSubscribeToMailBox.setVisible(false);
         }
+        else{
+            panelAddProcess.setVisible(false);
+            
+        }
     }
     
     private void txfProcessIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfProcessIDActionPerformed
@@ -1579,17 +1599,50 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if (rdbtnAddressingIndirectDynamic.isSelected())
             addressing = Addressing.DYNAMIC;
 
-        
         //JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
         
         controlador.setConfiguration(receive, send, addressing, content, length, discipline);
         checkPanelAddMailBoxVisibility();
         configTabs.setSelectedIndex(1);
+            
     }//GEN-LAST:event_btnGenerateConfigActionPerformed
 
     private void btnAddProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProcessActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+        Addressing addressing = controlador.getConfiguration().getAddressing();
+        ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+        MailBox selectedMailBox = null;
         
+        for(MailBox mail: mailboxes){
+            if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
+                selectedMailBox = mail;
+        }
+        
+            Proceso nuevoProceso = new Proceso(txfProcessID.getText(), false, false, false);
+            controlador.addProcess(nuevoProceso);
+            
+            // Si el addressing es directo solo se necesita el PID y se agrega
+            if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
+                modelo.addRow(new Object[]{txfProcessID.getText(),"None"});
+            }
+            else{
+                if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+                    selectedMailBox.getSuscritos().add(nuevoProceso);
+                    modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                }else{
+                    if(addressing.equals(Addressing.DYNAMIC)){
+                        selectedMailBox.getSuscritos().add(nuevoProceso);
+                        modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                    }else{
+                        JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
+                    }
+                    //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+                }
+            }
+
+            txfProcessID.setText("");
+            tableProcess.setModel(modelo);
         
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
@@ -1635,6 +1688,29 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             System.out.println("Error: no se pudo cargar el archivo");
         } 
     }//GEN-LAST:event_btnRunChooseFileActionPerformed
+    private void btnAddMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMailBoxActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel)tableMailBox.getModel();
+        
+        controlador.addMailBox(new MailBox(txfMailBoxID.getText(), Integer.valueOf(spinMaxNoMessages.getValue().toString())));
+        
+        modelo.addRow(new Object[]{txfMailBoxID.getText(),spinMaxNoMessages.getValue().toString()});
+        
+        tableMailBox.setModel(modelo);    
+        
+        panelAddProcess.setVisible(true);
+        cboSubscribeToMailBox.insertItemAt(txfMailBoxID.getText(), cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
+        cboSubscribeToMailBox.setSelectedIndex(0);
+        
+        
+    }//GEN-LAST:event_btnAddMailBoxActionPerformed
+
+    private void btnGoToRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoToRunActionPerformed
+        // TODO add your handling code here:
+        configTabs.setSelectedIndex(2);
+        configTabs.setEnabledAt(0,false);
+        configTabs.setEnabledAt(1,false);
+    }//GEN-LAST:event_btnGoToRunActionPerformed
 
 
     /**
@@ -1678,8 +1754,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnGenerateConfig;
     private javax.swing.JButton btnRunChooseFile;
+    private javax.swing.JButton btnGoToRun;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
+    private javax.swing.ButtonGroup btngrpInteractiveSend;
     private javax.swing.ButtonGroup btngrpMailBoxDiscipline;
     private javax.swing.ButtonGroup btngrpSincronizacionReceive;
     private javax.swing.ButtonGroup btngrpSincronizacionSend;
@@ -1690,7 +1768,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

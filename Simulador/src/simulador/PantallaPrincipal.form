@@ -12,6 +12,8 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="btngrpMailBoxDiscipline">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="btngrpInteractiveSend">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -534,7 +536,7 @@
                                   <Component id="rdbtnFormatLengthFixed" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdbtnLengthVariable" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="99" max="32767" attributes="0"/>
+                              <EmptySpace pref="94" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -758,7 +760,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="panelAddMailBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="61" max="32767" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="btnGoToRun" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -769,12 +771,12 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnGoToRun" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelAddProcess" pref="528" max="32767" attributes="0"/>
+                                  <Component id="panelAddProcess" pref="530" max="32767" attributes="0"/>
                                   <Component id="panelAddMailBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -893,6 +895,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddMailBoxActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                   <AuxValues>
@@ -1071,12 +1076,7 @@
                 <Component class="javax.swing.JComboBox" name="cboSubscribeToMailBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -1090,10 +1090,13 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnGoToRun">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Next"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGoToRunActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1159,7 +1162,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="157" max="32767" attributes="0"/>
+                                  <EmptySpace pref="145" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1207,19 +1210,13 @@
                     <Component class="javax.swing.JTable" name="jTable3">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="3" rowCount="20">
+                          <Table columnCount="2" rowCount="22">
                             <Column editable="false" title="PID" type="java.lang.Integer"/>
-                            <Column editable="false" title="Name" type="java.lang.String"/>
                             <Column editable="false" title="Status" type="java.lang.String"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                               <Title/>
                               <Editor/>
@@ -1259,7 +1256,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jButton8" min="-2" pref="83" max="-2" attributes="0"/>
@@ -1352,12 +1349,12 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace pref="31" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                               <Component id="btnRunChooseFile" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <EmptySpace pref="40" max="32767" attributes="0"/>
                                       <Component id="jButton7" min="-2" pref="83" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -1434,12 +1431,18 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="jRadioButton1">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="btngrpInteractiveSend"/>
+                        </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Type Message"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="jRadioButton2">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="btngrpInteractiveSend"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Upload File"/>
                       </Properties>
                     </Component>

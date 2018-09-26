@@ -13,22 +13,21 @@ import java.util.ArrayList;
  */
 public class MailBox {
     String idMailBox;
-    Boolean privacidad;
-    ArrayList<Proceso> suscritos = new ArrayList<Proceso>();
-
-    public MailBox(String idMailBox, Boolean privacidad) {
+    int cantidadMensajesMaxima;
+    ArrayList<Proceso> suscritos; 
+    ArrayList<Mensaje> bufferMensajes;
+    
+    public MailBox(String idMailBox, int cantidadMensajesMaxima) {
         this.idMailBox = idMailBox;
-        this.privacidad = privacidad;
+        this.cantidadMensajesMaxima = cantidadMensajesMaxima;
+        this.suscritos = new ArrayList<Proceso>();
     }
 
     public String getIdMailBox() {
         return idMailBox;
     }
 
-    public Boolean getPrivacidad() {
-        return privacidad;
-    }
-
+   
     public ArrayList<Proceso> getSuscritos() {
         return suscritos;
     }
@@ -37,16 +36,29 @@ public class MailBox {
         this.idMailBox = idMailBox;
     }
 
-    public void setPrivacidad(Boolean privacidad) {
-        this.privacidad = privacidad;
-    }
 
     public void setSuscritos(ArrayList<Proceso> suscritos) {
         this.suscritos = suscritos;
     }
 
+    public void setCantidadMensajesMaxima(int cantidadMensajesMaxima) {
+        this.cantidadMensajesMaxima = cantidadMensajesMaxima;
+    }
+
+    public void setBufferMensajes(ArrayList<Mensaje> bufferMensajes) {
+        this.bufferMensajes = bufferMensajes;
+    }
+
+    public int getCantidadMensajesMaxima() {
+        return cantidadMensajesMaxima;
+    }
+
+    public ArrayList<Mensaje> getBufferMensajes() {
+        return bufferMensajes;
+    }
+
     @Override
     public String toString() {
-        return "MailBox{" + "idMailBox=" + idMailBox + ", privacidad=" + privacidad + ", suscritos=" + suscritos + '}';
+        return "MailBox{" + "idMailBox=" + idMailBox + ", privacidad="  + ", suscritos=" + suscritos + '}';
     }
 }
