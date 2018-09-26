@@ -7,22 +7,18 @@ package simulador;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Config_Enums.Addressing;
+import Config_Enums.AudioExtension;
 import Config_Enums.Format_Content;
 import Config_Enums.Format_Length;
+import Config_Enums.ImagesExtension;
 import Config_Enums.MailBox_Discipline;
 import Config_Enums.Sync_Receive;
 import Config_Enums.Sync_Send;
-import javax.swing.JOptionPane;
-
+import Config_Enums.VideoExtension;
 
 /**
  *
@@ -126,7 +122,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
+        btnRunChooseFile = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -805,7 +801,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                             .addComponent(panelAddMailBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -914,7 +910,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton9.setText("Choose File");
+        btnRunChooseFile.setText("Choose File");
+        btnRunChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunChooseFileActionPerformed(evt);
+            }
+        });
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -950,7 +951,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jRadioButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                .addComponent(jButton9))
+                                .addComponent(btnRunChooseFile))
                             .addComponent(jRadioButton1))
                         .addGap(12, 12, 12)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -974,7 +975,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
-                    .addComponent(jButton9)
+                    .addComponent(btnRunChooseFile)
                     .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jRadioButton1)
@@ -1592,6 +1593,49 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
+    private void btnRunChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunChooseFileActionPerformed
+        try {
+            JFileChooser chooser = new JFileChooser();
+            //FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+            //chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                String entrada = chooser.getSelectedFile().getPath(); 
+                String[] tokens = entrada.split("\\.(?=[^\\.]+$)");
+                
+                if(controlador.getConfiguration().content.equals(Format_Content.IMAGE)){
+                    try {
+                    ImagesExtension prueba = ImagesExtension.valueOf(tokens[1]);
+                     System.out.println("Archivo " + tokens[1] + " cargado correctamente");
+                    } catch (IllegalArgumentException ex) {  
+                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                    }
+                }              
+                
+                if(controlador.getConfiguration().content.equals(Format_Content.VIDEO)){
+                    try {
+                        VideoExtension prueba = VideoExtension.valueOf(tokens[1]);
+                         System.out.println("Archivo " + tokens[1] + " cargado correctamente");
+                    } catch (IllegalArgumentException ex) {  
+                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                    }
+                }
+                
+                if(controlador.getConfiguration().content.equals(Format_Content.AUDIO)){
+                    try {
+                        AudioExtension prueba = AudioExtension.valueOf(tokens[1]);
+                         System.out.println("Archivo " + tokens[1] + " cargado correctamente");
+                    } catch (IllegalArgumentException ex) {  
+                         System.out.println("Error: Formato " + tokens[1] + " no admitido");
+                    }
+                }
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Error: no se pudo cargar el archivo");
+        } 
+    }//GEN-LAST:event_btnRunChooseFileActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1629,11 +1673,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-
-    private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnAddMailBox;
     private javax.swing.JButton btnAddProcess;
+    private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnGenerateConfig;
+    private javax.swing.JButton btnRunChooseFile;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpMailBoxDiscipline;
@@ -1643,8 +1687,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboSubscribeToMailBox;
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
@@ -1652,7 +1694,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
