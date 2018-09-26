@@ -11,6 +11,7 @@ import Config_Enums.Format_Length;
 import Config_Enums.MailBox_Discipline;
 import Config_Enums.Sync_Receive;
 import Config_Enums.Sync_Send;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,9 +20,13 @@ import Config_Enums.Sync_Send;
 public class Controller {
     static Controller instance = null;
     Configuration configs;
+    ArrayList<Proceso> procesos;
+    ArrayList<MailBox> mailboxes;
     
     private Controller(){
         //configs = new Configuration();
+        procesos = new ArrayList<Proceso>();
+        mailboxes = new ArrayList<MailBox>();
     }
     
     public static Controller getInstance(){
@@ -38,6 +43,21 @@ public class Controller {
         return configs;
     }
     
+    public void addProcess(Proceso process){
+        procesos.add(process);
+    }
+    
+    public ArrayList<Proceso> getProcesses(){
+        return procesos;
+    }
+    
+    public void addMailBox(MailBox mailbox){
+        mailboxes.add(mailbox);
+    }
+    
+    public ArrayList<MailBox> getMailBoxes(){
+        return mailboxes;
+    }
     
     
 }
