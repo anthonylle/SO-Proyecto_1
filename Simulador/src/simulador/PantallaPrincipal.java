@@ -121,22 +121,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tableInteractiveProcessList = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton8 = new javax.swing.JButton();
+        cboSourceList = new javax.swing.JComboBox<>();
+        btnReceiveMessage = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         btnRunChooseFile = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cboDestinationList = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         rdbtnTextMessage = new javax.swing.JRadioButton();
         rdbtnUploadFile = new javax.swing.JRadioButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         taMessage = new javax.swing.JTextArea();
-        jButton7 = new javax.swing.JButton();
+        btnSendMessage = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         btnChooseFile = new javax.swing.JButton();
@@ -815,7 +815,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                             .addComponent(panelAddMailBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -827,40 +827,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel8.setText("Interactive");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tableInteractiveProcessList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "PID", "Status"
+                "PID", "Status", "Blocked"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -871,19 +850,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setResizable(false);
-            jTable3.getColumnModel().getColumn(1).setResizable(false);
+        tableInteractiveProcessList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableInteractiveProcessListMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableInteractiveProcessList);
+        if (tableInteractiveProcessList.getColumnModel().getColumnCount() > 0) {
+            tableInteractiveProcessList.getColumnModel().getColumn(0).setResizable(false);
+            tableInteractiveProcessList.getColumnModel().getColumn(1).setResizable(false);
+            tableInteractiveProcessList.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel5.setText("Receive");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton8.setText("Receive");
+        btnReceiveMessage.setText("Receive");
+        btnReceiveMessage.setEnabled(false);
 
         jLabel10.setText("Source");
 
@@ -901,9 +885,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnReceiveMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboSourceList, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(17, 17, 17))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -918,8 +902,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReceiveMessage, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cboSourceList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
@@ -931,8 +915,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 btnRunChooseFileActionPerformed(evt);
             }
         });
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel12.setText("Destination");
 
@@ -954,7 +936,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         taMessage.setRows(5);
         jScrollPane4.setViewportView(taMessage);
 
-        jButton7.setText("Send");
+        btnSendMessage.setText("Send");
+        btnSendMessage.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -976,11 +959,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(btnRunChooseFile))
                             .addComponent(rdbtnTextMessage))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSendMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboDestinationList, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addComponent(jScrollPane4)))
         );
@@ -993,12 +976,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboDestinationList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbtnUploadFile)
                     .addComponent(btnRunChooseFile)
-                    .addComponent(jButton7))
+                    .addComponent(btnSendMessage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rdbtnTextMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1018,7 +1001,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1720,18 +1703,71 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         cboSubscribeToMailBox.setSelectedIndex(0); 
     }//GEN-LAST:event_btnAddMailBoxActionPerformed
 
+    
+    void fillRunView(){
+       DefaultTableModel modelo = (DefaultTableModel) tableInteractiveProcessList.getModel();
+       for(Proceso proceso: controlador.getProcesses()){
+           modelo.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
+       }
+        
+    }
+    
     private void btnGoToRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoToRunActionPerformed
         // TODO add your handling code here:
         configTabs.setSelectedIndex(2);
         configTabs.setEnabledAt(0,false);
         configTabs.setEnabledAt(1,false);
         checkUploadFileVisibility();
+        fillRunView();
     }//GEN-LAST:event_btnGoToRunActionPerformed
 
     private void rdbtnUploadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbtnUploadFileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbtnUploadFileActionPerformed
+    private void tableInteractiveProcessListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInteractiveProcessListMouseClicked
+        // TODO add your handling code here:
+        btnSendMessage.setEnabled(true);
+        btnReceiveMessage.setEnabled(true);
+        fillSendNReceiveComboBox(controlador.getConfiguration().getAddressing(), tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
+        
+        
+    }//GEN-LAST:event_tableInteractiveProcessListMouseClicked
 
+
+    void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
+        cboDestinationList.removeAllItems();
+        cboSourceList.removeAllItems();
+        
+        if(addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){   
+            for(Proceso proceso: controlador.getProcesses()){
+                if (!selectedPID.equals(proceso.getIdProceso())){
+                    cboDestinationList.insertItemAt(proceso.getIdProceso(), cboDestinationList.getItemCount());
+                    cboSourceList.insertItemAt(proceso.getIdProceso(), cboSourceList.getItemCount());
+                }
+            }
+        }
+        else{
+            for(MailBox mail: controlador.getMailBoxes()){
+                boolean subscribed = false;
+                for(Proceso proceso: mail.getSuscritos()){
+                    if (proceso.getIdProceso().equals(selectedPID))
+                       subscribed = true;
+                }
+                
+                if (!subscribed){ //destination -> a los mail no suscritos
+                    cboDestinationList.insertItemAt(mail.getIdMailBox(), cboDestinationList.getItemCount());
+                }
+                else{ // source -> estoy suscrito
+                    cboSourceList.insertItemAt(mail.getIdMailBox(), cboSourceList.getItemCount());
+                }
+            }
+        }
+        cboDestinationList.setSelectedIndex(0);
+        cboSourceList.setSelectedIndex(0);
+        
+    }
+    
+    
 
     /**
      * @param args the command line arguments
@@ -1774,14 +1810,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnChooseFile;
     private javax.swing.JButton btnGenerateConfig;
     private javax.swing.JButton btnGoToRun;
+    private javax.swing.JButton btnReceiveMessage;
     private javax.swing.JButton btnRunChooseFile;
+    private javax.swing.JButton btnSendMessage;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpInteractiveSend;
     private javax.swing.ButtonGroup btngrpMailBoxDiscipline;
     private javax.swing.ButtonGroup btngrpSincronizacionReceive;
     private javax.swing.ButtonGroup btngrpSincronizacionSend;
+    private javax.swing.JComboBox<String> cboDestinationList;
     private javax.swing.JComboBox<String> cboFormatContent;
+    private javax.swing.JComboBox<String> cboSourceList;
     private javax.swing.JComboBox<String> cboSubscribeToMailBox;
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
@@ -1789,10 +1829,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1833,7 +1869,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable18;
     private javax.swing.JTable jTable19;
     private javax.swing.JTable jTable20;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JLabel lblAddressing;
@@ -1876,6 +1911,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner spinMaxNoMessages;
     private javax.swing.JPanel startTab3;
     private javax.swing.JTextArea taMessage;
+    private javax.swing.JTable tableInteractiveProcessList;
     private javax.swing.JTable tableMailBox;
     private javax.swing.JTable tableProcess;
     private javax.swing.JTextField txfMailBoxID;
