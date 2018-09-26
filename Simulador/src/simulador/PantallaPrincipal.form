@@ -536,7 +536,7 @@
                                   <Component id="rdbtnFormatLengthFixed" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdbtnLengthVariable" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="94" max="32767" attributes="0"/>
+                              <EmptySpace pref="99" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -776,7 +776,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelAddProcess" pref="530" max="32767" attributes="0"/>
+                                  <Component id="panelAddProcess" pref="528" max="32767" attributes="0"/>
                                   <Component id="panelAddMailBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1162,7 +1162,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="145" max="32767" attributes="0"/>
+                                  <EmptySpace pref="149" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1256,7 +1256,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jButton8" min="-2" pref="83" max="-2" attributes="0"/>
@@ -1348,11 +1348,11 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rdbtnUploadFile" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                               <Component id="btnRunChooseFile" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rdbtnTextMessage" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace pref="40" max="32767" attributes="0"/>
                                       <Component id="jButton7" min="-2" pref="83" max="-2" attributes="0"/>
@@ -1382,12 +1382,12 @@
                               <Component id="jComboBox3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rdbtnUploadFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnRunChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdbtnTextMessage" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="143" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -1429,7 +1429,7 @@
                         <Property name="text" type="java.lang.String" value="Send"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+                    <Component class="javax.swing.JRadioButton" name="rdbtnTextMessage">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="btngrpInteractiveSend"/>
@@ -1438,13 +1438,16 @@
                         <Property name="text" type="java.lang.String" value="Type Message"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+                    <Component class="javax.swing.JRadioButton" name="rdbtnUploadFile">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="btngrpInteractiveSend"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Upload File"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbtnUploadFileActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane4">
                       <AuxValues>
@@ -1453,7 +1456,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea1">
+                        <Component class="javax.swing.JTextArea" name="taMessage">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
