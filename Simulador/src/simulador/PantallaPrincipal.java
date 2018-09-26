@@ -5,6 +5,16 @@
  */
 package simulador;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author aleandro
@@ -116,7 +126,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        btnChooseFile = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jButton11 = new javax.swing.JButton();
@@ -395,7 +405,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbtnFormatLengthFixed)
                     .addComponent(rdbtnLengthVariable))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         panelFormatLengthLayout.setVerticalGroup(
             panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,7 +471,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -489,7 +499,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblQueueingDiscipline, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panelQueueingDisciplineLayout.createSequentialGroup()
                 .addGroup(panelQueueingDisciplineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,7 +784,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -856,7 +866,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 27, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -964,7 +974,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -992,7 +1002,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Batch");
 
-        jButton10.setText("Choose File");
+        btnChooseFile.setText("Choose File");
+        btnChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseFileActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("No.  of commands  to be executed");
 
@@ -1015,7 +1030,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel9))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(jButton10)))
+                        .addComponent(btnChooseFile)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton11)
                 .addContainerGap())
@@ -1033,7 +1048,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton10)
+                            .addComponent(btnChooseFile)
                             .addComponent(jButton11))))
                 .addGap(73, 73, 73))
         );
@@ -1488,6 +1503,27 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbtnSincronizacionReceiveNonBlockingActionPerformed
 
+    private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileActionPerformed
+        try {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                String entrada = chooser.getSelectedFile().getPath();
+                BufferedReader bf = new BufferedReader(new FileReader(entrada));                
+                System.out.println("Archivo .txt cargado correctamente");
+                String linea;
+		while((linea = bf.readLine()) != null)
+                    System.out.println(linea);
+                    //En vez de imprimir se debe llamar funciones segun lo que lea.
+                    //Definir formato del archivo de batch.
+            }
+        } catch (Exception e) {
+            System.out.println("Error: no se pudo cargar el archivo");
+        } 
+    }//GEN-LAST:event_btnChooseFileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1524,6 +1560,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChooseFile;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpQueueingDiscipline;
@@ -1533,7 +1570,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
