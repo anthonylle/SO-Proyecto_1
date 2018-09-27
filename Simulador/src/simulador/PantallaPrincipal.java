@@ -138,36 +138,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         taMessage = new javax.swing.JTextArea();
         btnSendMessage = new javax.swing.JButton();
+        jSpinner2 = new javax.swing.JSpinner();
+        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         btnChooseFile = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jButton11 = new javax.swing.JButton();
+        btnDisplay = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tblActionsDisplay = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        tblProcessID = new javax.swing.JTable();
+        btnViewActions = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jTable16 = new javax.swing.JTable();
+        tblMessageDisplay = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane17 = new javax.swing.JScrollPane();
-        jTable17 = new javax.swing.JTable();
-        jButton15 = new javax.swing.JButton();
+        tblMailBox = new javax.swing.JTable();
+        btnViewMailBox = new javax.swing.JButton();
         jScrollPane18 = new javax.swing.JScrollPane();
-        jTable18 = new javax.swing.JTable();
-        jPanel13 = new javax.swing.JPanel();
-        jScrollPane19 = new javax.swing.JScrollPane();
-        jTable19 = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
-        jScrollPane20 = new javax.swing.JScrollPane();
-        jTable20 = new javax.swing.JTable();
-        jButton16 = new javax.swing.JButton();
+        tblProcessDisplay = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -419,7 +415,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbtnFormatLengthFixed)
                     .addComponent(rdbtnLengthVariable))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         panelFormatLengthLayout.setVerticalGroup(
             panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,7 +481,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -816,7 +812,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                             .addComponent(panelAddMailBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -888,7 +884,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addGap(0, 34, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(btnReceiveMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -950,6 +946,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Prioridad");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -959,7 +957,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(119, 119, 119))
                     .addGroup(jPanel8Layout.createSequentialGroup()
@@ -967,10 +965,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(rdbtnUploadFile)
                                 .addGap(0, 0, 0)
-                                .addComponent(btnRunChooseFile))
-                            .addComponent(rdbtnTextMessage))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(btnSendMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRunChooseFile)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(rdbtnTextMessage)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSendMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -992,9 +995,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbtnUploadFile)
                     .addComponent(btnRunChooseFile)
-                    .addComponent(btnSendMessage))
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rdbtnTextMessage)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbtnTextMessage)
+                    .addComponent(btnSendMessage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -1012,7 +1018,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1091,17 +1097,25 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(73, 73, 73))
         );
 
+        btnDisplay.setText("Display");
+        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisplayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout startTab3Layout = new javax.swing.GroupLayout(startTab3);
         startTab3.setLayout(startTab3Layout);
         startTab3Layout.setHorizontalGroup(
             startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startTab3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(startTab3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1455, 1455, 1455))
         );
         startTab3Layout.setVerticalGroup(
@@ -1109,16 +1123,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(startTab3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(startTab3Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(btnDisplay))
+                    .addGroup(startTab3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
 
         configTabs.addTab("Run", startTab3);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tblActionsDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1144,17 +1163,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(jTable6);
-        if (jTable6.getColumnModel().getColumnCount() > 0) {
-            jTable6.getColumnModel().getColumn(0).setResizable(false);
-            jTable6.getColumnModel().getColumn(1).setResizable(false);
-            jTable6.getColumnModel().getColumn(2).setResizable(false);
-            jTable6.getColumnModel().getColumn(2).setHeaderValue("Timestamp");
+        jScrollPane6.setViewportView(tblActionsDisplay);
+        if (tblActionsDisplay.getColumnModel().getColumnCount() > 0) {
+            tblActionsDisplay.getColumnModel().getColumn(0).setResizable(false);
+            tblActionsDisplay.getColumnModel().getColumn(1).setResizable(false);
+            tblActionsDisplay.getColumnModel().getColumn(2).setResizable(false);
+            tblActionsDisplay.getColumnModel().getColumn(2).setHeaderValue("Timestamp");
         }
 
         jLabel15.setText("Process");
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tblProcessID.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -1180,13 +1199,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(jTable7);
-        if (jTable7.getColumnModel().getColumnCount() > 0) {
-            jTable7.getColumnModel().getColumn(0).setResizable(false);
-            jTable7.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane7.setViewportView(tblProcessID);
+        if (tblProcessID.getColumnModel().getColumnCount() > 0) {
+            tblProcessID.getColumnModel().getColumn(0).setResizable(false);
+            tblProcessID.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jButton6.setText("View");
+        btnViewActions.setText("View");
+        btnViewActions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1200,11 +1224,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6))
+                        .addComponent(btnViewActions))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(191, 191, 191)
                         .addComponent(jLabel15)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1219,13 +1243,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton6)
+                        .addComponent(btnViewActions)
                         .addGap(59, 59, 59))))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable16.setModel(new javax.swing.table.DefaultTableModel(
+        tblMessageDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -1233,7 +1257,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "MID"
+                "MessagesID"
             }
         ) {
             Class[] types = new Class [] {
@@ -1251,14 +1275,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane16.setViewportView(jTable16);
-        if (jTable16.getColumnModel().getColumnCount() > 0) {
-            jTable16.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane16.setViewportView(tblMessageDisplay);
+        if (tblMessageDisplay.getColumnModel().getColumnCount() > 0) {
+            tblMessageDisplay.getColumnModel().getColumn(0).setResizable(false);
         }
 
         jLabel19.setText("Queue");
 
-        jTable17.setModel(new javax.swing.table.DefaultTableModel(
+        tblMailBox.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -1266,7 +1290,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "QID", "Current Messages"
+                "MID", "Current Messages"
             }
         ) {
             Class[] types = new Class [] {
@@ -1284,15 +1308,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane17.setViewportView(jTable17);
-        if (jTable17.getColumnModel().getColumnCount() > 0) {
-            jTable17.getColumnModel().getColumn(0).setResizable(false);
-            jTable17.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane17.setViewportView(tblMailBox);
+        if (tblMailBox.getColumnModel().getColumnCount() > 0) {
+            tblMailBox.getColumnModel().getColumn(0).setResizable(false);
+            tblMailBox.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jButton15.setText("View");
+        btnViewMailBox.setText("View");
+        btnViewMailBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewMailBoxActionPerformed(evt);
+            }
+        });
 
-        jTable18.setModel(new javax.swing.table.DefaultTableModel(
+        tblProcessDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -1300,7 +1329,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "PID"
+                "Subscribed Processes"
             }
         ) {
             Class[] types = new Class [] {
@@ -1318,9 +1347,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane18.setViewportView(jTable18);
-        if (jTable18.getColumnModel().getColumnCount() > 0) {
-            jTable18.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane18.setViewportView(tblProcessDisplay);
+        if (tblProcessDisplay.getColumnModel().getColumnCount() > 0) {
+            tblProcessDisplay.getColumnModel().getColumn(0).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -1337,7 +1366,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addComponent(jButton15))
+                        .addComponent(btnViewMailBox))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(191, 191, 191)
                         .addComponent(jLabel19)))
@@ -1356,115 +1385,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addComponent(jButton15)
+                        .addComponent(btnViewMailBox)
                         .addGap(59, 59, 59))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-        );
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jTable19.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "MID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane19.setViewportView(jTable19);
-        if (jTable19.getColumnModel().getColumnCount() > 0) {
-            jTable19.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        jLabel20.setText("Mailbox");
-
-        jTable20.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "MBID", "Owner"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane20.setViewportView(jTable20);
-        if (jTable20.getColumnModel().getColumnCount() > 0) {
-            jTable20.getColumnModel().getColumn(0).setResizable(false);
-            jTable20.getColumnModel().getColumn(1).setResizable(false);
-        }
-
-        jButton16.setText("View");
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(222, 222, 222)
-                        .addComponent(jButton16))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel20)))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addComponent(jButton16)
-                        .addGap(59, 59, 59))))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1475,8 +1400,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1486,9 +1410,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
 
         configTabs.addTab("Display", jPanel5);
@@ -1720,7 +1642,27 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        for(Proceso proceso: controlador.getProcesses()){
            modelo.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
        }
+    }
+    
+    void fillDisplayView(){
+        DefaultTableModel processTable = (DefaultTableModel) tblProcessID.getModel();
+        int rowCount = processTable.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+             processTable.removeRow(i);
+        }
         
+        for(Proceso proceso: controlador.getProcesses()){
+            processTable.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
+        } 
+        DefaultTableModel mailBoxtable = (DefaultTableModel) tblMailBox.getModel();
+       
+        rowCount = mailBoxtable.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+             mailBoxtable.removeRow(i);
+        }
+        for(MailBox mailbox: controlador.getMailBoxes()){
+            mailBoxtable.addRow(new Object[]{mailbox.getIdMailBox(), "", false});                      
+        } 
     }
     
     private void btnGoToRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoToRunActionPerformed
@@ -1750,12 +1692,62 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, "", "Receiver", 1);
     }//GEN-LAST:event_btnSendMessageActionPerformed
 
+    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
+        configTabs.setSelectedIndex(3);
+        fillDisplayView();
+    }//GEN-LAST:event_btnDisplayActionPerformed
     private void btnReceiveMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveMessageActionPerformed
         // TODO add your handling code here:
         Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
         controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
         JOptionPane.showMessageDialog(null, "Process buffer size: " + String.valueOf(p.getRecordHistory().size()) + "\n Status blocked? " + String.valueOf(p.getBlocking()), "Sender", 1);
     }//GEN-LAST:event_btnReceiveMessageActionPerformed
+
+    private void btnViewActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionsActionPerformed
+        int selectedRow = tblProcessID.getSelectedRow();
+        String value = (String) tblProcessID.getValueAt(selectedRow, 0); 
+        DefaultTableModel actionsTable = (DefaultTableModel) tblActionsDisplay.getModel();
+        
+        int rowCount = actionsTable.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            actionsTable.removeRow(i);
+        }
+        
+        for(Proceso proceso: controlador.getProcesses()){
+            if(proceso.getIdProceso().equals(value)){
+                for(MessageRecord record: proceso.recordHistory){
+                    actionsTable.addRow(new Object[]{record.getAction(),record.getMessage().getIdMensaje(),record.getTimeStamp()});
+                }
+            }
+        }
+    }//GEN-LAST:event_btnViewActionsActionPerformed
+
+    private void btnViewMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMailBoxActionPerformed
+        int selectedRow = tblMailBox.getSelectedRow();
+        String value = (String) tblMailBox.getValueAt(selectedRow, 0); 
+        DefaultTableModel suscribedTable = (DefaultTableModel) tblProcessDisplay.getModel();
+        DefaultTableModel messageTable = (DefaultTableModel) tblMessageDisplay.getModel();
+        
+        int rowCount = suscribedTable.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            suscribedTable.removeRow(i);
+        }
+        rowCount = messageTable.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            messageTable.removeRow(i);
+        }
+        
+        for(MailBox mailbox: controlador.getMailBoxes()){
+            if(mailbox.getIdMailBox().equals(value)){
+                for(Proceso proceso: mailbox.suscritos){
+                    suscribedTable.addRow(new Object[]{proceso.idProceso});
+                }
+                for(Mensaje mensaje: mailbox.getBufferMensajes()){
+                    messageTable.addRow(new Object[]{mensaje.idMensaje, false});
+                }
+            }
+        }        
+    }//GEN-LAST:event_btnViewMailBoxActionPerformed
 
 
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
@@ -1832,11 +1824,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAddMailBox;
     private javax.swing.JButton btnAddProcess;
     private javax.swing.JButton btnChooseFile;
+    private javax.swing.JButton btnDisplay;
     private javax.swing.JButton btnGenerateConfig;
     private javax.swing.JButton btnGoToRun;
     private javax.swing.JButton btnReceiveMessage;
     private javax.swing.JButton btnRunChooseFile;
     private javax.swing.JButton btnSendMessage;
+    private javax.swing.JButton btnViewActions;
+    private javax.swing.JButton btnViewMailBox;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpInteractiveSend;
@@ -1850,9 +1845,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1861,15 +1853,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1880,21 +1871,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane18;
-    private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable16;
-    private javax.swing.JTable jTable17;
-    private javax.swing.JTable jTable18;
-    private javax.swing.JTable jTable19;
-    private javax.swing.JTable jTable20;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
+    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JLabel lblAddressing;
     private javax.swing.JLabel lblAddressingDirect;
     private javax.swing.JLabel lblAddressingIndirect;
@@ -1938,6 +1921,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tableInteractiveProcessList;
     private javax.swing.JTable tableMailBox;
     private javax.swing.JTable tableProcess;
+    private javax.swing.JTable tblActionsDisplay;
+    private javax.swing.JTable tblMailBox;
+    private javax.swing.JTable tblMessageDisplay;
+    private javax.swing.JTable tblProcessDisplay;
+    private javax.swing.JTable tblProcessID;
     private javax.swing.JTextField txfMailBoxID;
     private javax.swing.JTextField txfProcessID;
     private javax.swing.JPanel variableTabPanel1;
