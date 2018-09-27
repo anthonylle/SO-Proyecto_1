@@ -14,6 +14,7 @@ import Config_Enums.Request_Action;
 import Config_Enums.Sync_Receive;
 import Config_Enums.Sync_Send;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,17 +49,120 @@ public class Controller {
     }
     
     
+    public void receiveMessage(String sourceID, String destinationID){
+        Proceso sender = getProcess(destinationID); //NO SE SABE SI SIRVE EN MAILBOX
+        Proceso receiver = getProcess(sourceID);
+        
+        if(Addressing.EXPLICIT.equals(configs.getAddressing()) || Addressing.IMPLICIT.equals(configs.getAddressing())){ // Direct Addressing
+            if(isThereAPendingMessageOnSystemMailBox(destinationID, sourceID)){
+                Mensaje message = getMessageFromSystemMailBox(sourceID, destinationID);
+
+                if(configs.getSend().equals(Sync_Send.BLOCKING)){ // Hay q desbloquear el sender y quitar el sending
+                    sender.setBlocking(false);
+                }
+                receiver.setReceiving(false);
+                receiver.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, message));
+                    
+            }
+            else{ // No hay un msj pendiente por recibir, entonces hay que hacer el request
+                requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
+                receiver.setReceiving(Boolean.TRUE);
+                if(configs.getReceive().equals(Sync_Receive.BLOCKING))
+                    receiver.setBlocking(true);
+                System.out.println(requests.toString());
+            
+            }
+        }else{ // Indirect Addressing
+            if(isThereAPendingMessageOnMailBox(destinationID, sourceID)){
+                Mensaje message = getMessageFromMailBox(sourceID, destinationID);
+                
+                if(configs.getSend().equals(Sync_Send.BLOCKING)){ // Hay q desbloquear el sender y quitar el sending
+                    getProcess(message.getSourceID()).setBlocking(false);   
+                }
+                receiver.setReceiving(false);
+                receiver.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, message));
+             
+            }
+            else{ // No hay un msj pendiente por recibir, entonces hay que hacer un request
+                requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
+                receiver.setReceiving(Boolean.TRUE);
+                if(configs.getReceive().equals(Sync_Receive.BLOCKING))
+                    receiver.setBlocking(true);
+                System.out.println(requests.toString());
+                
+            }        
+        }
+    }
+    
+    private boolean isThereAPendingMessageOnMailBox(String destinationID, String sourceID){
+        if(isThereAnAccusementRequest(destinationID, sourceID))
+            return true;
+        
+         for(Mensaje mensaje: getMailBox(destinationID).getBufferMensajes())
+            if(mensaje.getDestinationID().equals(sourceID))
+                return true;
+        
+        return false;
+    }
+    
+    private Mensaje getMessageFromMailBox(String sourceID, String destinationID){
+        Mensaje pickedMessage = null;
+        for(Mensaje mensaje: getMailBox(destinationID).getBufferMensajes()){
+            if(mensaje.getSourceID().equals(destinationID) && mensaje.getDestinationID().equals(sourceID)){
+                pickedMessage = mensaje;
+                getMailBox(destinationID).getBufferMensajes().remove(mensaje);
+            }
+        }
+        return pickedMessage;
+    }
+    
+    private Mensaje getMessageFromSystemMailBox(String destinationID, String sourceID){
+        Mensaje pickedMessage = null;
+        for(Mensaje mensaje: systemMailBox){
+            if(mensaje.getSourceID().equals(destinationID) && mensaje.getDestinationID().equals(sourceID)){
+                pickedMessage = mensaje;
+                systemMailBox.remove(mensaje);
+            }
+        }
+        return pickedMessage;
+    }
+    
+    
+    private boolean isThereAnAccusementRequest(String destinationID, String sourceID){
+        Request req = null;
+        for(Request request: requests){
+            if(request.getDestinationID().equals(sourceID) && request.getSourceID().equals(destinationID))     
+                req = request;
+        }
+        if(req != null)
+            return true;
+        return false;
+    }
+    
+    private boolean isThereAPendingMessageOnSystemMailBox(String destinationID, String sourceID){
+        if(isThereAnAccusementRequest(destinationID, sourceID))
+            return true;
+        
+        for(Mensaje mensaje: systemMailBox)
+            if(mensaje.getDestinationID().equals(sourceID))
+                return true;
+        
+        return false;
+    }
+    
     public void sendMessage(Mensaje mensaje){
-        // If Addressing Direct then 
-        systemMailBox.add(mensaje);
-        // Else send to specified MailBox
-            // Falta
+        if (Addressing.EXPLICIT.equals(configs.getAddressing()) || Addressing.IMPLICIT.equals(configs.getAddressing()))
+            systemMailBox.add(mensaje);
+        else
+            getMailBox(mensaje.getDestinationID()).getBufferMensajes().add(mensaje);
         
-        
+            
         getProcess(mensaje.getSourceID()).getRecordHistory().add(new MessageRecord(Record_Message_Action.SENT, mensaje));
         
         // --------------------------------------------------------------------- hacer todas las validaciones posibles
         if(messageWasExpected(mensaje)){
+            JOptionPane.showMessageDialog(null, "This message was expected", "Information", 1);
+            //JOptionPane.showMessageDialog(null, "getRequest (destino): " + getRequestFromSource(mensaje.getDestinationID()).getSourceID(), "Titulo", 1);
             Proceso procesoDestino = getProcess(getRequestFromSource(mensaje.getDestinationID()).getSourceID());
             procesoDestino.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, mensaje));
             if(configs.receive.equals(Sync_Receive.BLOCKING)){
@@ -74,6 +178,19 @@ public class Controller {
         }
     }
     
+    
+    private Request getRequestFromSource(String destinationID){
+        for(Request request: requests){
+            if(request.getSourceID().equals(destinationID)){
+                //JOptionPane.showMessageDialog(null, "request: "+  request.toString(), "", 1);
+                return request;
+            }
+        }
+        //JOptionPane.showMessageDialog(null, "No se encontró", "Problema con el request", 0);
+
+        return null;
+    }
+    
     private boolean messageWasExpected(Mensaje message){
         if (requests.isEmpty())
             return false;
@@ -85,16 +202,12 @@ public class Controller {
             return false;
         }
     }
+
     
-    public Mensaje receiveDirectMessage(String sourceID){
-        return null;
-    }
-    
-    private Request getRequestFromSource(String destinationID){
-        for(Request request: requests){
-            if(request.getDestinationID().equals(destinationID)){
-                return request;
-            }
+    public MailBox getMailBox(String mailBoxID){
+        for(MailBox mail: mailboxes){
+            if (mailBoxID.equals(mail.getIdMailBox()))
+                return mail;
         }
         return null;
     }
