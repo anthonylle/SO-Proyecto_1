@@ -865,6 +865,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         btnReceiveMessage.setText("Receive");
         btnReceiveMessage.setEnabled(false);
+        btnReceiveMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReceiveMessageActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Source");
 
@@ -1678,7 +1683,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnReceiveMessage.setEnabled(true);
         fillSendNReceiveComboBox(controlador.getConfiguration().getAddressing(), tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
         
-        
     }//GEN-LAST:event_tableInteractiveProcessListMouseClicked
 
     private void btnSendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendMessageActionPerformed
@@ -1692,6 +1696,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         configTabs.setSelectedIndex(3);
         fillDisplayView();
     }//GEN-LAST:event_btnDisplayActionPerformed
+    private void btnReceiveMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveMessageActionPerformed
+        // TODO add your handling code here:
+        Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
+        controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(null, "Process buffer size: " + String.valueOf(p.getRecordHistory().size()) + "\n Status blocked? " + String.valueOf(p.getBlocking()), "Sender", 1);
+    }//GEN-LAST:event_btnReceiveMessageActionPerformed
 
     private void btnViewActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionsActionPerformed
         int selectedRow = tblProcessID.getSelectedRow();
