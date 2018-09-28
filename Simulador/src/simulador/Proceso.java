@@ -17,13 +17,15 @@ public class Proceso {
     Boolean sending;
     Boolean receiving;
     Boolean blocking;
-    ArrayList<MessageRecord> recordHistory = new ArrayList<MessageRecord>();
+    ArrayList<MessageRecord> recordHistory; 
 
     public Proceso(String idProceso) {
         this.idProceso = idProceso;
         this.sending = false;
         this.receiving = false;
         this.blocking = false;
+        recordHistory = new ArrayList<MessageRecord>(); 
+
     }
 
     public String getIdProceso() {

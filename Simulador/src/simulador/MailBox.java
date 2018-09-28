@@ -21,6 +21,7 @@ public class MailBox {
         this.idMailBox = idMailBox;
         this.cantidadMensajesMaxima = cantidadMensajesMaxima;
         this.suscritos = new ArrayList<Proceso>();
+        bufferMensajes = new ArrayList<Mensaje>();
     }
 
     public String getIdMailBox() {
@@ -55,6 +56,10 @@ public class MailBox {
 
     public ArrayList<Mensaje> getBufferMensajes() {
         return bufferMensajes;
+    }
+    
+    public void addMessage(Mensaje message){
+        bufferMensajes.add(message);
     }
 
     @Override
