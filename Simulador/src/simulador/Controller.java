@@ -49,7 +49,6 @@ public class Controller {
         return messageIDCounter;
     }
     
-    
     public void receiveMessage(String sourceID, String destinationID){
         Proceso sender = getProcess(destinationID); //NO SE SABE SI SIRVE EN MAILBOX
         Proceso receiver = getProcess(sourceID);
@@ -68,7 +67,8 @@ public class Controller {
                 
                 //removeRequest(message, Request_Action.ACCUSEMENT);
                 // Hay que remover el request si es que hay
-                    
+                
+                
             }
             else{ // No hay un msj pendiente por recibir, entonces hay que hacer el request
                 requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
@@ -80,30 +80,30 @@ public class Controller {
             }
         }else{ // Indirect Addressing
             if(isThereAPendingMessageOnMailBox(destinationID, sourceID)){
-                System.out.println("");
+                System.out.println("Existing message on MailBox to be delivered");
                 
                 Mensaje message = getMessageFromMailBox(sourceID, destinationID);
+                sender = getProcess(message.getSourceID());
+                System.out.println("Was the received message null? " + String.valueOf(message == null));
                 
                 if(configs.getSend().equals(Sync_Send.BLOCKING)){ // Hay q desbloquear el sender y quitar el sending
-                    //getProcess(message.getSourceID()).setBlocking(false);    // ESTO HAY QUE REVISARLO *****
                     removeRequest(message, Request_Action.ACCUSEMENT);
                     sender.setBlocking(false);
                 }
                 
                 receiver.setReceiving(false);
                 receiver.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, message));
-                //JOptionPane.showMessageDialog(null, "Rec" + receiver.getRecordHistory().get(0).toString(), "Titulo", 1);
-                //JOptionPane.showMessageDialog(null, "Ahora hay un record (con msj pendiente): " + receiver.getRecordHistory().toString(), "Titulo", 1);
-                
             }
             else{ // No hay un msj pendiente por recibir, entonces hay que hacer un request
                 requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
                 receiver.setReceiving(Boolean.TRUE);
                 if(configs.getReceive().equals(Sync_Receive.BLOCKING))
                     receiver.setBlocking(true);
-                System.out.println("");
             }        
         }System.out.println("Requests now: " + requests.size());
+        System.out.println("Request summary");
+        for(Request req: requests)
+            System.out.println("Req SOURCEID: " + req.getSourceID() + " DESTINATIONID: " + req.getDestinationID() + " TYPE: " +req.getAction().toString());
         System.out.println("Receiver buffer size: " + String.valueOf(receiver.getRecordHistory().size()));
     }
     
@@ -119,10 +119,19 @@ public class Controller {
     
     private Mensaje getMessageFromMailBox(String sourceID, String destinationID){
         Mensaje pickedMessage = null;
-        for(Mensaje mensaje: getMailBox(destinationID).getBufferMensajes()){
-            if(mensaje.getSourceID().equals(destinationID) && mensaje.getDestinationID().equals(sourceID)){
-                pickedMessage = mensaje;
-                getMailBox(destinationID).getBufferMensajes().remove(mensaje);
+        MailBox mail = getMailBox(destinationID);
+        
+        if(mail.getBufferMensajes().size() > 0){ 
+            pickedMessage = mail.getBufferMensajes().get(0);
+            if(configs.getDiscipline().equals(MailBox_Discipline.FIFO)){//FiFO
+                mail.getBufferMensajes().remove(0);
+            }else{ // Priority
+                for(Mensaje message: mail.getBufferMensajes()){
+                    if(message.getPrioridad() > pickedMessage.getPrioridad()){
+                        pickedMessage = message;
+                    }
+                }
+                mail.getBufferMensajes().remove(pickedMessage);
             }
         }
         return pickedMessage;
@@ -131,9 +140,50 @@ public class Controller {
     private Mensaje getMessageFromSystemMailBox(String sourceID, String destinationID){
         Mensaje pickedMessage = null;
         if(systemMailBox.size() > 0){
-            for(Mensaje message: systemMailBox){
-                if(message.getSourceID().equals(destinationID) && message.getDestinationID().equals(sourceID)){
-                    pickedMessage = message;
+            if(Addressing.IMPLICIT.equals(configs.getAddressing())){ // Implicit - Falta el priority
+                if(MailBox_Discipline.FIFO.equals(configs.getDiscipline())){ // FiFo
+                    for(Mensaje message: systemMailBox){  
+                        if(message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message; 
+                            break;
+                        }
+                    }
+                
+                }else{ // Implicit Priority
+                    for(Mensaje message: systemMailBox){
+                        if(message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message;
+                            break;
+                        }
+                    }
+                    for(Mensaje message: systemMailBox){
+                        if((message.getDestinationID().equals(sourceID)) && (message.getPrioridad() > pickedMessage.getPrioridad())){
+                            pickedMessage = message;
+                        }
+                    }
+                }
+            }else{  // Addressing Explicit
+                
+                if(MailBox_Discipline.FIFO.equals(configs.getDiscipline())){
+                    for(Mensaje message: systemMailBox){  // FiFo - Falta el priority 
+                        if(message.getSourceID().equals(destinationID) && message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message; 
+                            break;
+                        }
+                    }
+                }else{ // Explicit Priority
+                    // Implicit Priority
+                    for(Mensaje message: systemMailBox){
+                        if(message.getDestinationID().equals(sourceID) && message.getSourceID().equals(destinationID)){
+                            pickedMessage = message;
+                            break;
+                        }
+                    }
+                    for(Mensaje message: systemMailBox){
+                        if((message.getDestinationID().equals(sourceID)) && message.getSourceID().equals(destinationID) && (message.getPrioridad() > pickedMessage.getPrioridad())){
+                            pickedMessage = message;
+                        }
+                    }
                 }
             }
             systemMailBox.remove(pickedMessage);
@@ -145,8 +195,9 @@ public class Controller {
     private boolean isThereAnAccusementRequest(String sourceID, String destinationID){
         Request req = null;
         for(Request request: requests){
-            if(request.getDestinationID().equals(sourceID) && request.getSourceID().equals(destinationID))     
+            if(request.getDestinationID().equals(sourceID) && request.getSourceID().equals(destinationID)  && request.getAction() == Request_Action.ACCUSEMENT) {    
                 req = request;
+            }
         }
         if(req != null)
             return true;
@@ -165,6 +216,14 @@ public class Controller {
                 return true;
             }
         
+        if(configs.getAddressing().equals(Addressing.IMPLICIT)){
+            for(Mensaje mensaje: systemMailBox)
+                if(mensaje.getDestinationID().equals(sourceID)){
+                    System.out.println("IMPLICIT: The requested message already exists in the system mailbox");
+                    return true;
+                }
+        }
+        
         return false;
     }
     
@@ -177,6 +236,7 @@ public class Controller {
                     if(request.getSourceID().equals(mensaje.getDestinationID()) && request.getDestinationID().equals(mensaje.getSourceID()) && request.getAction() == action){
                         System.out.println("Request to be deleted sourceID: "+ request.getSourceID() + " destinationID: "+ request.getDestinationID() + " type: " + request.getAction().toString());
                         toBeDeleted = request;//requests.remove(request);
+                        break;
                     }
                     if(action == Request_Action.ACCUSEMENT){
                         if(request.getSourceID().equals(mensaje.getSourceID()) && request.getDestinationID().equals(mensaje.getDestinationID()) && request.getAction() == action){
@@ -185,8 +245,8 @@ public class Controller {
                         }       
                     }
                 }
-                else{
-                    if(request.getSourceID().equals(mensaje.getDestinationID()) && request.getAction().equals(action)){
+                else{ // Indirect addressing
+                    if(request.getDestinationID().equals(mensaje.getDestinationID()) && request.getAction().equals(action)){
                         System.out.println("Request to be deleted sourceID: "+ request.getSourceID() + " destinationID: "+ request.getDestinationID() + " type: " + request.getAction().toString());
                         toBeDeleted = request;//requests.remove(request);
                     }
@@ -202,15 +262,23 @@ public class Controller {
     }
     
     public void sendMessage(Mensaje mensaje){ // Abarca tanto addressing direct como indirect
+        boolean directAddressing = (Addressing.EXPLICIT.equals(configs.getAddressing()) || Addressing.IMPLICIT.equals(configs.getAddressing()));
         
         getProcess(mensaje.getSourceID()).getRecordHistory().add(new MessageRecord(Record_Message_Action.SENT, mensaje));
         
         if(messageWasExpected(mensaje)){
             JOptionPane.showMessageDialog(null, "This message was expected", "Information", 1);
             
-            Proceso procesoDestino = getProcess(getRequestFromSource(mensaje.getDestinationID()).getSourceID());
-            procesoDestino.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, mensaje));
             
+            Proceso procesoDestino = null;
+            if(directAddressing){
+                procesoDestino = getProcess(getRequestFromSource(mensaje.getDestinationID()).getSourceID());
+            }else{
+                procesoDestino = getDestinationProcessFromIndirectAddressing(mensaje);
+                System.out.println("Proceso destino: " + procesoDestino.getIdProceso());
+            }    
+                
+            procesoDestino.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, mensaje));
             if(configs.receive.equals(Sync_Receive.BLOCKING)){
                 procesoDestino.setBlocking(false);
             }
@@ -236,6 +304,20 @@ public class Controller {
     }   // </ sendMessage(...)>
     
     
+    private Proceso getDestinationProcessFromIndirectAddressing(Mensaje message){
+        Proceso process = null;
+        for(Request req: requests){
+            if(req.getDestinationID().equals(message.getDestinationID()) && req.getAction().equals(Request_Action.RECEIVE)){
+                process = getProcess(req.getSourceID());
+            }
+        }
+        return process;
+    }
+    
+    private Proceso getSourceProcessFromIndirectAddressing(Mensaje message){
+        return getProcess(message.getSourceID());
+    }
+    
     private Request getRequestFromSource(String destinationID){
         for(Request request: requests){
             if(request.getSourceID().equals(destinationID)){
@@ -256,8 +338,10 @@ public class Controller {
                         return true;
                 }
             }else{ //Si viene de addressing indirecto
+                System.out.println("Indirect message evaluation for expected message or not");
                 for(Request request: requests){
-                    if(request.getAction().equals(Request_Action.RECEIVE) && request.getSourceID().equals(message.getDestinationID()))
+                    System.out.println("Request source: " + request.getSourceID() + " destination: "+ request.getDestinationID() + " action: " + request.getAction().toString());
+                    if(request.getAction().equals(Request_Action.RECEIVE) && request.getDestinationID().equals(message.getDestinationID()))
                         return true;
                 }
             }
