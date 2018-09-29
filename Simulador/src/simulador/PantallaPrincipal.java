@@ -1634,6 +1634,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelAddProcess.setVisible(true);
         cboSubscribeToMailBox.insertItemAt(txfMailBoxID.getText(), cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
         cboSubscribeToMailBox.setSelectedIndex(0); 
+        txfMailBoxID.requestFocus();
+        
     }//GEN-LAST:event_btnAddMailBoxActionPerformed
 
     
