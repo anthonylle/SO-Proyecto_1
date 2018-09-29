@@ -1987,21 +1987,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnSendMessageActionPerformed(java.awt.event.ActionEvent evt) {                                               
         Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
-
-        long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
-        if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
-        largo = Integer.parseInt(spinLenght.getValue().toString());
-
-        if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
-            controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+        if(p.getBlocking()){
+            JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Send error", 0);
         }else{
-            if(FILEPATH.length() <= largo){
-                controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+            long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+            if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+            largo = Integer.parseInt(spinLenght.getValue().toString());
+
+            if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
+                controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+            }else{
+                if(FILEPATH.length() <= largo){
+                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                }
+                else
+                JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
             }
-            else
-            JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
+            refreshInteractiveTable();
         }
-        refreshInteractiveTable();
     }                                              
 
     private void rdbtnUploadFileActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -2051,8 +2054,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnReceiveMessageActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
         Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
-        controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
-        refreshInteractiveTable();
+        if(p.getBlocking()){
+            JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Receive error", 0);
+        }else{
+            controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
+            refreshInteractiveTable();
+        }
     }                                                 
 
     private void tableInteractiveProcessListMouseClicked(java.awt.event.MouseEvent evt) {                                                         
@@ -2060,51 +2067,88 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnSendMessage.setEnabled(true);
         btnReceiveMessage.setEnabled(true);
         fillSendNReceiveComboBox(controlador.getConfiguration().getAddressing(), tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
-    }                                                        
+    }        
+    
+    private boolean isOkToStart(){
+        return true;
+    }
 
     private void btnGoToRunActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+        if(isOkToStart()){
+        
         configTabs.setSelectedIndex(2);
         configTabs.setEnabledAt(0,false);
         configTabs.setEnabledAt(1,false);
         checkUploadFileVisibility();
         fillRunView();
+        }else{
+            
+        }
     }                                          
 
-    private void btnAddProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProcessActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
-        Addressing addressing = controlador.getConfiguration().getAddressing();
-        ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
-        MailBox selectedMailBox = null;
-
-        for(MailBox mail: mailboxes){
-            if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
-            selectedMailBox = mail;
+    private boolean existsMBID(String MBID){
+        for(MailBox mail: controlador.getMailBoxes()){
+            if(mail.getIdMailBox().equals(MBID))
+                return true;
         }
-        Proceso nuevoProceso = new Proceso(txfProcessID.getText());
-        controlador.addProcess(nuevoProceso);
-
-        // Si el addressing es directo solo se necesita el PID y se agrega
-        if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
-            modelo.addRow(new Object[]{txfProcessID.getText(),"None"});
-        }
-        else{
-            if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
-                selectedMailBox.getSuscritos().add(nuevoProceso);
-                modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
-            }else{
-                if(addressing.equals(Addressing.DYNAMIC)){
-                    selectedMailBox.getSuscritos().add(nuevoProceso);
-                    modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
-                }else{
-                    JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
-                }
-                //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+        return false;
+    }
+    
+    private boolean existsPID(String PID){
+        for(Proceso process: controlador.getProcesses()){
+            if(process.equals(PID)){
+                return true;
             }
         }
-        txfProcessID.setText("");
-        tableProcess.setModel(modelo);
+        return false;
+    }
+    
+    private void btnAddProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProcessActionPerformed
+        // TODO add your handling code here:
+        
+        if(!txfProcessID.getText().isEmpty()){
+            if(!existsPID(txfProcessID.getText())){
+
+                DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+                Addressing addressing = controlador.getConfiguration().getAddressing();
+                ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+                MailBox selectedMailBox = null;
+
+                for(MailBox mail: mailboxes){
+                    if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
+                    selectedMailBox = mail;
+                }
+                Proceso nuevoProceso = new Proceso(txfProcessID.getText());
+                controlador.addProcess(nuevoProceso);
+
+                // Si el addressing es directo solo se necesita el PID y se agrega
+                if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
+                    modelo.addRow(new Object[]{txfProcessID.getText(),"None"});
+                }
+                else{
+                    if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+                        selectedMailBox.getSuscritos().add(nuevoProceso);
+                        modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                    }else{
+                        if(addressing.equals(Addressing.DYNAMIC)){
+                            selectedMailBox.getSuscritos().add(nuevoProceso);
+                            modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                        }else{
+                            JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
+                        }
+                        //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+                    }
+                }
+                txfProcessID.setText("");
+                tableProcess.setModel(modelo);
+            }else{
+                JOptionPane.showMessageDialog(null,  "PID already created", "Duplicated PID Error", 0);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,  "PID can't be empty", "Null PID Error", 0);
+        }
+        
         txfProcessID.requestFocus();
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
@@ -2112,15 +2156,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel)tableMailBox.getModel();
 
-        controlador.addMailBox(new MailBox(txfMailBoxID.getText(), Integer.valueOf(spinMaxNoMessages.getValue().toString())));
+        if(!txfMailBoxID.getText().isEmpty()){
+            if(!existsMBID(txfMailBoxID.getText())){
+                controlador.addMailBox(new MailBox(txfMailBoxID.getText(), Integer.valueOf(spinMaxNoMessages.getValue().toString())));
 
-        modelo.addRow(new Object[]{txfMailBoxID.getText(),spinMaxNoMessages.getValue().toString()});
+                modelo.addRow(new Object[]{txfMailBoxID.getText(),spinMaxNoMessages.getValue().toString()});
 
-        tableMailBox.setModel(modelo);
+                tableMailBox.setModel(modelo);
 
-        panelAddProcess.setVisible(true);
-        cboSubscribeToMailBox.insertItemAt(txfMailBoxID.getText(), cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
-        cboSubscribeToMailBox.setSelectedIndex(0); 
+                panelAddProcess.setVisible(true);
+                cboSubscribeToMailBox.insertItemAt(txfMailBoxID.getText(), cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
+                cboSubscribeToMailBox.setSelectedIndex(0); 
+            }else{
+                JOptionPane.showMessageDialog(null, "MBID already created", "Duplicated MBID Error", 0);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "MBID can't be empty", "Null MBID Error", 0);
+        }
+        
         txfMailBoxID.requestFocus();
         
     }//GEN-LAST:event_btnAddMailBoxActionPerformed
