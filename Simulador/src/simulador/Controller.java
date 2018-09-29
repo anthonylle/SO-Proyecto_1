@@ -49,7 +49,6 @@ public class Controller {
         return messageIDCounter;
     }
     
-    
     public void receiveMessage(String sourceID, String destinationID){
         Proceso sender = getProcess(destinationID); //NO SE SABE SI SIRVE EN MAILBOX
         Proceso receiver = getProcess(sourceID);
@@ -141,9 +140,50 @@ public class Controller {
     private Mensaje getMessageFromSystemMailBox(String sourceID, String destinationID){
         Mensaje pickedMessage = null;
         if(systemMailBox.size() > 0){
-            for(Mensaje message: systemMailBox){
-                if(message.getSourceID().equals(destinationID) && message.getDestinationID().equals(sourceID)){
-                    pickedMessage = message;
+            if(Addressing.IMPLICIT.equals(configs.getAddressing())){ // Implicit - Falta el priority
+                if(MailBox_Discipline.FIFO.equals(configs.getDiscipline())){ // FiFo
+                    for(Mensaje message: systemMailBox){  
+                        if(message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message; 
+                            break;
+                        }
+                    }
+                
+                }else{ // Implicit Priority
+                    for(Mensaje message: systemMailBox){
+                        if(message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message;
+                            break;
+                        }
+                    }
+                    for(Mensaje message: systemMailBox){
+                        if((message.getDestinationID().equals(sourceID)) && (message.getPrioridad() > pickedMessage.getPrioridad())){
+                            pickedMessage = message;
+                        }
+                    }
+                }
+            }else{  // Addressing Explicit
+                
+                if(MailBox_Discipline.FIFO.equals(configs.getDiscipline())){
+                    for(Mensaje message: systemMailBox){  // FiFo - Falta el priority 
+                        if(message.getSourceID().equals(destinationID) && message.getDestinationID().equals(sourceID)){
+                            pickedMessage = message; 
+                            break;
+                        }
+                    }
+                }else{ // Explicit Priority
+                    // Implicit Priority
+                    for(Mensaje message: systemMailBox){
+                        if(message.getDestinationID().equals(sourceID) && message.getSourceID().equals(destinationID)){
+                            pickedMessage = message;
+                            break;
+                        }
+                    }
+                    for(Mensaje message: systemMailBox){
+                        if((message.getDestinationID().equals(sourceID)) && message.getSourceID().equals(destinationID) && (message.getPrioridad() > pickedMessage.getPrioridad())){
+                            pickedMessage = message;
+                        }
+                    }
                 }
             }
             systemMailBox.remove(pickedMessage);
@@ -175,6 +215,14 @@ public class Controller {
                 //System.out.println("The requested message already exists in the system mailbox");
                 return true;
             }
+        
+        if(configs.getAddressing().equals(Addressing.IMPLICIT)){
+            for(Mensaje mensaje: systemMailBox)
+                if(mensaje.getDestinationID().equals(sourceID)){
+                    System.out.println("IMPLICIT: The requested message already exists in the system mailbox");
+                    return true;
+                }
+        }
         
         return false;
     }
