@@ -23,7 +23,6 @@ import Config_Enums.VideoExtension;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AbstractDocument.Content;
 import simulador.Mensaje;
 
 /**
@@ -32,13 +31,13 @@ import simulador.Mensaje;
  */
 public class PantallaPrincipal extends javax.swing.JFrame {
     Controller controlador; 
+    public static String FILEPATH;
     /**
      * Creates new form PantallaPrincipal
      */
     public PantallaPrincipal() {
         controlador = Controller.getInstance();
-        initComponents();
-        
+        initComponents();        
         /* 
         configTabs.setEnabledAt(1,false);
         configTabs.setEnabledAt(2,false);
@@ -90,6 +89,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblFormatLength = new javax.swing.JLabel();
         rdbtnFormatLengthFixed = new javax.swing.JRadioButton();
         rdbtnLengthVariable = new javax.swing.JRadioButton();
+        spinLenght = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
         panelFormatContent = new javax.swing.JPanel();
         lblFormatContent = new javax.swing.JLabel();
         cboFormatContent = new javax.swing.JComboBox<>();
@@ -405,6 +406,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText("Bytes");
+
         javax.swing.GroupLayout panelFormatLengthLayout = new javax.swing.GroupLayout(panelFormatLength);
         panelFormatLength.setLayout(panelFormatLengthLayout);
         panelFormatLengthLayout.setHorizontalGroup(
@@ -412,10 +415,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelFormatLengthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdbtnFormatLengthFixed)
-                    .addComponent(rdbtnLengthVariable))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addGroup(panelFormatLengthLayout.createSequentialGroup()
+                        .addGroup(panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdbtnLengthVariable))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelFormatLengthLayout.createSequentialGroup()
+                        .addComponent(rdbtnFormatLengthFixed)
+                        .addContainerGap(116, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormatLengthLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(spinLenght, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addGap(8, 8, 8))
         );
         panelFormatLengthLayout.setVerticalGroup(
             panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,10 +436,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblFormatLength)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdbtnLengthVariable)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rdbtnFormatLengthFixed)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rdbtnLengthVariable)
-                .addGap(43, 43, 43))
+                .addGroup(panelFormatLengthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinLenght, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addContainerGap())
         );
 
         panelFormatContent.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -481,7 +498,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -550,7 +567,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(panelConfigAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configTabPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGenerateConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -566,7 +583,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnGenerateConfig)
                 .addContainerGap())
         );
@@ -812,7 +829,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                             .addComponent(panelAddMailBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1145,7 +1162,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Action", "MID", "Timestamp"
+                "Action", "MessageID", "Timestamp"
             }
         ) {
             Class[] types = new Class [] {
@@ -1170,7 +1187,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             tblActionsDisplay.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jLabel15.setText("Process");
+        jLabel15.setText("Processes List");
 
         tblProcessID.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1180,7 +1197,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "PID", "Status"
+                "ProcessID", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -1216,17 +1233,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnViewActions))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel15)))
+                    .addComponent(jLabel15))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -1256,7 +1271,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "MessagesID"
+                "MessagesID Inside"
             }
         ) {
             Class[] types = new Class [] {
@@ -1279,7 +1294,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             tblMessageDisplay.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jLabel19.setText("Queue");
+        jLabel19.setText("MailBoxes List");
 
         tblMailBox.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1289,7 +1304,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "MID", "Current Messages"
+                "MailBoxID", "Free Space"
             }
         ) {
             Class[] types = new Class [] {
@@ -1356,27 +1371,25 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnViewMailBox))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel19)))
+                    .addComponent(jLabel19))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1578,8 +1591,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
             txfProcessID.setText("");
             tableProcess.setModel(modelo);
-            txfProcessID.requestFocus();
-        
+            txfProcessID.requestFocus();      
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
     private void btnRunChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunChooseFileActionPerformed
@@ -1587,8 +1599,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             JFileChooser chooser = new JFileChooser();
             int returnVal = chooser.showOpenDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                String entrada = chooser.getSelectedFile().getPath(); 
-                String[] tokens = entrada.split("\\.(?=[^\\.]+$)");
+                FILEPATH = chooser.getSelectedFile().getPath(); 
+                String[] tokens = FILEPATH.split("\\.(?=[^\\.]+$)");
                 
                 if(controlador.getConfiguration().content.equals(Format_Content.IMAGE)){
                     try {
@@ -1655,22 +1667,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     
     void fillDisplayView(){
         DefaultTableModel processTable = (DefaultTableModel) tblProcessID.getModel();
-        int rowCount = processTable.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-             processTable.removeRow(i);
-        }
-        
+        processTable.getDataVector().removeAllElements();        
         for(Proceso proceso: controlador.getProcesses()){
             processTable.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
         } 
-        DefaultTableModel mailBoxtable = (DefaultTableModel) tblMailBox.getModel();
-       
-        rowCount = mailBoxtable.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-             mailBoxtable.removeRow(i);
-        }
+        DefaultTableModel mailBoxtable = (DefaultTableModel) tblMailBox.getModel();       
+        mailBoxtable.getDataVector().removeAllElements();        
         for(MailBox mailbox: controlador.getMailBoxes()){
-            mailBoxtable.addRow(new Object[]{mailbox.getIdMailBox(), "", false});                      
+            mailBoxtable.addRow(new Object[]{mailbox.getIdMailBox(), mailbox.cantidadMensajesMaxima-mailbox.bufferMensajes.size(), false});                      
         } 
     }
     
@@ -1696,11 +1700,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnSendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendMessageActionPerformed
         Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
-        if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent()))
-            controlador.sendMessage(new Mensaje(1, "11", Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
-        else
-            controlador.sendMessage(new Mensaje(1, "11", Integer.parseInt(jSpinner2.getValue().toString()), "   ", p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
         
+        long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+        if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+            largo = Integer.parseInt(spinLenght.getValue().toString());
+        
+        if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){          
+            controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString())); 
+        }else{
+            if(FILEPATH.length() <= largo){
+                controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));        
+            }
+            else
+                JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
+        }
         refreshInteractiveTable();
     }//GEN-LAST:event_btnSendMessageActionPerformed
 
@@ -1711,42 +1724,28 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnReceiveMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceiveMessageActionPerformed
         // TODO add your handling code here:
         Proceso p = controlador.getProcess(tableInteractiveProcessList.getValueAt(tableInteractiveProcessList.getSelectedRow(), 0).toString());
-        controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
-        
+        controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());        
         refreshInteractiveTable();
     }//GEN-LAST:event_btnReceiveMessageActionPerformed
 
     private void btnViewActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionsActionPerformed
         int selectedRow = tblProcessID.getSelectedRow();
         String value = (String) tblProcessID.getValueAt(selectedRow, 0); 
-        DefaultTableModel actionsTable = (DefaultTableModel) tblActionsDisplay.getModel();
-        
-        int rowCount = actionsTable.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            actionsTable.removeRow(i);
-        }
+        DefaultTableModel actionsTable = (DefaultTableModel) tblActionsDisplay.getModel();        
+        actionsTable.getDataVector().removeAllElements();
         Proceso p = controlador.getProcess(value);
         for(MessageRecord record: p.recordHistory){
             actionsTable.addRow(new Object[]{record.getAction(),record.getMessage().getIdMensaje(),record.getTimeStamp()});
-        }
-        
+        }        
     }//GEN-LAST:event_btnViewActionsActionPerformed
 
     private void btnViewMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMailBoxActionPerformed
         int selectedRow = tblMailBox.getSelectedRow();
         String value = (String) tblMailBox.getValueAt(selectedRow, 0); 
         DefaultTableModel suscribedTable = (DefaultTableModel) tblProcessDisplay.getModel();
-        DefaultTableModel messageTable = (DefaultTableModel) tblMessageDisplay.getModel();
-        
-        int rowCount = suscribedTable.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            suscribedTable.removeRow(i);
-        }
-        rowCount = messageTable.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            messageTable.removeRow(i);
-        }
-        
+        DefaultTableModel messageTable = (DefaultTableModel) tblMessageDisplay.getModel();        
+        suscribedTable.getDataVector().removeAllElements();
+        messageTable.getDataVector().removeAllElements();        
         for(MailBox mailbox: controlador.getMailBoxes()){
             if(mailbox.getIdMailBox().equals(value)){
                 for(Proceso proceso: mailbox.suscritos){
@@ -1759,11 +1758,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_btnViewMailBoxActionPerformed
 
-
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
         cboDestinationList.removeAllItems();
-        cboSourceList.removeAllItems();
-        
+        cboSourceList.removeAllItems();        
         if(addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){   
             for(Proceso proceso: controlador.getProcesses()){
                 if (!selectedPID.equals(proceso.getIdProceso())){
@@ -1789,10 +1786,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         }
         cboDestinationList.setSelectedIndex(0);
-        cboSourceList.setSelectedIndex(0);
-        
-    }
-    
+        cboSourceList.setSelectedIndex(0);        
+    }  
     
 
     /**
@@ -1860,6 +1855,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1925,6 +1921,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbtnSincronizacionSendNonBlocking;
     private javax.swing.JRadioButton rdbtnTextMessage;
     private javax.swing.JRadioButton rdbtnUploadFile;
+    private javax.swing.JSpinner spinLenght;
     private javax.swing.JSpinner spinMaxNoMessages;
     private javax.swing.JPanel startTab3;
     private javax.swing.JTextArea taMessage;

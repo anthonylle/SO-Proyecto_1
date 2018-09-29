@@ -11,13 +11,13 @@ package simulador;
  */
 public class Mensaje {
     Integer idMensaje;
-    String largo;
+    long largo;
     Integer prioridad;
     String texto;   //Definir si imagenes y videos se manejan solo con url.
     String sourceID;
     String destinationID;
 
-    public Mensaje(Integer idMensaje, String largo, Integer prioridad, String texto, String sourceID, String destinationID) {
+    public Mensaje(Integer idMensaje, long largo, Integer prioridad, String texto, String sourceID, String destinationID) {
         this.idMensaje = idMensaje;
         this.largo = largo;
         this.prioridad = prioridad;
@@ -46,7 +46,7 @@ public class Mensaje {
         return idMensaje;
     }
 
-    public String getLargo() {
+    public long getLargo() {
         return largo;
     }
 
@@ -62,7 +62,7 @@ public class Mensaje {
         this.idMensaje = idMensaje;
     }
 
-    public void setLargo(String largo) {
+    public void setLargo(Integer largo) {
         this.largo = largo;
     }
 
