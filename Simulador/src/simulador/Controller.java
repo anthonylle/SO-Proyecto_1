@@ -49,6 +49,10 @@ public class Controller {
         return messageIDCounter;
     }
     
+    public Integer remainingMessages(MailBox mail){
+        return mail.getCantidadMensajesMaxima()-mail.getBufferMensajes().size();
+    }
+    
     public void receiveMessage(String sourceID, String destinationID){
         Proceso sender = getProcess(destinationID); //NO SE SABE SI SIRVE EN MAILBOX
         Proceso receiver = getProcess(sourceID);
