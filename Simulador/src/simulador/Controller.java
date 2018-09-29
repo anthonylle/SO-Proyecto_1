@@ -27,7 +27,7 @@ public class Controller {
     private ArrayList<MailBox> mailboxes;
     private ArrayList<Mensaje> systemMailBox;
     private ArrayList<Request> requests;
-    private static Integer messageIDCounter;
+    public static Integer messageIDCounter;
     
     private Controller(){
         //configs = new Configuration();
@@ -35,6 +35,7 @@ public class Controller {
         mailboxes = new ArrayList<MailBox>();
         requests = new ArrayList<Request>();
         systemMailBox = new ArrayList<Mensaje>();
+        messageIDCounter = 0;
     }
     
     public static Controller getInstance(){
