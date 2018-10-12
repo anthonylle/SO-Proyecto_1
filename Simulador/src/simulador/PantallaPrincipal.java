@@ -2063,6 +2063,33 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }                                              
 
+    private void BatchSendMessageActionPerformed(String sender, String receiver, String message) {                                               
+        Proceso send = controlador.getProcess(sender);
+        Proceso receive = controlador.getProcess(receiver);
+        if(send.getBlocking()){
+            JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Send error", 0);
+        }else{
+            if((controlador.getConfiguration().getAddressing().equals(Addressing.STATIC) || controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)) && controlador.remainingMessages(controlador.getMailBox(receiver)) == 0){
+                JOptionPane.showMessageDialog(null, "MailBox out of space to allocate message", "MailBox error", 0);
+            }else{
+                long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+                if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+                largo = Integer.parseInt(spinLenght.getValue().toString());
+
+                if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
+                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), message, send.getIdProceso(), receiver));
+                }else{
+                    if(FILEPATH.length() <= largo){
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, send.getIdProceso(), receiver));
+                    }
+                    else
+                    JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
+                }
+                refreshInteractiveTable();
+            }
+        }
+    }
+    
     private void rdbtnUploadFileActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
     }                                               
@@ -2614,6 +2641,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
 
         controlador.setConfiguration(receive, send, addressing, content, length, discipline);
+        
+        //Aca ya esta la configuracion cargada e inicia creacion de procesos y envio de mensajes
         config.clear();
         try {
             while((linea = BUFFERREADER.readLine()) != null){
@@ -2629,13 +2658,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         BatchAddMailBoxActionPerformed(arrOfStr[1],Integer.parseInt(arrOfStr[2]));
                         System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
                     }
+                    if(linea.contains("Send")){
+                        arrOfStr = linea.split(":",4);
+                        BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3]);
+                        System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " : " + arrOfStr[3]);
+                    }
                     lineCounter++;
                 }
             }
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        fillRunView();  //Revisar si es necesario para cuando es por BATCH.
+        
+        //Revisar si es necesario mostrar todo lo de interactivo para cuando es por BATCH.
+        if(isOkToStart()){
+//            configTabs.setSelectedIndex(2);
+//            configTabs.setEnabledAt(0,false);
+//            configTabs.setEnabledAt(1,false);
+//            configTabs.setEnabledAt(2,true);
+//            configTabs.setEnabledAt(3,false);
+//            configTabs.setEnabledAt(4,true);
+            checkUploadFileVisibility();
+            fillRunView();
+            checkDisciplinePriority();
+            checkImplicitAddressingView();
+        }
+        
         //checkPanelAddMailBoxVisibility();
         //configTabs.setSelectedIndex(1);
         //configTabs.setEnabledAt(0,false);
