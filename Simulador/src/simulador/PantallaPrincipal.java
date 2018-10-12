@@ -224,7 +224,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea8 = new javax.swing.JTextArea();
 
-        
+        jButton6.setText("jButton1");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         configTabs.setMinimumSize(new java.awt.Dimension(82, 40));
@@ -901,11 +907,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "PID", "Status", "Blocked"
+                "PID", "Busy", "Blocked"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -1262,20 +1268,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         tblProcessID.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ProcessID", "Status"
+                "ProcessID", "Busy", "Blocked"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1295,6 +1301,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if (tblProcessID.getColumnModel().getColumnCount() > 0) {
             tblProcessID.getColumnModel().getColumn(0).setResizable(false);
             tblProcessID.getColumnModel().getColumn(1).setResizable(false);
+            tblProcessID.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -2082,8 +2089,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if(p.getBlocking()){
             JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Receive error", 0);
         }else{
-            controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
-            refreshInteractiveTable();
+            if(p.getBusy()){
+                JOptionPane.showMessageDialog(null, "Can't use a busy process", "Receive error", 0);
+            }else{
+                controlador.receiveMessage(p.getIdProceso(), cboSourceList.getSelectedItem().toString());
+                refreshInteractiveTable();
+            }
         }
     }                                                 
 
@@ -2293,14 +2304,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        modelo.getDataVector().removeAllElements();
        for(Proceso proceso: controlador.getProcesses()){
            //change if it is receiven or sending
-           modelo.addRow(new Object[]{proceso.getIdProceso(), "Running", proceso.getBlocking()});
+           modelo.addRow(new Object[]{proceso.getIdProceso(), proceso.getBusy(), proceso.getBlocking()});
        }
     }
     
     void fillRunView(){
        DefaultTableModel modelo = (DefaultTableModel) tableInteractiveProcessList.getModel();
        for(Proceso proceso: controlador.getProcesses()){
-           modelo.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
+           modelo.addRow(new Object[]{proceso.getIdProceso(), false, false});
        }
     }
     
@@ -2308,7 +2319,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DefaultTableModel processTable = (DefaultTableModel) tblProcessID.getModel();
         processTable.getDataVector().removeAllElements();        
         for(Proceso proceso: controlador.getProcesses()){
-            processTable.addRow(new Object[]{proceso.getIdProceso(), "Running", false});
+            processTable.addRow(new Object[]{proceso.getIdProceso(), false, false});
         } 
         DefaultTableModel mailBoxtable = (DefaultTableModel) tblMailBox.getModel();       
         mailBoxtable.getDataVector().removeAllElements();        

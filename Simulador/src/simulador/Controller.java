@@ -83,10 +83,18 @@ public class Controller {
                 
             }
             else{ // No hay un msj pendiente por recibir, entonces hay que hacer el request
-                requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
-                receiver.setReceiving(Boolean.TRUE);
-                if(configs.getReceive().equals(Sync_Receive.BLOCKING))
-                    receiver.setBlocking(true);
+                if(configs.getReceive().equals(Sync_Receive.NON_BLOCKING)){
+                    // Excepto si es Non-Blocking -> No pasa nada
+                }else{
+                    requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
+                    receiver.setReceiving(Boolean.TRUE);
+                    if(configs.getReceive().equals(Sync_Receive.BLOCKING))
+                        receiver.setBlocking(true);
+                    if(configs.getReceive().equals(Sync_Receive.TEST_FOR_ARRIVAL))
+                        receiver.setBusy(true);
+                }
+                
+                
                 
             
             }
@@ -107,10 +115,17 @@ public class Controller {
                 receiver.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, message));
             }
             else{ // No hay un msj pendiente por recibir, entonces hay que hacer un request
-                requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
-                receiver.setReceiving(Boolean.TRUE);
-                if(configs.getReceive().equals(Sync_Receive.BLOCKING))
-                    receiver.setBlocking(true);
+                if(configs.getReceive().equals(Sync_Receive.NON_BLOCKING)){
+                    // Excepto si es Non-Blocking -> No pasa nada
+                }else{
+                    System.out.println("Receive Non-Blocking should not reach this point");
+                    requests.add(new Request(sourceID, destinationID, Request_Action.RECEIVE));
+                    receiver.setReceiving(Boolean.TRUE);
+                    if(configs.getReceive().equals(Sync_Receive.BLOCKING))
+                        receiver.setBlocking(true);
+                    if(configs.getReceive().equals(Sync_Receive.TEST_FOR_ARRIVAL))
+                        receiver.setBusy(true);
+                }
             }        
         }System.out.println("Requests now: " + requests.size());
         System.out.println("Request summary");
@@ -293,6 +308,9 @@ public class Controller {
             procesoDestino.getRecordHistory().add(new MessageRecord(Record_Message_Action.RECEIVED, mensaje));
             if(configs.receive.equals(Sync_Receive.BLOCKING)){
                 procesoDestino.setBlocking(false);
+            }
+            if(configs.receive.equals(Sync_Receive.TEST_FOR_ARRIVAL)){
+                procesoDestino.setBusy(false);
             }
             
             removeRequest(mensaje, Request_Action.RECEIVE);   

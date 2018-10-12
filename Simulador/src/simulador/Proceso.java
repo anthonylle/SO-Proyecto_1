@@ -17,6 +17,7 @@ public class Proceso {
     Boolean sending;
     Boolean receiving;
     Boolean blocking;
+    Boolean busy;
     ArrayList<MessageRecord> recordHistory; 
 
     public Proceso(String idProceso) {
@@ -24,12 +25,21 @@ public class Proceso {
         this.sending = false;
         this.receiving = false;
         this.blocking = false;
+        this.busy = false;
         recordHistory = new ArrayList<MessageRecord>(); 
 
     }
 
     public String getIdProceso() {
         return idProceso;
+    }
+
+    public void setBusy(Boolean busy) {
+        this.busy = busy;
+    }
+
+    public Boolean getBusy() {
+        return busy;
     }
 
     public Boolean getSending() {
