@@ -22,7 +22,10 @@ import javax.swing.JOptionPane;
 import Config_Enums.VideoExtension;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import simulador.Mensaje;
@@ -34,6 +37,7 @@ import simulador.Mensaje;
 public class PantallaPrincipal extends javax.swing.JFrame {
     Controller controlador; 
     public static String FILEPATH;
+    public static BufferedReader BUFFERREADER;
     /**
      * Creates new form PantallaPrincipal
      */
@@ -153,7 +157,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnChooseFile = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
-        jButton11 = new javax.swing.JButton();
+        BatchExecute = new javax.swing.JButton();
         btnDisplay = new javax.swing.JButton();
         RunRestart = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -226,6 +230,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea8 = new javax.swing.JTextArea();
+
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1157,7 +1162,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel13.setText("No.  of commands  to be executed");
 
-        jButton11.setText("Execute");
+        BatchExecute.setText("Execute");
+        BatchExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BatchExecuteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1173,7 +1183,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(78, 78, 78)
                 .addComponent(btnChooseFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton11)
+                .addComponent(BatchExecute)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1191,7 +1201,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnChooseFile)
-                        .addComponent(jButton11)))
+                        .addComponent(BatchExecute)))
                 .addGap(39, 39, 39))
         );
 
@@ -2019,13 +2029,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             int returnVal = chooser.showOpenDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String entrada = chooser.getSelectedFile().getPath();
-                BufferedReader bf = new BufferedReader(new FileReader(entrada));
-                System.out.println("Archivo .txt cargado correctamente");
-                String linea;
-                while((linea = bf.readLine()) != null)
-                System.out.println(linea);
-                //En vez de imprimir se debe llamar funciones segun lo que lea.
-                //Definir formato del archivo de batch.
+                BUFFERREADER = new BufferedReader(new FileReader(entrada));
+                System.out.println("Archivo .txt cargado correctamente");                
             }
         } catch (Exception e) {
             System.out.println("Error: no se pudo cargar el archivo");
@@ -2480,6 +2485,72 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         configTabs.setEnabledAt(4,true);
     }//GEN-LAST:event_ObjectsRestartActionPerformed
 
+    private void BatchExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatchExecuteActionPerformed
+        Sync_Receive receive;
+        Sync_Send send;
+        Addressing addressing = null;
+        Format_Content content = null;
+        Format_Length length;
+        int lengthNumber = -1;   //el numero en caso de ser fixed 
+        MailBox_Discipline discipline;        
+        String linea;
+        int lineCounter = 1;
+        ArrayList<String> config = new ArrayList<String>();
+        
+        try {
+            while((linea = BUFFERREADER.readLine()) != null){
+                //Las primeras 6 lineas del txt son de configuracion
+                if(lineCounter <= 6){
+                    config.add(linea);
+                    lineCounter++;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        send = (config.get(0).equals("Send:Blocking"))?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
+        receive = (config.get(1).equals("Receive:Blocking"))?Sync_Receive.BLOCKING:
+        ((config.get(1).equals("Receive:Non-blocking"))?Sync_Receive.NON_BLOCKING:Sync_Receive.TEST_FOR_ARRIVAL);
+        length = (config.get(4).equals("Lenght:Variable"))?Format_Length.VARIABLE:Format_Length.FIXED;
+        discipline = (config.get(5).equals("MailBox:FIFO"))?MailBox_Discipline.FIFO:MailBox_Discipline.PRIORITY; 
+        
+        String[] arrOfStr = null;
+        if(length.equals(Format_Length.FIXED)){
+            arrOfStr = config.get(4).split(":", 2); 
+            lengthNumber = Integer.parseInt(arrOfStr[1]);  
+        }     
+        
+        if (config.get(2).equals("Addressing:Explicit"))
+            addressing = Addressing.EXPLICIT;
+        if (config.get(2).equals("Addressing:Implicit"))
+            addressing = Addressing.IMPLICIT;
+        if (config.get(2).equals("Addressing:Static"))
+            addressing = Addressing.STATIC;
+        if (config.get(2).equals("Addressing:Dynamic"))
+            addressing = Addressing.DYNAMIC;
+        
+        if(config.get(3).equals("Format:TEXT"))
+            content = Format_Content.TEXT;
+        if(config.get(3).equals("Format:AUDIO"))
+            content = Format_Content.AUDIO;
+        if(config.get(3).equals("Format:IMAGE"))
+            content = Format_Content.IMAGE;
+        if(config.get(3).equals("Format:VIDEO"))
+            content = Format_Content.VIDEO;
+
+        JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
+
+        controlador.setConfiguration(receive, send, addressing, content, length, discipline);
+        checkPanelAddMailBoxVisibility();
+        //configTabs.setSelectedIndex(1);
+        //configTabs.setEnabledAt(0,false);
+        //configTabs.setEnabledAt(2,false);
+        //configTabs.setEnabledAt(3,false);
+        //configTabs.setEnabledAt(4,true);
+    }//GEN-LAST:event_BatchExecuteActionPerformed
+
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
         cboDestinationList.removeAllItems();
         cboSourceList.removeAllItems();        
@@ -2549,6 +2620,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BatchExecute;
     private javax.swing.JButton ObjectsRestart;
     private javax.swing.JButton ParamToBatch;
     private javax.swing.JButton RunRestart;
@@ -2580,7 +2652,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboSubscribeToMailBox;
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

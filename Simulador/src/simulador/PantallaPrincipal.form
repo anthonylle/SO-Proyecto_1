@@ -1606,7 +1606,7 @@
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="btnChooseFile" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                          <Component id="BatchExecute" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -1627,7 +1627,7 @@
                               <Component id="jSpinner1" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="btnChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BatchExecute" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -1656,10 +1656,13 @@
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner1">
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton11">
+                <Component class="javax.swing.JButton" name="BatchExecute">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Execute"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BatchExecuteActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
