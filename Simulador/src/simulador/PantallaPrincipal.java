@@ -2229,6 +2229,50 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         txfProcessID.requestFocus();
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
+    private void BatchAddProcessActionPerformed(String processName) {                                              
+        // TODO add your handling code here:
+        
+        if(!(processName == null)){            
+                DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+                Addressing addressing = controlador.getConfiguration().getAddressing();
+                ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+                MailBox selectedMailBox = null;
+
+                for(MailBox mail: mailboxes){
+                    if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
+                    selectedMailBox = mail;
+                }
+                
+                Proceso nuevoProceso  = new Proceso(processName);  
+                controlador.addProcess(nuevoProceso);
+
+                // Si el addressing es directo solo se necesita el PID y se agrega
+                if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
+                    modelo.addRow(new Object[]{processName,"None"});
+                }
+                else{
+                    if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+                        selectedMailBox.getSuscritos().add(nuevoProceso);
+                        modelo.addRow(new Object[]{processName,cboSubscribeToMailBox.getSelectedItem().toString()});
+                    }else{
+                        if(addressing.equals(Addressing.DYNAMIC)){
+                            selectedMailBox.getSuscritos().add(nuevoProceso);
+                            modelo.addRow(new Object[]{processName,cboSubscribeToMailBox.getSelectedItem().toString()});
+                        }else{
+                            JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
+                        }
+                        //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+                    }
+                }
+                txfProcessID.setText("");
+                tableProcess.setModel(modelo);
+            
+        }else{
+            JOptionPane.showMessageDialog(null,  "PID can't be empty", "Null PID Error", 0);
+        }
+        
+        txfProcessID.requestFocus();
+    }
     private void btnAddMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMailBoxActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel)tableMailBox.getModel();
@@ -2255,10 +2299,36 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAddMailBoxActionPerformed
 
+    private void BatchAddMailBoxActionPerformed(String mailBoxName, int mailBoxCapacity) {
+        DefaultTableModel modelo = (DefaultTableModel)tableMailBox.getModel();
+
+        if(!(mailBoxName == null)){
+            if(!existsMBID(mailBoxName)){
+                controlador.addMailBox(new MailBox(mailBoxName, mailBoxCapacity));
+
+                modelo.addRow(new Object[]{mailBoxName,mailBoxCapacity});
+
+                tableMailBox.setModel(modelo);
+
+                panelAddProcess.setVisible(true);
+                cboSubscribeToMailBox.insertItemAt(mailBoxName, cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
+                cboSubscribeToMailBox.setSelectedIndex(0); 
+            }else{
+                JOptionPane.showMessageDialog(null, "MBID already created", "Duplicated MBID Error", 0);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "MBID can't be empty", "Null MBID Error", 0);
+        }
+        txfMailBoxID.setText("");
+        txfMailBoxID.requestFocus();
+        
+    } 
+    
     private void txfMailBoxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfMailBoxIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfMailBoxIDActionPerformed
 
+    
     private void btnGenerateConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateConfigActionPerformed
         // TODO add your handling code here:
         Sync_Receive receive;
@@ -2504,11 +2574,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     config.add(linea);
                     lineCounter++;
                 }
+                else
+                    break;
             }
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
         
         send = (config.get(0).equals("Send:Blocking"))?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
         receive = (config.get(1).equals("Receive:Blocking"))?Sync_Receive.BLOCKING:
@@ -2543,7 +2614,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
 
         controlador.setConfiguration(receive, send, addressing, content, length, discipline);
-        checkPanelAddMailBoxVisibility();
+        config.clear();
+        try {
+            while((linea = BUFFERREADER.readLine()) != null){
+                //Las primeras 6 lineas del txt son de configuracion
+                System.out.println(linea);
+                if(lineCounter > 6){
+                    if(linea.contains("CreateProcess")){
+                        arrOfStr = linea.split(":",2);
+                        BatchAddProcessActionPerformed(arrOfStr[1]);
+                        System.out.println("Process created: " + arrOfStr[1]);
+                    }
+                    if(linea.contains("CreateMailBox")){
+                        arrOfStr = linea.split(":",3);
+                        BatchAddMailBoxActionPerformed(arrOfStr[1],Integer.parseInt(arrOfStr[2]));
+                        System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
+                    }
+                    lineCounter++;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        fillRunView();  //Revisar si es necesario para cuando es por BATCH.
+        //checkPanelAddMailBoxVisibility();
         //configTabs.setSelectedIndex(1);
         //configTabs.setEnabledAt(0,false);
         //configTabs.setEnabledAt(2,false);
