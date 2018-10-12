@@ -44,6 +44,14 @@ public class Controller {
         return instance;
     }
     
+    public void resetSystem(){
+        configs = null;
+        procesos.clear();
+        mailboxes.clear();
+        requests.clear();
+        messageIDCounter = 0;
+    }
+    
     public static Integer getMessageCounter(){
         messageIDCounter++;
         return messageIDCounter;

@@ -63,6 +63,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
         btngrpInteractiveSend = new javax.swing.ButtonGroup();
+        jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
@@ -151,6 +152,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jButton11 = new javax.swing.JButton();
         btnDisplay = new javax.swing.JButton();
+        btnSystemReset = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -222,7 +224,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea8 = new javax.swing.JTextArea();
 
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         configTabs.setMinimumSize(new java.awt.Dimension(82, 40));
@@ -1068,7 +1070,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnRunChooseFile)
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbtnTextMessage)
                     .addComponent(btnSendMessage))
@@ -1171,6 +1173,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnSystemReset.setText("Reset");
+        btnSystemReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSystemResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout startTab3Layout = new javax.swing.GroupLayout(startTab3);
         startTab3.setLayout(startTab3Layout);
         startTab3Layout.setHorizontalGroup(
@@ -1178,18 +1187,25 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startTab3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(startTab3Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(btnDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1426, 1426, 1426))
+                        .addComponent(btnDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(startTab3Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSystemReset)))
+                .addGap(1325, 1325, 1325))
         );
         startTab3Layout.setVerticalGroup(
             startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(startTab3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                    .addGroup(startTab3Layout.createSequentialGroup()
+                        .addComponent(btnSystemReset)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(startTab3Layout.createSequentialGroup()
@@ -2339,6 +2355,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         String value = (String) tblProcessID.getValueAt(selectedRow, 0); 
         DefaultTableModel actionsTable = (DefaultTableModel) tblActionsDisplay.getModel();        
         actionsTable.getDataVector().removeAllElements();
+        tblActionsDisplay.setVisible(false); // lol
+        tblActionsDisplay.setVisible(true);  // y lo peor es q funciona
         Proceso p = controlador.getProcess(value);
         for(MessageRecord record: p.recordHistory){
             actionsTable.addRow(new Object[]{record.getAction(),record.getMessage().getIdMensaje(),record.getTimeStamp()});
@@ -2414,6 +2432,29 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Blocking: If the receiving process asks for a message and it has not arrived, then the process is blocked waiting until it arrives." + "\n" + "\n" + "Non-Blocking: the receiving process is never blocked, even when the message it waits for has not arrived." + "\n" + "\n" + "Test for Arrival: Coming Soon.", "Synchronization-Receive", 1);
     }//GEN-LAST:event_btnSyncroReceiveActionPerformed
 
+    private void btnSystemResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemResetActionPerformed
+        // TODO add your handling code here:
+        configTabs.setSelectedIndex(0);
+        configTabs.setEnabledAt(1,false);
+        configTabs.setEnabledAt(2,false);
+        configTabs.setEnabledAt(3,false);
+        
+        controlador.resetSystem();
+        visualReset();
+    }//GEN-LAST:event_btnSystemResetActionPerformed
+
+    
+    void visualReset(){
+        DefaultTableModel tableProcessModel, tableMailBoxesModel, tableInteractiveProcessListModel;
+        tableProcessModel = (DefaultTableModel)tableProcess.getModel();
+        tableMailBoxesModel = (DefaultTableModel)tableMailBox.getModel();
+        tableInteractiveProcessListModel = (DefaultTableModel)tableInteractiveProcessList.getModel();
+        tableProcessModel.getDataVector().removeAllElements();
+        tableMailBoxesModel.getDataVector().removeAllElements();
+        tableInteractiveProcessListModel.getDataVector().removeAllElements();
+
+    }
+    
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
         cboDestinationList.removeAllItems();
         cboSourceList.removeAllItems();        
@@ -2499,6 +2540,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSendMessage;
     private javax.swing.JButton btnSyncroReceive;
     private javax.swing.JButton btnSyncroSend;
+    private javax.swing.JButton btnSystemReset;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpInteractiveSend;
@@ -2512,6 +2554,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
