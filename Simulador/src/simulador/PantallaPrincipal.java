@@ -63,6 +63,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
         btngrpInteractiveSend = new javax.swing.ButtonGroup();
+        jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
@@ -102,6 +103,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         rdbtnQueueingDisciplineFIFO = new javax.swing.JRadioButton();
         rdbtnQueueingDisciplinePriority = new javax.swing.JRadioButton();
         btnGenerateConfig = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        ParamToBatch = new javax.swing.JButton();
         variableTabPanel1 = new javax.swing.JPanel();
         panelAddMailBox = new javax.swing.JPanel();
         txfMailBoxID = new javax.swing.JTextField();
@@ -476,7 +479,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(rdbtnFormatLengthFixed))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFormatLengthLayout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(spinLenght, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
@@ -549,7 +552,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormatContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addComponent(panelFormatLength, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -607,6 +610,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        ParamToBatch.setText("Batch Format");
+        ParamToBatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ParamToBatchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout configTabPanel1Layout = new javax.swing.GroupLayout(configTabPanel1);
         configTabPanel1.setLayout(configTabPanel1Layout);
         configTabPanel1Layout.setHorizontalGroup(
@@ -624,21 +636,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(panelConfigAddressing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ParamToBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         configTabPanel1Layout.setVerticalGroup(
             configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(configTabPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                    .addComponent(panelConfigAddressing, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21)
-                .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerateConfig))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ParamToBatch)
+                    .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(configTabPanel1Layout.createSequentialGroup()
+                            .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(panelConfigSincronizacion2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                                .addComponent(panelConfigAddressing, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(21, 21, 21)
+                            .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGenerateConfig)))
+                        .addComponent(jSeparator1)))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         configTabs.addTab("Parameters", configTabPanel1);
@@ -882,7 +903,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(variableTabPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(variableTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                            .addComponent(panelAddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                             .addComponent(panelAddMailBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -954,7 +975,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 37, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(btnReceiveMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1089,7 +1110,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1189,7 +1210,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(startTab3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(startTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(startTab3Layout.createSequentialGroup()
@@ -2414,6 +2435,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Blocking: If the receiving process asks for a message and it has not arrived, then the process is blocked waiting until it arrives." + "\n" + "\n" + "Non-Blocking: the receiving process is never blocked, even when the message it waits for has not arrived." + "\n" + "\n" + "Test for Arrival: Coming Soon.", "Synchronization-Receive", 1);
     }//GEN-LAST:event_btnSyncroReceiveActionPerformed
 
+    private void ParamToBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParamToBatchActionPerformed
+        configTabs.setSelectedIndex(2);
+        configTabs.setEnabledAt(0,false);
+        configTabs.setEnabledAt(2,false);
+        configTabs.setEnabledAt(3,false);
+        configTabs.setEnabledAt(4,true);
+    }//GEN-LAST:event_ParamToBatchActionPerformed
+
     void fillSendNReceiveComboBox(Addressing addressing, String selectedPID){
         cboDestinationList.removeAllItems();
         cboSourceList.removeAllItems();        
@@ -2483,6 +2512,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ParamToBatch;
     private javax.swing.JButton btnAddMailBox;
     private javax.swing.JButton btnAddProcess;
     private javax.swing.JButton btnAdresIndirect;
@@ -2512,6 +2542,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2577,6 +2608,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane2;
