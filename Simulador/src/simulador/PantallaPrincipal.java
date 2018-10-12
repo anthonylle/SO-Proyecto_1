@@ -2145,6 +2145,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }                                                 
 
+    private void BatchReceiveMessageActionPerformed(String receiver, String sender) {
+        Proceso receive = controlador.getProcess(receiver);
+        if(receive.getBlocking()){
+            JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Receive error", 0);
+        }else{
+            controlador.receiveMessage(receive.getIdProceso(), sender);
+            refreshInteractiveTable();
+        }
+    }
+    
     private void tableInteractiveProcessListMouseClicked(java.awt.event.MouseEvent evt) {                                                         
         // TODO add your handling code here:
         btnSendMessage.setEnabled(true);
@@ -2662,6 +2672,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         arrOfStr = linea.split(":",4);
                         BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3]);
                         System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " : " + arrOfStr[3]);
+                    }
+                    if(linea.contains("Receive")){
+                        arrOfStr = linea.split(":",3);
+                        BatchReceiveMessageActionPerformed(arrOfStr[1],arrOfStr[2]);
+                        System.out.println("Message receive: " + arrOfStr[1] + " a " + arrOfStr[2]);
                     }
                     lineCounter++;
                 }
