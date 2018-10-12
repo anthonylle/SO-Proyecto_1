@@ -2229,7 +2229,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         txfProcessID.requestFocus();
     }//GEN-LAST:event_btnAddProcessActionPerformed
 
-    private void BatchAddProcessActionPerformed(String processName) {                                              
+    private void BatchAddProcessActionPerformed(String processName,String mailboxName) {                                              
         // TODO add your handling code here:
         
         if(!(processName == null)){            
@@ -2239,8 +2239,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 MailBox selectedMailBox = null;
 
                 for(MailBox mail: mailboxes){
-                    if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
-                    selectedMailBox = mail;
+                    if (mail.idMailBox.equals(mailboxName))
+                        selectedMailBox = mail;
                 }
                 
                 Proceso nuevoProceso  = new Proceso(processName);  
@@ -2253,11 +2253,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 else{
                     if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
                         selectedMailBox.getSuscritos().add(nuevoProceso);
-                        modelo.addRow(new Object[]{processName,cboSubscribeToMailBox.getSelectedItem().toString()});
+                        modelo.addRow(new Object[]{processName,mailboxName});
                     }else{
                         if(addressing.equals(Addressing.DYNAMIC)){
                             selectedMailBox.getSuscritos().add(nuevoProceso);
-                            modelo.addRow(new Object[]{processName,cboSubscribeToMailBox.getSelectedItem().toString()});
+                            modelo.addRow(new Object[]{processName,mailboxName});
                         }else{
                             JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
                         }
@@ -2617,12 +2617,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         config.clear();
         try {
             while((linea = BUFFERREADER.readLine()) != null){
-                //Las primeras 6 lineas del txt son de configuracion
-                System.out.println(linea);
+                //Las primeras 6 lineas del txt son de configuracio
                 if(lineCounter > 6){
                     if(linea.contains("CreateProcess")){
-                        arrOfStr = linea.split(":",2);
-                        BatchAddProcessActionPerformed(arrOfStr[1]);
+                        arrOfStr = linea.split(":",3);
+                        BatchAddProcessActionPerformed(arrOfStr[1],arrOfStr[2]);
                         System.out.println("Process created: " + arrOfStr[1]);
                     }
                     if(linea.contains("CreateMailBox")){
