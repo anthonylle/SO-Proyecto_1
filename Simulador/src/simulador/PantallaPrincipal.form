@@ -791,7 +791,7 @@
                       <Component id="panelAddProcess" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="panelAddMailBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="32025" max="32767" attributes="0"/>
+                      <EmptySpace pref="150" max="32767" attributes="0"/>
                       <Component id="btnGoToRun" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
@@ -986,39 +986,46 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="txfProcessID" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="btnAddProcess" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblSubscribeToMailBox" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="cboSubscribeToMailBox" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                                           <Component id="jLabel2" min="-2" pref="148" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-                                          <Component id="btnAddProcess" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnSubscribeProcess" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="btnUnsubscribe" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cboSubscribeToMailBox" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txfProcessID" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="lblSubscribeToMailBox" min="-2" pref="148" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1032,13 +1039,18 @@
                               <Component id="txfProcessID" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblSubscribeToMailBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cboSubscribeToMailBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnAddProcess" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <Component id="lblSubscribeToMailBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="cboSubscribeToMailBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnSubscribeProcess" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnUnsubscribe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="300" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1102,6 +1114,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableProcessMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1119,6 +1134,22 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Subscribe to MailBox"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnSubscribeProcess">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Subscribe"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubscribeProcessActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnUnsubscribe">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Unsubscribe"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUnsubscribeActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

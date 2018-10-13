@@ -122,6 +122,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         tableProcess = new javax.swing.JTable();
         cboSubscribeToMailBox = new javax.swing.JComboBox<>();
         lblSubscribeToMailBox = new javax.swing.JLabel();
+        btnSubscribeProcess = new javax.swing.JButton();
+        btnUnsubscribe = new javax.swing.JButton();
         btnGoToRun = new javax.swing.JButton();
         startTab3 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -801,6 +803,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableProcess.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProcessMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableProcess);
         if (tableProcess.getColumnModel().getColumnCount() > 0) {
             tableProcess.getColumnModel().getColumn(0).setResizable(false);
@@ -809,6 +816,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         lblSubscribeToMailBox.setText("Subscribe to MailBox");
 
+        btnSubscribeProcess.setText("Subscribe");
+        btnSubscribeProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubscribeProcessActionPerformed(evt);
+            }
+        });
+
+        btnUnsubscribe.setText("Unsubscribe");
+        btnUnsubscribe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnsubscribeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAddProcessLayout = new javax.swing.GroupLayout(panelAddProcess);
         panelAddProcess.setLayout(panelAddProcessLayout);
         panelAddProcessLayout.setHorizontalGroup(
@@ -816,29 +837,33 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelAddProcessLayout.createSequentialGroup()
                 .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAddProcessLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAddProcessLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txfProcessID))
+                            .addGroup(panelAddProcessLayout.createSequentialGroup()
+                                .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAddProcess)
+                                    .addComponent(lblSubscribeToMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cboSubscribeToMailBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelAddProcessLayout.createSequentialGroup()
                         .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAddProcessLayout.createSequentialGroup()
                                 .addGap(94, 94, 94)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAddProcessLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAddProcessLayout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(btnAddProcess)))
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addGroup(panelAddProcessLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboSubscribeToMailBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txfProcessID))))
+                            .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAddProcessLayout.createSequentialGroup()
+                                    .addComponent(btnSubscribeProcess)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUnsubscribe))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAddProcessLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddProcessLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblSubscribeToMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
         );
         panelAddProcessLayout.setVerticalGroup(
             panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -849,13 +874,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txfProcessID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblSubscribeToMailBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboSubscribeToMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnAddProcess)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(lblSubscribeToMailBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cboSubscribeToMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddProcessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubscribeProcess)
+                    .addComponent(btnUnsubscribe))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -876,7 +905,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(panelAddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelAddMailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32025, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(btnGoToRun, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -1924,11 +1953,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Addressing addressing = controlador.getConfiguration().getAddressing();
         if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
             panelAddMailBox.setVisible(false);
-            cboSubscribeToMailBox.setVisible(false);
-            lblSubscribeToMailBox.setVisible(false);
+            hideSubscribeToolSet();
         }
         else{
-            panelAddProcess.setVisible(false);
+            if(addressing.equals(Addressing.DYNAMIC)){
+                hideSubscribeToolSet();
+            }else{
+                panelAddProcess.setVisible(false);
+                hideSubscribeToolSet();
+            }
         }
     }
     
@@ -1952,6 +1985,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                        
 
+    void subscribeEveryoneForDynamic(){
+        for(MailBox mail: controlador.getMailBoxes()){
+            mail.getSuscritos().clear();
+            for(Proceso proceso: controlador.getProcesses()){
+                mail.getSuscritos().add(proceso);
+            }
+        }
+    }
+    
     private void btnViewMailBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMailBoxActionPerformed
         int selectedRow = tblMailBox.getSelectedRow();
         String value = (String) tblMailBox.getValueAt(selectedRow, 0);
@@ -2112,7 +2154,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         }else{ // Indirect Addressing
             if(controlador.getConfiguration().getAddressing().equals(Addressing.STATIC)){
-                return controlador.getMailBoxes().size() >=2;
+                return controlador.getMailBoxes().size() >1;
             }
             if(controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)){
                 // F - A - L - T - A
@@ -2128,21 +2170,26 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnGoToRunActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
         if(isOkToStart()){
-        
-        configTabs.setSelectedIndex(2);
-        configTabs.setEnabledAt(0,false);
-        configTabs.setEnabledAt(1,false);
-        configTabs.setEnabledAt(2,true);
-        configTabs.setEnabledAt(3,false);
-        configTabs.setEnabledAt(4,true);
-        checkUploadFileVisibility();
-        fillRunView();
-        checkDisciplinePriority();
-        checkImplicitAddressingView();
+            configTabs.setSelectedIndex(2);
+            configTabs.setEnabledAt(0,false);
+            configTabs.setEnabledAt(1,false);
+            configTabs.setEnabledAt(2,true);
+            configTabs.setEnabledAt(3,false);
+            configTabs.setEnabledAt(4,true);
+            checkUploadFileVisibility();
+            fillRunView();
+            checkDisciplinePriority();
+            checkImplicitAddressingView();
+            checkDynamicSubscriptions();
         }else{
             
         }
     }                                          
+
+    void checkDynamicSubscriptions(){
+        if(controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC))
+            subscribeEveryoneForDynamic();
+    }
 
     private boolean existsMBID(String MBID){
         for(MailBox mail: controlador.getMailBoxes()){
@@ -2165,42 +2212,34 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(!txfProcessID.getText().isEmpty()){
-            
-                DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
-                Addressing addressing = controlador.getConfiguration().getAddressing();
-                ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
-                MailBox selectedMailBox = null;
 
-                for(MailBox mail: mailboxes){
-                    if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
-                    selectedMailBox = mail;
-                }
-                
-                Proceso nuevoProceso  = new Proceso(txfProcessID.getText());
-                
-                
-                controlador.addProcess(nuevoProceso);
+            DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+            Addressing addressing = controlador.getConfiguration().getAddressing();
+            Proceso nuevoProceso  = new Proceso(txfProcessID.getText());
 
-                // Si el addressing es directo solo se necesita el PID y se agrega
-                if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
-                    modelo.addRow(new Object[]{txfProcessID.getText(),"None"});
-                }
-                else{
-                    if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
-                        selectedMailBox.getSuscritos().add(nuevoProceso);
-                        modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
-                    }else{
-                        if(addressing.equals(Addressing.DYNAMIC)){
-                            selectedMailBox.getSuscritos().add(nuevoProceso);
-                            modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
-                        }else{
-                            JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
-                        }
-                        //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
-                    }
-                }
-                txfProcessID.setText("");
-                tableProcess.setModel(modelo);
+             controlador.addProcess(nuevoProceso);
+
+             // Si el addressing es directo solo se necesita el PID y se agrega
+             //if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
+             String subscribedTo = (addressing.equals(Addressing.DYNAMIC))?"All":"None";
+                 modelo.addRow(new Object[]{txfProcessID.getText(),subscribedTo});
+             /*}
+             else{ // <>
+                 if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+                     selectedMailBox.getSuscritos().add(nuevoProceso);
+                     modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                 }else{
+                     if(addressing.equals(Addressing.DYNAMIC)){
+                         selectedMailBox.getSuscritos().add(nuevoProceso);
+                         modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+                     }else{
+                         JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
+                     }
+                     //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+                 }
+             } *///</>
+             txfProcessID.setText("");
+             tableProcess.setModel(modelo);
             
         }else{
             JOptionPane.showMessageDialog(null,  "PID can't be empty", "Null PID Error", 0);
@@ -2311,7 +2350,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     void fillRunView(){
        DefaultTableModel modelo = (DefaultTableModel) tableInteractiveProcessList.getModel();
        for(Proceso proceso: controlador.getProcesses()){
-           modelo.addRow(new Object[]{proceso.getIdProceso(), false, false});
+           modelo.addRow(new Object[]{proceso.getIdProceso(), proceso.getBusy(), proceso.getBlocking()});
        }
     }
     
@@ -2319,7 +2358,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DefaultTableModel processTable = (DefaultTableModel) tblProcessID.getModel();
         processTable.getDataVector().removeAllElements();        
         for(Proceso proceso: controlador.getProcesses()){
-            processTable.addRow(new Object[]{proceso.getIdProceso(), false, false});
+            processTable.addRow(new Object[]{proceso.getIdProceso(), proceso.getBusy(), proceso.getBlocking()});
         } 
         DefaultTableModel mailBoxtable = (DefaultTableModel) tblMailBox.getModel();       
         mailBoxtable.getDataVector().removeAllElements();        
@@ -2454,6 +2493,54 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         visualReset();
     }//GEN-LAST:event_btnSystemResetActionPerformed
 
+    private void tableProcessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProcessMouseClicked
+        // TODO add your handling code here:
+        showSubscribeToolSet();
+        
+    }//GEN-LAST:event_tableProcessMouseClicked
+
+    private void btnSubscribeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubscribeProcessActionPerformed
+        // TODO add your handling code here:
+        Addressing addressing = controlador.getConfiguration().getAddressing();
+        DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+        ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+        Proceso process = controlador.getProcess(tableProcess.getValueAt(tableProcess.getSelectedRow(), 0).toString());
+        MailBox selectedMailBox = null;
+        for(MailBox mail: mailboxes){
+            if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
+            selectedMailBox = mail;
+        }
+        if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+            selectedMailBox.getSuscritos().add(process);
+            modelo.setValueAt(selectedMailBox.getIdMailBox(), tableProcess.getSelectedRow(), 1);
+            //modelo.addRow(new Object[]{txfProcessID.getText(),cboSubscribeToMailBox.getSelectedItem().toString()});
+        }else{
+            JOptionPane.showMessageDialog(null, "A Process is already subcribed to this MailBox", "Subscription Error", 0);
+        }
+        tableProcess.setModel(modelo);
+        
+    }//GEN-LAST:event_btnSubscribeProcessActionPerformed
+
+    private void btnUnsubscribeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnsubscribeActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnUnsubscribeActionPerformed
+
+    void showSubscribeToolSet(){
+        if(controlador.getConfiguration().getAddressing().equals(Addressing.STATIC)){
+            cboSubscribeToMailBox.setVisible(true);
+            lblSubscribeToMailBox.setVisible(true);
+            btnSubscribeProcess.setVisible(true);
+            btnUnsubscribe.setVisible(true);
+        }
+    }
+    
+    void hideSubscribeToolSet(){
+        cboSubscribeToMailBox.setVisible(false);
+        lblSubscribeToMailBox.setVisible(false);
+        btnSubscribeProcess.setVisible(false);
+        btnUnsubscribe.setVisible(false);
+    }
     
     void visualReset(){
         DefaultTableModel tableProcessModel, tableMailBoxesModel, tableInteractiveProcessListModel;
@@ -2549,9 +2636,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnReceiveMessage;
     private javax.swing.JButton btnRunChooseFile;
     private javax.swing.JButton btnSendMessage;
+    private javax.swing.JButton btnSubscribeProcess;
     private javax.swing.JButton btnSyncroReceive;
     private javax.swing.JButton btnSyncroSend;
     private javax.swing.JButton btnSystemReset;
+    private javax.swing.JButton btnUnsubscribe;
     private javax.swing.ButtonGroup btngrpAddressing;
     private javax.swing.ButtonGroup btngrpFormatLength;
     private javax.swing.ButtonGroup btngrpInteractiveSend;
