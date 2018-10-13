@@ -111,7 +111,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="panelConfigSincronizacion2" alignment="0" pref="306" max="32767" attributes="0"/>
+                          <Component id="panelConfigSincronizacion2" alignment="0" pref="321" max="32767" attributes="0"/>
                           <Component id="panelConfigAddressing" alignment="0" max="32767" attributes="0"/>
                           <Component id="panelConfigSincronizacion" max="32767" attributes="0"/>
                       </Group>
@@ -514,7 +514,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelFormatContent" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="panelFormatLength" pref="149" max="32767" attributes="0"/>
+                          <Component id="panelFormatLength" pref="164" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -554,7 +554,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="32" max="32767" attributes="0"/>
+                              <EmptySpace pref="33" max="32767" attributes="0"/>
                               <Component id="spinLenght" min="-2" pref="95" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -823,7 +823,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelAddProcess" pref="557" max="32767" attributes="0"/>
+                                  <Component id="panelAddProcess" pref="555" max="32767" attributes="0"/>
                                   <Component id="panelAddMailBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1214,7 +1214,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel3" pref="447" max="32767" attributes="0"/>
+                          <Component id="jPanel3" pref="445" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnSystemReset" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1260,7 +1260,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="162" max="32767" attributes="0"/>
+                                  <EmptySpace pref="176" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1363,7 +1363,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="btnReceiveMessage" min="-2" pref="83" max="-2" attributes="0"/>
@@ -1627,7 +1627,7 @@
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="btnChooseFile" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnExecuteBatch" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -1648,7 +1648,7 @@
                               <Component id="jSpinner1" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="btnChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnExecuteBatch" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -1677,10 +1677,13 @@
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner1">
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton11">
+                <Component class="javax.swing.JButton" name="btnExecuteBatch">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Execute"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecuteBatchActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
