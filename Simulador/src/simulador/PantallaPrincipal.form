@@ -1620,7 +1620,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                                  <Component id="jSpinner1" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Component id="spinBatchLines" min="-2" pref="63" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1645,7 +1645,7 @@
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jSpinner1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinBatchLines" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="btnChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnExecuteBatch" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1675,7 +1675,7 @@
                     <Property name="text" type="java.lang.String" value="No.  of commands  to be executed"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner1">
+                <Component class="javax.swing.JSpinner" name="spinBatchLines">
                 </Component>
                 <Component class="javax.swing.JButton" name="btnExecuteBatch">
                   <Properties>

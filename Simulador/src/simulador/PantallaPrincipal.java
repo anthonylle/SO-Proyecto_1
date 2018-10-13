@@ -67,7 +67,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
         btngrpInteractiveSend = new javax.swing.ButtonGroup();
-        jButton6 = new javax.swing.JButton();
+        //jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
@@ -156,7 +156,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btnChooseFile = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinBatchLines = new javax.swing.JSpinner();
         btnExecuteBatch = new javax.swing.JButton();
         btnDisplay = new javax.swing.JButton();
         btnSystemReset = new javax.swing.JButton();
@@ -1193,7 +1193,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spinBatchLines, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel13))
                 .addGap(78, 78, 78)
                 .addComponent(btnChooseFile)
@@ -1213,7 +1213,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinBatchLines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnChooseFile)
                         .addComponent(btnExecuteBatch)))
@@ -2748,117 +2748,119 @@ private void BatchAddMailBoxActionPerformed(String mailBoxName, int mailBoxCapac
 
 private void btnExecuteBatchActionPerformed(java.awt.event.ActionEvent evt) {                                             
     Sync_Receive receive;
-    Sync_Send send;
-    Addressing addressing = null;
-    Format_Content content = null;
-    Format_Length length;
-    int lengthNumber = -1;   //el numero en caso de ser fixed
-    MailBox_Discipline discipline;
-    String linea;
-    int lineCounter = 1;
-    ArrayList<String> config = new ArrayList<String>();
-
-    try {
-        while((linea = BUFFERREADER.readLine()) != null){
-            //Las primeras 6 lineas del txt son de configuracion
-            if(lineCounter <= 6){
-                config.add(linea);
-                lineCounter++;
+        Sync_Send send;
+        Addressing addressing = null;
+        Format_Content content = null;
+        Format_Length length;
+        int lengthNumber = -1;   //el numero en caso de ser fixed 
+        MailBox_Discipline discipline;        
+        String linea;
+        int lineCounter = 1;
+        ArrayList<String> config = new ArrayList<String>();
+        
+        try {
+            while((linea = BUFFERREADER.readLine()) != null){
+                //Las primeras 6 lineas del txt son de configuracion
+                if(lineCounter <= 6){
+                    config.add(linea);
+                    lineCounter++;
+                }
+                else
+                    break;
             }
-            else
-            break;
-        }
-    } catch (IOException ex) {
-        Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
+        send = (config.get(0).equals("Send:Blocking"))?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
+        receive = (config.get(1).equals("Receive:Blocking"))?Sync_Receive.BLOCKING:
+        ((config.get(1).equals("Receive:Non-blocking"))?Sync_Receive.NON_BLOCKING:Sync_Receive.TEST_FOR_ARRIVAL);
+        length = (config.get(4).equals("Lenght:Variable"))?Format_Length.VARIABLE:Format_Length.FIXED;
+        discipline = (config.get(5).equals("MailBox:FIFO"))?MailBox_Discipline.FIFO:MailBox_Discipline.PRIORITY; 
+        
+        String[] arrOfStr = null;
+        if(length.equals(Format_Length.FIXED)){
+            arrOfStr = config.get(4).split(":", 2); 
+            lengthNumber = Integer.parseInt(arrOfStr[1]);  
+        }     
+        
+        if (config.get(2).equals("Addressing:Explicit"))
+            addressing = Addressing.EXPLICIT;
+        if (config.get(2).equals("Addressing:Implicit"))
+            addressing = Addressing.IMPLICIT;
+        if (config.get(2).equals("Addressing:Static"))
+            addressing = Addressing.STATIC;
+        if (config.get(2).equals("Addressing:Dynamic"))
+            addressing = Addressing.DYNAMIC;
+        
+        if(config.get(3).equals("Format:TEXT"))
+            content = Format_Content.TEXT;
+        if(config.get(3).equals("Format:AUDIO"))
+            content = Format_Content.AUDIO;
+        if(config.get(3).equals("Format:IMAGE"))
+            content = Format_Content.IMAGE;
+        if(config.get(3).equals("Format:VIDEO"))
+            content = Format_Content.VIDEO;
 
-    send = (config.get(0).equals("Send:Blocking"))?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
-    receive = (config.get(1).equals("Receive:Blocking"))?Sync_Receive.BLOCKING:
-    ((config.get(1).equals("Receive:Non-blocking"))?Sync_Receive.NON_BLOCKING:Sync_Receive.TEST_FOR_ARRIVAL);
-    length = (config.get(4).equals("Lenght:Variable"))?Format_Length.VARIABLE:Format_Length.FIXED;
-    discipline = (config.get(5).equals("MailBox:FIFO"))?MailBox_Discipline.FIFO:MailBox_Discipline.PRIORITY;
+        JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
 
-    String[] arrOfStr = null;
-    if(length.equals(Format_Length.FIXED)){
-        arrOfStr = config.get(4).split(":", 2);
-        lengthNumber = Integer.parseInt(arrOfStr[1]);
-    }
-
-    if (config.get(2).equals("Addressing:Explicit"))
-    addressing = Addressing.EXPLICIT;
-    if (config.get(2).equals("Addressing:Implicit"))
-    addressing = Addressing.IMPLICIT;
-    if (config.get(2).equals("Addressing:Static"))
-    addressing = Addressing.STATIC;
-    if (config.get(2).equals("Addressing:Dynamic"))
-    addressing = Addressing.DYNAMIC;
-
-    if(config.get(3).equals("Format:TEXT"))
-    content = Format_Content.TEXT;
-    if(config.get(3).equals("Format:AUDIO"))
-    content = Format_Content.AUDIO;
-    if(config.get(3).equals("Format:IMAGE"))
-    content = Format_Content.IMAGE;
-    if(config.get(3).equals("Format:VIDEO"))
-    content = Format_Content.VIDEO;
-
-    JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
-
-    controlador.setConfiguration(receive, send, addressing, content, length, discipline);
-
-    //Aca ya esta la configuracion cargada e inicia creacion de procesos y envio de mensajes
-    config.clear();
-    try {
-        while((linea = BUFFERREADER.readLine()) != null){
-            //Las primeras 6 lineas del txt son de configuracio
-            if(lineCounter > 6){
-                if(linea.contains("CreateProcess")){
-                    arrOfStr = linea.split(":",3);
-                    BatchAddProcessActionPerformed(arrOfStr[1],arrOfStr[2]);
-                    System.out.println("Process created: " + arrOfStr[1]);
+        controlador.setConfiguration(receive, send, addressing, content, length, discipline);
+        
+        //Aca ya esta la configuracion cargada e inicia creacion de procesos y envio de mensajes
+        config.clear();
+        int executed = 1;
+        try {
+            while(((linea = BUFFERREADER.readLine()) != null) && executed <= Integer.parseInt(spinBatchLines.getValue().toString())){
+                //Las primeras 6 lineas del txt son de configuracio
+                if(lineCounter > 6){
+                    if(linea.contains("CreateProcess")){
+                        arrOfStr = linea.split(":",3);
+                        BatchAddProcessActionPerformed(arrOfStr[1],arrOfStr[2]);
+                        System.out.println("Process created: " + arrOfStr[1]);
+                    }
+                    if(linea.contains("CreateMailBox")){
+                        arrOfStr = linea.split(":",3);
+                        BatchAddMailBoxActionPerformed(arrOfStr[1],Integer.parseInt(arrOfStr[2]));
+                        System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
+                    }
+                    if(linea.contains("Send")){
+                        arrOfStr = linea.split(":",5);
+                        BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3],Integer.parseInt(arrOfStr[4]),lengthNumber);
+                        System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " Msj: " + arrOfStr[3] + "Prioridad: " + arrOfStr[4]);
+                    }
+                    if(linea.contains("Receive")){
+                        arrOfStr = linea.split(":",3);
+                        BatchReceiveMessageActionPerformed(arrOfStr[1],arrOfStr[2]);
+                        System.out.println("Message receive: " + arrOfStr[1] + " a " + arrOfStr[2]);
+                    }
+                    lineCounter++;
+                    executed++;
                 }
-                if(linea.contains("CreateMailBox")){
-                    arrOfStr = linea.split(":",3);
-                    BatchAddMailBoxActionPerformed(arrOfStr[1],Integer.parseInt(arrOfStr[2]));
-                    System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
-                }
-                if(linea.contains("Send")){
-                    arrOfStr = linea.split(":",5);
-                    BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3],Integer.parseInt(arrOfStr[4]),lengthNumber);
-                    System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " Msj: " + arrOfStr[3] + "Prioridad: " + arrOfStr[4]);
-                }
-                if(linea.contains("Receive")){
-                    arrOfStr = linea.split(":",3);
-                    BatchReceiveMessageActionPerformed(arrOfStr[1],arrOfStr[2]);
-                    System.out.println("Message receive: " + arrOfStr[1] + " a " + arrOfStr[2]);
-                }
-                lineCounter++;
             }
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (IOException ex) {
-        Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    //Revisar si es necesario mostrar todo lo de interactivo para cuando es por BATCH.
-    if(isOkToStart()){
-        //            configTabs.setSelectedIndex(2);
-        //            configTabs.setEnabledAt(0,false);
-        //            configTabs.setEnabledAt(1,false);
-        //            configTabs.setEnabledAt(2,true);
-        //            configTabs.setEnabledAt(3,false);
-        //            configTabs.setEnabledAt(4,true);
-        checkUploadFileVisibility();
-        fillRunView();
-        checkDisciplinePriority();
-        checkImplicitAddressingView();
-    }
-
-    //checkPanelAddMailBoxVisibility();
-    //configTabs.setSelectedIndex(1);
-    //configTabs.setEnabledAt(0,false);
-    //configTabs.setEnabledAt(2,false);
-    //configTabs.setEnabledAt(3,false);
-    //configTabs.setEnabledAt(4,true);
+        
+        //Revisar si es necesario mostrar todo lo de interactivo para cuando es por BATCH.
+        if(isOkToStart()){
+//            configTabs.setSelectedIndex(2);
+//            configTabs.setEnabledAt(0,false);
+//            configTabs.setEnabledAt(1,false);
+//            configTabs.setEnabledAt(2,true);
+//            configTabs.setEnabledAt(3,false);
+//            configTabs.setEnabledAt(4,true);
+            checkUploadFileVisibility();
+            fillRunView();
+            checkDisciplinePriority();
+            checkImplicitAddressingView();
+        }
+        
+        //checkPanelAddMailBoxVisibility();
+        //configTabs.setSelectedIndex(1);
+        //configTabs.setEnabledAt(0,false);
+        //configTabs.setEnabledAt(2,false);
+        //configTabs.setEnabledAt(3,false);
+        //configTabs.setEnabledAt(4,true);
 }     
 
     
@@ -2933,7 +2935,6 @@ private void btnExecuteBatchActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JComboBox<String> cboSubscribeToMailBox;
     private javax.swing.JPanel configTabPanel1;
     private javax.swing.JTabbedPane configTabs;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2999,7 +3000,6 @@ private void btnExecuteBatchActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -3053,6 +3053,7 @@ private void btnExecuteBatchActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JRadioButton rdbtnSincronizacionSendNonBlocking;
     private javax.swing.JRadioButton rdbtnTextMessage;
     private javax.swing.JRadioButton rdbtnUploadFile;
+    private javax.swing.JSpinner spinBatchLines;
     private javax.swing.JSpinner spinLenght;
     private javax.swing.JSpinner spinMaxNoMessages;
     private javax.swing.JPanel startTab3;
