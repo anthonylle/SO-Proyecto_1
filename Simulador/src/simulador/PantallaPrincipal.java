@@ -807,6 +807,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableProcessMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tableProcessMouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(tableProcess);
         if (tableProcess.getColumnModel().getColumnCount() > 0) {
@@ -2495,8 +2498,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void tableProcessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProcessMouseClicked
         // TODO add your handling code here:
+        hideSubscribeToolSet();
         showSubscribeToolSet();
-        
     }//GEN-LAST:event_tableProcessMouseClicked
 
     private void btnSubscribeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubscribeProcessActionPerformed
@@ -2518,20 +2521,40 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A Process is already subcribed to this MailBox", "Subscription Error", 0);
         }
         tableProcess.setModel(modelo);
+        hideSubscribeToolSet();
         
     }//GEN-LAST:event_btnSubscribeProcessActionPerformed
 
     private void btnUnsubscribeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnsubscribeActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+        ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+        MailBox selectedMailBox = null;
+        for(MailBox mail: mailboxes){
+            if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
+            selectedMailBox = mail;
+        }
+        selectedMailBox.getSuscritos().clear();
+        modelo.setValueAt("None", tableProcess.getSelectedRow(), 1);
+        tableProcess.setModel(modelo);
+        btnUnsubscribe.setVisible(false);
         
     }//GEN-LAST:event_btnUnsubscribeActionPerformed
 
+    private void tableProcessMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProcessMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableProcessMouseEntered
+
     void showSubscribeToolSet(){
         if(controlador.getConfiguration().getAddressing().equals(Addressing.STATIC)){
-            cboSubscribeToMailBox.setVisible(true);
-            lblSubscribeToMailBox.setVisible(true);
-            btnSubscribeProcess.setVisible(true);
-            btnUnsubscribe.setVisible(true);
+            boolean selectedProcessIsSubscribed = (tableProcess.getValueAt(tableProcess.getSelectedRow(), 1).toString().equals("None"))?false:true;
+            if(selectedProcessIsSubscribed){
+                btnUnsubscribe.setVisible(true);
+            }else{
+                cboSubscribeToMailBox.setVisible(true);
+                lblSubscribeToMailBox.setVisible(true);
+                btnSubscribeProcess.setVisible(true);
+            }
         }
     }
     
