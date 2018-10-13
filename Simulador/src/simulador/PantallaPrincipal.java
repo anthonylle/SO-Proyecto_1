@@ -156,7 +156,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btnChooseFile = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinBatchLines = new javax.swing.JSpinner();
         BatchExecute = new javax.swing.JButton();
         btnDisplay = new javax.swing.JButton();
         RunRestart = new javax.swing.JButton();
@@ -1178,7 +1178,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spinBatchLines, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel13))
                 .addGap(78, 78, 78)
                 .addComponent(btnChooseFile)
@@ -1198,7 +1198,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinBatchLines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnChooseFile)
                         .addComponent(BatchExecute)))
@@ -2078,22 +2078,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             if((controlador.getConfiguration().getAddressing().equals(Addressing.STATIC) || controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)) && controlador.remainingMessages(controlador.getMailBox(receiver)) == 0){
                 JOptionPane.showMessageDialog(null, "MailBox out of space to allocate message", "MailBox error", 0);
             }else{
-                long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
-                if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
-                    largo = lenghtNumber;
+//                long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+//                if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+//                    largo = lenghtNumber;
 
                 if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
-                    System.out.println(message +"-" +message.length());
-                    if(message.length() <= largo){
-                        while(message.length() <= largo)
+                    if(message.length() <= lenghtNumber || lenghtNumber == -1){
+                        while(message.length() <= lenghtNumber)
                             message = message + "*";
-                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, priority, message, send.getIdProceso(), receiver));                        
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, lenghtNumber, priority, message, send.getIdProceso(), receiver));                        
                     }
                     else
                         JOptionPane.showMessageDialog(null, "The writen message exceeds the limit selected", "Message Error", 0);
                 }else{
-                    if(FILEPATH.length() <= largo){
-                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, priority,FILEPATH, send.getIdProceso(), receiver));
+                    if(FILEPATH.length() <= lenghtNumber || lenghtNumber == -1){
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, lenghtNumber, priority,FILEPATH, send.getIdProceso(), receiver));
                     }
                     else
                         JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "Message Error", 0);
@@ -2667,8 +2666,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         //Aca ya esta la configuracion cargada e inicia creacion de procesos y envio de mensajes
         config.clear();
+        int executed = 0;
         try {
-            while((linea = BUFFERREADER.readLine()) != null){
+            while(((linea = BUFFERREADER.readLine()) != null) && executed <= Integer.parseInt(spinBatchLines.getValue().toString())){
                 //Las primeras 6 lineas del txt son de configuracio
                 if(lineCounter > 6){
                     if(linea.contains("CreateProcess")){
@@ -2692,6 +2692,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         System.out.println("Message receive: " + arrOfStr[1] + " a " + arrOfStr[2]);
                     }
                     lineCounter++;
+                    executed++;
                 }
             }
         } catch (IOException ex) {
@@ -2888,7 +2889,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -2942,6 +2942,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbtnSincronizacionSendNonBlocking;
     private javax.swing.JRadioButton rdbtnTextMessage;
     private javax.swing.JRadioButton rdbtnUploadFile;
+    private javax.swing.JSpinner spinBatchLines;
     private javax.swing.JSpinner spinLenght;
     private javax.swing.JSpinner spinMaxNoMessages;
     private javax.swing.JPanel startTab3;

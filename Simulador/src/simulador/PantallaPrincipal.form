@@ -1654,7 +1654,7 @@
                     <Property name="text" type="java.lang.String" value="No.  of commands  to be executed"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner1">
+                <Component class="javax.swing.JSpinner" name="spinBatchLines">
                 </Component>
                 <Component class="javax.swing.JButton" name="BatchExecute">
                   <Properties>
