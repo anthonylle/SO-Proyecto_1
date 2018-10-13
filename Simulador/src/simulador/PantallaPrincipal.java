@@ -1955,17 +1955,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public void checkPanelAddMailBoxVisibility(){
         Addressing addressing = controlador.getConfiguration().getAddressing();
         if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
-            panelAddMailBox.setVisible(false);
-            hideSubscribeToolSet();
+            panelAddMailBox.setVisible(false);  
         }
-        else{
-            if(addressing.equals(Addressing.DYNAMIC)){
-                hideSubscribeToolSet();
-            }else{
-                panelAddProcess.setVisible(false);
-                hideSubscribeToolSet();
-            }
-        }
+        hideSubscribeToolSet();
     }
     
     public void checkUploadFileVisibility(){
@@ -2030,7 +2022,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {                                           
         configTabs.setSelectedIndex(3);
         configTabs.setEnabledAt(0,false);
-        configTabs.setEnabledAt(1,false);
+        configTabs.setEnabledAt(1,true);
         configTabs.setEnabledAt(2,true);
         configTabs.setEnabledAt(3,false);
         configTabs.setEnabledAt(4,true);
@@ -2063,25 +2055,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if(p.getBlocking()){
             JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Send error", 0);
         }else{
-            if((controlador.getConfiguration().getAddressing().equals(Addressing.STATIC) || controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)) && controlador.remainingMessages(controlador.getMailBox(cboDestinationList.getSelectedItem().toString())) == 0){
-                JOptionPane.showMessageDialog(null, "MailBox out of space to allocate message", "MailBox error", 0);
+            if(p.getBusy()){
+                JOptionPane.showMessageDialog(null, "Can't use a busy process", "Send error", 0);
             }else{
-                long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
-                if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
-                largo = Integer.parseInt(spinLenght.getValue().toString());
-
-                if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
-                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                if((controlador.getConfiguration().getAddressing().equals(Addressing.STATIC) || controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)) && controlador.remainingMessages(controlador.getMailBox(cboDestinationList.getSelectedItem().toString())) == 0){
+                    JOptionPane.showMessageDialog(null, "MailBox out of space to allocate message", "MailBox error", 0);
                 }else{
-                    if(FILEPATH.length() <= largo){
-                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                    long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+                    if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+                    largo = Integer.parseInt(spinLenght.getValue().toString());
+
+                    if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                    }else{
+                        if(FILEPATH.length() <= largo){
+                            controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                        }
+                        else
+                        JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
                     }
-                    else
-                    JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
+                    refreshInteractiveTable();
                 }
-                refreshInteractiveTable();
             }
         }
+            
     }                                              
 
     private void rdbtnUploadFileActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -2175,7 +2172,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if(isOkToStart()){
             configTabs.setSelectedIndex(2);
             configTabs.setEnabledAt(0,false);
-            configTabs.setEnabledAt(1,false);
+            configTabs.setEnabledAt(1,true);
             configTabs.setEnabledAt(2,true);
             configTabs.setEnabledAt(3,false);
             configTabs.setEnabledAt(4,true);
@@ -2352,6 +2349,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     
     void fillRunView(){
        DefaultTableModel modelo = (DefaultTableModel) tableInteractiveProcessList.getModel();
+       modelo.getDataVector().removeAllElements();
        for(Proceso proceso: controlador.getProcesses()){
            modelo.addRow(new Object[]{proceso.getIdProceso(), proceso.getBusy(), proceso.getBlocking()});
        }
@@ -2528,12 +2526,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnUnsubscribeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnsubscribeActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
-        ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
-        MailBox selectedMailBox = null;
-        for(MailBox mail: mailboxes){
-            if (mail.idMailBox.equals(cboSubscribeToMailBox.getSelectedItem().toString()))
-            selectedMailBox = mail;
-        }
+        //ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+        MailBox selectedMailBox = controlador.getMailBox(tableProcess.getValueAt(tableProcess.getSelectedRow(), 1).toString());
         selectedMailBox.getSuscritos().clear();
         modelo.setValueAt("None", tableProcess.getSelectedRow(), 1);
         tableProcess.setModel(modelo);
@@ -2551,9 +2545,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             if(selectedProcessIsSubscribed){
                 btnUnsubscribe.setVisible(true);
             }else{
-                cboSubscribeToMailBox.setVisible(true);
-                lblSubscribeToMailBox.setVisible(true);
-                btnSubscribeProcess.setVisible(true);
+                if(controlador.getMailBoxes().size() > 0){
+                    cboSubscribeToMailBox.setVisible(true);
+                    lblSubscribeToMailBox.setVisible(true);
+                    btnSubscribeProcess.setVisible(true);
+                }
             }
         }
     }
