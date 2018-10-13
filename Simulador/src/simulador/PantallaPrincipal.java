@@ -2050,7 +2050,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 largo = Integer.parseInt(spinLenght.getValue().toString());
 
                 if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
-                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), taMessage.getText(), p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                    if(taMessage.getText().length() <= largo){
+                        String mensajeRelleno = taMessage.getText();
+                        while(mensajeRelleno.length() <= largo)
+                            mensajeRelleno = mensajeRelleno + "*";
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), mensajeRelleno, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "The writen message exceeds the limit selected", "Message Error", 0);
                 }else{
                     if(FILEPATH.length() <= largo){
                         controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, p.getIdProceso(), cboDestinationList.getSelectedItem().toString()));
@@ -2063,9 +2070,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }                                              
 
-    private void BatchSendMessageActionPerformed(String sender, String receiver, String message) {                                               
+    private void BatchSendMessageActionPerformed(String sender, String receiver, String message, int priority, int lenghtNumber) {                                               
         Proceso send = controlador.getProcess(sender);
-        Proceso receive = controlador.getProcess(receiver);
         if(send.getBlocking()){
             JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Send error", 0);
         }else{
@@ -2074,16 +2080,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }else{
                 long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
                 if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
-                largo = Integer.parseInt(spinLenght.getValue().toString());
+                    largo = lenghtNumber;
 
                 if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
-                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()), message, send.getIdProceso(), receiver));
-                }else{
-                    if(FILEPATH.length() <= largo){
-                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, Integer.parseInt(jSpinner2.getValue().toString()),FILEPATH, send.getIdProceso(), receiver));
+                    System.out.println(message +"-" +message.length());
+                    if(message.length() <= largo){
+                        while(message.length() <= largo)
+                            message = message + "*";
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, priority, message, send.getIdProceso(), receiver));                        
                     }
                     else
-                    JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "File Error", 0);
+                        JOptionPane.showMessageDialog(null, "The writen message exceeds the limit selected", "Message Error", 0);
+                }else{
+                    if(FILEPATH.length() <= largo){
+                        controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, largo, priority,FILEPATH, send.getIdProceso(), receiver));
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "Message Error", 0);
                 }
                 refreshInteractiveTable();
             }
@@ -2669,9 +2682,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
                     }
                     if(linea.contains("Send")){
-                        arrOfStr = linea.split(":",4);
-                        BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3]);
-                        System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " : " + arrOfStr[3]);
+                        arrOfStr = linea.split(":",5);
+                        BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3],Integer.parseInt(arrOfStr[4]),lengthNumber);
+                        System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " Msj: " + arrOfStr[3] + "Prioridad: " + arrOfStr[4]);
                     }
                     if(linea.contains("Receive")){
                         arrOfStr = linea.split(":",3);
