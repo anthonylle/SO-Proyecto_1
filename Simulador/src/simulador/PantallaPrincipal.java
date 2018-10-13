@@ -22,11 +22,13 @@ import javax.swing.JOptionPane;
 import Config_Enums.VideoExtension;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import simulador.Mensaje;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author aleandro
@@ -34,6 +36,7 @@ import simulador.Mensaje;
 public class PantallaPrincipal extends javax.swing.JFrame {
     Controller controlador; 
     public static String FILEPATH;
+    public static BufferedReader BUFFERREADER;
     /**
      * Creates new form PantallaPrincipal
      */
@@ -63,7 +66,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btngrpFormatLength = new javax.swing.ButtonGroup();
         btngrpMailBoxDiscipline = new javax.swing.ButtonGroup();
         btngrpInteractiveSend = new javax.swing.ButtonGroup();
-        jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         configTabs = new javax.swing.JTabbedPane();
         configTabPanel1 = new javax.swing.JPanel();
@@ -103,6 +105,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         rdbtnQueueingDisciplineFIFO = new javax.swing.JRadioButton();
         rdbtnQueueingDisciplinePriority = new javax.swing.JRadioButton();
         btnGenerateConfig = new javax.swing.JButton();
+        btnRunWithBatch = new javax.swing.JButton();
         variableTabPanel1 = new javax.swing.JPanel();
         panelAddMailBox = new javax.swing.JPanel();
         txfMailBoxID = new javax.swing.JTextField();
@@ -226,12 +229,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextArea8 = new javax.swing.JTextArea();
 
-        jButton6.setText("jButton1");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -617,6 +614,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnRunWithBatch.setText("Run Batch System");
+        btnRunWithBatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunWithBatchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout configTabPanel1Layout = new javax.swing.GroupLayout(configTabPanel1);
         configTabPanel1.setLayout(configTabPanel1Layout);
         configTabPanel1Layout.setHorizontalGroup(
@@ -627,7 +631,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(configTabPanel1Layout.createSequentialGroup()
                         .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGenerateConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGenerateConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRunWithBatch, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(configTabPanel1Layout.createSequentialGroup()
                         .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -645,10 +651,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(panelConfigAddressing, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelConfigSincronizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21)
-                .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(configTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(panelQueueingDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerateConfig))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .addGroup(configTabPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRunWithBatch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerateConfig)))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         configTabs.addTab("Parameters", configTabPanel1);
@@ -2436,7 +2445,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DefaultTableModel suscribedTable = (DefaultTableModel) tblProcessDisplay.getModel();
         DefaultTableModel messageTable = (DefaultTableModel) tblMessageDisplay.getModel();        
         suscribedTable.getDataVector().removeAllElements();
-        messageTable.getDataVector().removeAllElements();        
+        tblProcessDisplay.setVisible(false);
+        tblProcessDisplay.setVisible(true);
+        messageTable.getDataVector().removeAllElements(); 
+        tblMessageDisplay.setVisible(false);
+        tblMessageDisplay.setVisible(true);
         for(MailBox mailbox: controlador.getMailBoxes()){
             if(mailbox.getIdMailBox().equals(value)){
                 for(Proceso proceso: mailbox.suscritos){
@@ -2447,6 +2460,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
+        //tblProcessDisplay.setModel(suscribedTable);
+        //tblMessageDisplay.setModel(messageTable);
         clearMessageInformation();
     }//GEN-LAST:event_tblMailBoxMouseClicked
 
@@ -2532,12 +2547,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         modelo.setValueAt("None", tableProcess.getSelectedRow(), 1);
         tableProcess.setModel(modelo);
         btnUnsubscribe.setVisible(false);
-        
     }//GEN-LAST:event_btnUnsubscribeActionPerformed
 
     private void tableProcessMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProcessMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tableProcessMouseEntered
+
+    private void btnRunWithBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunWithBatchActionPerformed
+        // TODO add your handling code here:
+        configTabs.setSelectedIndex(2);
+        configTabs.setEnabledAt(0,false);
+        configTabs.setEnabledAt(1,false);
+        configTabs.setEnabledAt(2,false);
+        configTabs.setEnabledAt(3,true);
+    }//GEN-LAST:event_btnRunWithBatchActionPerformed
 
     void showSubscribeToolSet(){
         if(controlador.getConfiguration().getAddressing().equals(Addressing.STATIC)){
@@ -2601,8 +2624,240 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         }
         cboDestinationList.setSelectedIndex(0);
-        cboSourceList.setSelectedIndex(0);        
+        if(cboSourceList.getItemCount()>0){
+            cboSourceList.setSelectedIndex(0);
+        }else{
+            //cboSourceList.setVisible(false);
+        }        
     }  
+private void BatchSendMessageActionPerformed(String sender, String receiver, String message, int priority, int lenghtNumber) {                                               
+    Proceso send = controlador.getProcess(sender);
+    if(send.getBlocking()){
+        JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Send error", 0);
+    }else{
+        if((controlador.getConfiguration().getAddressing().equals(Addressing.STATIC) || controlador.getConfiguration().getAddressing().equals(Addressing.DYNAMIC)) && controlador.remainingMessages(controlador.getMailBox(receiver)) == 0){
+            JOptionPane.showMessageDialog(null, "MailBox out of space to allocate message", "MailBox error", 0);
+        }else{
+            //long largo = -1;  //en caso de que LENGHT sea VARIABLE lo toma como -1.
+            //if(Format_Length.FIXED.equals(controlador.getConfiguration().getLength()))
+              //  largo = lenghtNumber;
+
+            if(Format_Content.TEXT.equals(controlador.getConfiguration().getContent())){
+                //System.out.println(message +"-" +message.length());
+                if(message.length() <= lenghtNumber || lenghtNumber == -1){
+                    while(message.length() <= lenghtNumber)
+                        message = message + "*";
+                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, lenghtNumber, priority, message, send.getIdProceso(), receiver));                        
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "The writen message exceeds the limit selected", "Message Error", 0);
+            }else{
+                if(FILEPATH.length() <= lenghtNumber || lenghtNumber == -1){
+                    controlador.sendMessage(new Mensaje(Controller.messageIDCounter++, lenghtNumber, priority,FILEPATH, send.getIdProceso(), receiver));
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "The selected File exceeds the limit selected", "Message Error", 0);
+            }
+            refreshInteractiveTable();
+        }
+    }
+}
+
+private void BatchReceiveMessageActionPerformed(String receiver, String sender) {
+    Proceso receive = controlador.getProcess(receiver);
+    if(receive.getBlocking()){
+        JOptionPane.showMessageDialog(null, "Can't use a blocked process", "Receive error", 0);
+    }else{
+        controlador.receiveMessage(receive.getIdProceso(), sender);
+        refreshInteractiveTable();
+    }
+}
+
+private void BatchAddProcessActionPerformed(String processName,String mailboxName) {                                              
+    // TODO add your handling code here:
+    
+    if(!(processName == null)){            
+            DefaultTableModel modelo = (DefaultTableModel)tableProcess.getModel();
+            Addressing addressing = controlador.getConfiguration().getAddressing();
+            ArrayList<MailBox> mailboxes = controlador.getMailBoxes();
+            MailBox selectedMailBox = null;
+
+            for(MailBox mail: mailboxes){
+                if (mail.idMailBox.equals(mailboxName))
+                    selectedMailBox = mail;
+            }
+            
+            Proceso nuevoProceso  = new Proceso(processName);  
+            controlador.addProcess(nuevoProceso);
+
+            // Si el addressing es directo solo se necesita el PID y se agrega
+            if (addressing.equals(Addressing.EXPLICIT) || addressing.equals(Addressing.IMPLICIT)){
+                modelo.addRow(new Object[]{processName,"None"});
+            }
+            else{
+                if (addressing.equals(Addressing.STATIC) && selectedMailBox.getSuscritos().size() < 1){
+                    selectedMailBox.getSuscritos().add(nuevoProceso);
+                    modelo.addRow(new Object[]{processName,mailboxName});
+                }else{
+                    if(addressing.equals(Addressing.DYNAMIC)){
+                        selectedMailBox.getSuscritos().add(nuevoProceso);
+                        modelo.addRow(new Object[]{processName,mailboxName});
+                    }else{
+                        JOptionPane.showMessageDialog(null, "The selected MailBox has already 1 subscribed Process", "Subscription error to MailBox", 0);
+                    }
+                    //JOptionPane.showMessageDialog(null, "MailBox: " + selectedMailBox.getIdMailBox() + " tiene " + String.valueOf(selectedMailBox.getSuscritos().size()) + " procesos", "Mensaje", 1);
+                }
+            }
+            txfProcessID.setText("");
+            tableProcess.setModel(modelo);
+        
+    }else{
+        JOptionPane.showMessageDialog(null,  "PID can't be empty", "Null PID Error", 0);
+    }
+    
+    txfProcessID.requestFocus();
+}
+
+private void BatchAddMailBoxActionPerformed(String mailBoxName, int mailBoxCapacity) {
+    DefaultTableModel modelo = (DefaultTableModel)tableMailBox.getModel();
+
+    if(!(mailBoxName == null)){
+        if(!existsMBID(mailBoxName)){
+            controlador.addMailBox(new MailBox(mailBoxName, mailBoxCapacity));
+
+            modelo.addRow(new Object[]{mailBoxName,mailBoxCapacity});
+
+            tableMailBox.setModel(modelo);
+
+            panelAddProcess.setVisible(true);
+            cboSubscribeToMailBox.insertItemAt(mailBoxName, cboSubscribeToMailBox.getItemCount());//mail.getIdMailBox(), cboSubscribeToMailBox.getItemCount());
+            cboSubscribeToMailBox.setSelectedIndex(0); 
+        }else{
+            JOptionPane.showMessageDialog(null, "MBID already created", "Duplicated MBID Error", 0);
+        }
+    }else{
+        JOptionPane.showMessageDialog(null, "MBID can't be empty", "Null MBID Error", 0);
+    }
+    txfMailBoxID.setText("");
+    txfMailBoxID.requestFocus();
+    
+} 
+
+private void BatchExecuteActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    Sync_Receive receive;
+    Sync_Send send;
+    Addressing addressing = null;
+    Format_Content content = null;
+    Format_Length length;
+    int lengthNumber = -1;   //el numero en caso de ser fixed
+    MailBox_Discipline discipline;
+    String linea;
+    int lineCounter = 1;
+    ArrayList<String> config = new ArrayList<String>();
+
+    try {
+        while((linea = BUFFERREADER.readLine()) != null){
+            //Las primeras 6 lineas del txt son de configuracion
+            if(lineCounter <= 6){
+                config.add(linea);
+                lineCounter++;
+            }
+            else
+            break;
+        }
+    } catch (IOException ex) {
+        Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    send = (config.get(0).equals("Send:Blocking"))?Sync_Send.BLOCKING:Sync_Send.NON_BLOCKING;
+    receive = (config.get(1).equals("Receive:Blocking"))?Sync_Receive.BLOCKING:
+    ((config.get(1).equals("Receive:Non-blocking"))?Sync_Receive.NON_BLOCKING:Sync_Receive.TEST_FOR_ARRIVAL);
+    length = (config.get(4).equals("Lenght:Variable"))?Format_Length.VARIABLE:Format_Length.FIXED;
+    discipline = (config.get(5).equals("MailBox:FIFO"))?MailBox_Discipline.FIFO:MailBox_Discipline.PRIORITY;
+
+    String[] arrOfStr = null;
+    if(length.equals(Format_Length.FIXED)){
+        arrOfStr = config.get(4).split(":", 2);
+        lengthNumber = Integer.parseInt(arrOfStr[1]);
+    }
+
+    if (config.get(2).equals("Addressing:Explicit"))
+    addressing = Addressing.EXPLICIT;
+    if (config.get(2).equals("Addressing:Implicit"))
+    addressing = Addressing.IMPLICIT;
+    if (config.get(2).equals("Addressing:Static"))
+    addressing = Addressing.STATIC;
+    if (config.get(2).equals("Addressing:Dynamic"))
+    addressing = Addressing.DYNAMIC;
+
+    if(config.get(3).equals("Format:TEXT"))
+    content = Format_Content.TEXT;
+    if(config.get(3).equals("Format:AUDIO"))
+    content = Format_Content.AUDIO;
+    if(config.get(3).equals("Format:IMAGE"))
+    content = Format_Content.IMAGE;
+    if(config.get(3).equals("Format:VIDEO"))
+    content = Format_Content.VIDEO;
+
+    JOptionPane.showMessageDialog(null, "Receive: " + receive.toString() + "\n Send: " + send.toString() + "\n Addressing: " + addressing.toString() + "\n Content: " + content.toString() + "\n Length: " + length.toString() + " : " + lengthNumber + "\n Discipline: " + discipline.toString(), "Resumen de variables", 1);
+
+    controlador.setConfiguration(receive, send, addressing, content, length, discipline);
+
+    //Aca ya esta la configuracion cargada e inicia creacion de procesos y envio de mensajes
+    config.clear();
+    try {
+        while((linea = BUFFERREADER.readLine()) != null){
+            //Las primeras 6 lineas del txt son de configuracio
+            if(lineCounter > 6){
+                if(linea.contains("CreateProcess")){
+                    arrOfStr = linea.split(":",3);
+                    BatchAddProcessActionPerformed(arrOfStr[1],arrOfStr[2]);
+                    System.out.println("Process created: " + arrOfStr[1]);
+                }
+                if(linea.contains("CreateMailBox")){
+                    arrOfStr = linea.split(":",3);
+                    BatchAddMailBoxActionPerformed(arrOfStr[1],Integer.parseInt(arrOfStr[2]));
+                    System.out.println("MailBox created: " + arrOfStr[1] + " : " + arrOfStr[2]);
+                }
+                if(linea.contains("Send")){
+                    arrOfStr = linea.split(":",5);
+                    BatchSendMessageActionPerformed(arrOfStr[1],arrOfStr[2],arrOfStr[3],Integer.parseInt(arrOfStr[4]),lengthNumber);
+                    System.out.println("Message send: " + arrOfStr[1] + " a " + arrOfStr[2] + " Msj: " + arrOfStr[3] + "Prioridad: " + arrOfStr[4]);
+                }
+                if(linea.contains("Receive")){
+                    arrOfStr = linea.split(":",3);
+                    BatchReceiveMessageActionPerformed(arrOfStr[1],arrOfStr[2]);
+                    System.out.println("Message receive: " + arrOfStr[1] + " a " + arrOfStr[2]);
+                }
+                lineCounter++;
+            }
+        }
+    } catch (IOException ex) {
+        Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    //Revisar si es necesario mostrar todo lo de interactivo para cuando es por BATCH.
+    if(isOkToStart()){
+        //            configTabs.setSelectedIndex(2);
+        //            configTabs.setEnabledAt(0,false);
+        //            configTabs.setEnabledAt(1,false);
+        //            configTabs.setEnabledAt(2,true);
+        //            configTabs.setEnabledAt(3,false);
+        //            configTabs.setEnabledAt(4,true);
+        checkUploadFileVisibility();
+        fillRunView();
+        checkDisciplinePriority();
+        checkImplicitAddressingView();
+    }
+
+    //checkPanelAddMailBoxVisibility();
+    //configTabs.setSelectedIndex(1);
+    //configTabs.setEnabledAt(0,false);
+    //configTabs.setEnabledAt(2,false);
+    //configTabs.setEnabledAt(3,false);
+    //configTabs.setEnabledAt(4,true);
+}     
+
     
 
     /**
@@ -2631,7 +2886,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -2654,6 +2910,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMailBoxDiscipline;
     private javax.swing.JButton btnReceiveMessage;
     private javax.swing.JButton btnRunChooseFile;
+    private javax.swing.JButton btnRunWithBatch;
     private javax.swing.JButton btnSendMessage;
     private javax.swing.JButton btnSubscribeProcess;
     private javax.swing.JButton btnSyncroReceive;

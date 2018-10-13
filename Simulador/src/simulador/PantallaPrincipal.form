@@ -89,7 +89,10 @@
                           <Group type="102" attributes="0">
                               <Component id="panelQueueingDiscipline" min="-2" pref="249" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnGenerateConfig" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnGenerateConfig" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
+                                  <Component id="btnRunWithBatch" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="panelConfigSincronizacion" min="-2" max="-2" attributes="0"/>
@@ -113,11 +116,15 @@
                           <Component id="panelConfigSincronizacion" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="panelQueueingDiscipline" min="-2" pref="119" max="-2" attributes="0"/>
-                          <Component id="btnGenerateConfig" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnRunWithBatch" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnGenerateConfig" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="103" max="32767" attributes="0"/>
+                      <EmptySpace pref="105" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -765,6 +772,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateConfigActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnRunWithBatch">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Run Batch System"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRunWithBatchActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
